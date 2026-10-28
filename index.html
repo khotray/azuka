@@ -829,6 +829,22 @@ html.giris-acik .set-ico, html.giris-acik .e-ico { visibility: hidden; }
 #gp-liste[hidden], #gp-bos[hidden] { display: none; }
 .gp-uye-sil { margin-left: auto; height: 32px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--line); background: none; color: var(--muted); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
 .ky-arac button.onay { background: #DC2626; color: #FFFFFF; border-color: transparent; }
+/* Kulübe katılma talebi */
+.kt-kart { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px 14px; padding: 16px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+.kt-ic { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; color: var(--av, #2563EB); background: color-mix(in srgb, var(--av, #2563EB) 13%, transparent); }
+.kt-ic svg { width: 23px; height: 23px; }
+.kt-txt { min-width: 0; }
+.kt-t { margin: 0; font-size: 16px; font-weight: 700; }
+.kt-s { margin: 2px 0 0; font-size: 13.5px; color: var(--muted); }
+.kt-kart > button { grid-column: 1 / -1; justify-content: center; width: 100%; }
+.kt-kart > button.ikincil { background: none; color: var(--fg); border: 1px solid var(--line); box-shadow: none; }
+.kt-kart > .kl-durum { grid-column: 1 / -1; margin: 0; }
+.kt-gelen { display: flex; flex-direction: column; gap: 8px; }
+.kt-gelen small { color: var(--muted); font-weight: 600; }
+.kt-btns { margin-left: auto; display: flex; gap: 6px; flex: none; }
+.kt-onay { height: 32px; padding: 0 12px; border-radius: 9px; border: 0; background: var(--av, #2563EB); color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.kt-btns button:disabled { opacity: .5; cursor: default; }
+.kt-btns .gp-uye-sil { margin-left: 0; }
 /* Kulüp üyeleri: eklenen kişinin yanında "Üye" etiketi */
 .ku-etiket { margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px 4px 8px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: var(--av, #2563EB); background: color-mix(in srgb, var(--av, #2563EB) 13%, transparent); }
 .ku-etiket svg { width: 14px; height: 14px; }
@@ -2585,13 +2601,19 @@ button.ot:active { transform: scale(.97); }
           <p class="kl-uye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="7.5" r="3.5"/><path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.2a3.5 3.5 0 0 1 0 6.6"/></svg><span id="kl-uye">x üye</span></p>
         </div>
       </header>
+      <div class="kt-kart" id="kt-kart" hidden>
+        <span class="kt-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 3 17.5V19"/><circle cx="9" cy="7.5" r="3.5"/><path d="M19 8v6M16 11h6"/></svg></span>
+        <div class="kt-txt"><p class="kt-t" id="kt-t">Bu kulübün üyesi değilsin.</p><p class="kt-s" id="kt-s"></p></div>
+        <button class="kl-paylas" type="button" id="kt-gonder"><span>Katılma talebi gönder</span></button>
+        <p class="kl-durum" id="kt-durum" role="status" hidden></p>
+      </div>
       <section class="kl-sec" aria-labelledby="kl-yon-h">
         <h3 class="kl-bas" id="kl-yon-h">Yönetim</h3>
         <ul class="kl-kart kl-yon" id="kl-yon"></ul>
         <div class="ky-arac" id="ky-arac" hidden></div>
         <div class="ky-sec" id="ky-sec" hidden>
           <p class="ky-sec-bas" id="ky-sec-bas">Başkanı seç</p>
-          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="ky-ara" type="search" placeholder="Kişi ara" aria-label="Kişi ara" autocomplete="off"></label>
+          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="ky-ara" type="search" placeholder="Ad ya da ID ile ara" aria-label="Ad ya da ID ile ara" autocomplete="off"></label>
           <ul class="plist ky-sec-liste" id="ky-sec-liste"></ul>
           <div class="oy-btns"><button class="oy-vazgec" type="button" id="ky-vazgec">Vazgeç</button></div>
         </div>
@@ -2601,9 +2623,13 @@ button.ot:active { transform: scale(.97); }
         <div class="kl-sec-ust"><h3 class="kl-bas" id="km-h">Üyeler <small id="km-say"></small></h3><button class="oy-ac" type="button" id="km-ekle" aria-expanded="false" aria-controls="km-sec" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Üye ekle</span></button></div>
         <div class="ky-sec" id="km-sec" hidden>
           <p class="ky-sec-bas">Kulübe eklenecek kişiyi seç</p>
-          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="km-ara" type="search" placeholder="Kişi ara" aria-label="Kişi ara" autocomplete="off"></label>
+          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="km-ara" type="search" placeholder="Ad ya da ID ile ara" aria-label="Ad ya da ID ile ara" autocomplete="off"></label>
           <ul class="plist ky-sec-liste" id="km-sec-liste"></ul>
           <div class="oy-btns"><button class="oy-vazgec" type="button" id="km-kapat">Kapat</button></div>
+        </div>
+        <div class="kt-gelen" id="kt-gelen" hidden>
+          <p class="ky-sec-bas">Katılma talepleri <small id="kt-gelen-say"></small></p>
+          <ul class="kl-kart kl-yon" id="kt-liste"></ul>
         </div>
         <ul class="kl-kart kl-yon" id="km-liste"></ul>
         <p class="oy-bos" id="km-bos" hidden>Henüz üye yok.</p>
@@ -2713,7 +2739,7 @@ button.ot:active { transform: scale(.97); }
         <div class="kl-sec-ust"><h3 class="kl-bas" id="gp-uye-h">Üyeler</h3><button class="oy-ac" type="button" id="gp-ekle" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Üye ekle</span></button></div>
         <div class="ky-sec" id="gp-sec" hidden>
           <p class="ky-sec-bas">Gruba eklenecek kişiyi seç</p>
-          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="gp-ara" type="search" placeholder="Kişi ara" aria-label="Kişi ara" autocomplete="off"></label>
+          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="gp-ara" type="search" placeholder="Ad ya da ID ile ara" aria-label="Ad ya da ID ile ara" autocomplete="off"></label>
           <ul class="plist ky-sec-liste" id="gp-sec-liste"></ul>
           <div class="oy-btns"><button class="oy-vazgec" type="button" id="gp-sec-kapat">Kapat</button></div>
         </div>
@@ -2908,7 +2934,7 @@ button.ot:active { transform: scale(.97); }
     <div class="page">
       <div class="ph"><span class="eyebrow">Ayarlar</span><h2>Kullanıcılar</h2></div>
       <p class="set-note">Uygulamaya giriş yapan herkes burada görünür ve standart olarak başlar. Rolü buradan değiştirirsin.</p>
-      <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="ku-ara" type="search" placeholder="Kullanıcı ara" aria-label="Kullanıcı ara" autocomplete="off"></label>
+      <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="ku-ara" type="search" placeholder="Ad ya da ID ile ara" aria-label="Ad ya da ID ile ara" autocomplete="off"></label>
       <ul class="plist ku-liste" id="ku-liste"></ul>
       <p class="empty" id="ku-bos" hidden>Yükleniyor…</p>
       <p class="kl-durum" id="ku-durum" role="status" hidden></p>
@@ -7540,35 +7566,7 @@ var BGX = (function () {
   var MAT = {
     kurumlar: [
       { id: 'firat', ad: 'Fırat Üniversitesi', kisiler: [
-        hoca('Prof. Dr.', 'Çiğdem Bektaş', 'cbektas@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Emrah Yılmaz', 'eyilmaz@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Tuba Gülşen', 'tyalcin@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Hikmet Kemaloğlu', 'hkoyunbakan@firat.edu.tr'),
-        hoca('Arş. Gör.', 'Mehmet Çağrı Yılmazer', 'mcyilmazer@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Alper Osman Öğrenmiş', 'aogrenmis@firat.edu.tr'),
-        hoca('Doç. Dr.', 'Gülden Altay Suroğlu', 'galtay@firat.edu.tr'),
-        hoca('Doç. Dr.', 'Mustafa Yeneroğlu', 'myeneroglu@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Vedat Asıl', 'vasil@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Handan Öztekin', 'hbalgetir@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Münevver Yıldırım Yılmaz', 'myildirim@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Muhittin Evren Aydın', 'meaydin@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Zühal Küçükarslan Yüzbaşı', 'zkucukarslan@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Mehmet Bektaş', 'mbektas@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Yavuz Altın', 'yaltin@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Hıfsı Altınok', 'hifsialtinok@firat.edu.tr'),
-        hoca('Dr. Öğr. Üyesi', 'Hatice Aslan', 'haslan@firat.edu.tr', { danisman: 'A' }),
-        hoca('Arş. Gör.', 'Süleyman Sarıkaya', 'ssarikaya@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Hasan Bulut', 'hbulut@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Erdal Baş', 'erdalmat@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Münevver Tuz', 'mtuz@firat.edu.tr'),
-        hoca('Prof. Dr.', 'Mustafa İnç', 'minc@firat.edu.tr'),
-        hoca('Doç. Dr.', 'Ebru Cavlak Aslan', 'ebrucavlak@firat.edu.tr'),
-        hoca('Doç. Dr.', 'Asıf Yokuş', 'asfyokus@firat.edu.tr'),
-        hoca('Dr. Öğr. Üyesi', 'Bahar Acay Öztürk', 'bacay@firat.edu.tr'),
-        hoca('Dr. Öğr. Üyesi', 'Abdullahi Yusuf', 'ayusuf@firat.edu.tr'),
-        hoca('Dr. Öğr. Üyesi', 'Tukur Abdulkadir Sulaiman', 'tasulaiman@firat.edu.tr'),
-        hoca('Doç. Dr.', 'Ahu Ercan', 'ahuduman@firat.edu.tr'),
-        hoca('Arş. Gör.', 'Şeyma Firdevs Hızal', 'sfkorkmaz@firat.edu.tr')
+        hoca('Prof. Dr.', 'Vedat Asıl', 'vasil@firat.edu.tr')
       ] }
     ],
     bireysel: { id: 'bireysel', ad: 'Bireysel', kisiler: [hoca('Prof. Dr.', 'Ali Nesin', '')] }
@@ -7584,7 +7582,7 @@ var BGX = (function () {
   MAT.kurumlar.forEach(grupSirala); grupSirala(MAT.bireysel);
   function basHarf(ad) { var w = ad.trim().split(/\s+/); return ((w[0] || '').charAt(0) + (w.length > 1 ? w[w.length - 1].charAt(0) : '')).toLocaleUpperCase('tr-TR'); }
   var KULUP_INFO = {
-    A: { ad: 'Matematik ve Teknoloji Topluluğu (FÜ)', av: 'MT', renk: 'var(--av1)', yonetim: [{ rol: 'Başkan', ad: 'Leyla' }, { rol: 'Başkan yardımcısı', ad: 'Miray' }, { rol: 'Kulüp hocası', kisi: 'haslan' }] }
+    A: { ad: 'Matematik ve Teknoloji Topluluğu (FÜ)', av: 'MT', renk: 'var(--av1)', yonetim: [{ rol: 'Başkan', ad: 'Leyla' }, { rol: 'Başkan yardımcısı', ad: 'Miray' }, { rol: 'Kulüp hocası', ad: 'Henüz atanmadı', bos: true }] }
   };
   ['B', 'C', 'D', 'E'].forEach(function (k) {
     KULUP_INFO[k] = { ad: 'Kulüp ' + k, av: k, renk: 'var(--av' + (k.charCodeAt(0) - 64) + ')', yonetim: [{ rol: 'Başkan', ad: 'Ad Soyad', mail: 'baskan@example.com' }, { rol: 'Başkan yardımcısı', ad: 'Ad Soyad', mail: 'baskan.yardimcisi@example.com' }, { rol: 'Kulüp hocası', ad: 'Ad Soyad', mail: 'hoca@example.com' }] };
@@ -7594,8 +7592,11 @@ var BGX = (function () {
   function kulupRenk(k) { return (KULUP_INFO[k] && KULUP_INFO[k].renk) || 'var(--av1)'; }
   /* Hesap: kimlik, rol (geliştirici, matematikçi, standart), kullanıcı kaydı ve kulüp yönetimi (başkan, yetkili) */
   var ROLLER = { standart: 'Standart', matematikci: 'Matematikçi', gelistirici: 'Geliştirici' };
+  /* Kişi ID'si: hesap oluşturma sırasına göre 000000'dan başlayan 6 haneli numara (numara/<kimlik>) */
+  function idYaz(n) { return typeof n === 'number' && n >= 0 && (n | 0) === n ? ('00000' + n).slice(-Math.max(6, String(n).length)) : ''; }
+  function kisiEslesir(u, q) { if (!q) return true; var r = q.replace(/^#|^id\s*/i, ''); return u.ad.toLocaleLowerCase('tr-TR').indexOf(q) >= 0 || (!!u.no && /^\d+$/.test(r) && u.no.indexOf(r) >= 0); }
   var Hesap = (function () {
-    var db = null, usr = null, uid = null, rol = 'standart', hazir = null, dinleyen = [], yon = {}, prof = {}, uyelik = {}, yonY = false, uyeY = false;
+    var db = null, usr = null, uid = null, rol = 'standart', hazir = null, dinleyen = [], yon = {}, prof = {}, uyelik = {}, yonY = false, uyeY = false, numaralar = {}, talepler = {}, talepAbone = {};
     function str(v) { return typeof v === 'string' && v.length > 0 && v.length <= 128 ? v : null; }
     function bildir() { dinleyen.forEach(function (f) { try { f(); } catch (e) {} }); }
     function bagla() {
@@ -7630,13 +7631,17 @@ var BGX = (function () {
             }, function () {});
             db.collection('kulup_yonetim').limit(500).onSnapshot(function (q) {
               var o = {}; q.docs.forEach(function (d) { var b = d.data() || {}; if (KULUP_RE.test(d.id)) o[d.id] = { baskan: str(b.baskan), yardimci: str(b.yardimci), sosyal: str(b.sosyal) }; });
-              yon = o; yonY = true; bildir();
+              yon = o; yonY = true; talepGuncelle(); bildir();
             }, function () { yonY = true; bildir(); });
             /* Kulüp üyeleri: uyelik/<kulüp> { uyeler: [kimlik…] }; başkan, yardımcı, sosyal medya sorumlusu ve hoca yazar */
             db.collection('uyelik').limit(500).onSnapshot(function (q) {
               var o = {}; q.docs.forEach(function (d) { var b = d.data() || {}; if (KULUP_RE.test(d.id) && Array.isArray(b.uyeler)) o[d.id] = b.uyeler.filter(function (x) { return !!str(x); }).slice(0, 1000); });
               uyelik = o; uyeY = true; bildir();
             }, function () { uyeY = true; bildir(); });
+            db.collection('numara').limit(5000).onSnapshot(function (q) {
+              var o = {}; q.docs.forEach(function (d) { var b = d.data() || {}; if (idYaz(b.no)) o[d.id] = idYaz(b.no); });
+              numaralar = o; bildir();
+            }, function () {});
             res(); bildir();
           }, function () { res(); });
         }, function () { res(); });
@@ -7656,10 +7661,27 @@ var BGX = (function () {
           r[1].docs.forEach(function (d) { var x = d.data() || {}; if (ROLLER[x.rol]) rl[d.id] = x.rol; });
           if (uid && ids.indexOf(uid) < 0) ids.push(uid);
           return adlar(ids).then(function () {
-            return ids.map(function (id) { var p = prof[id] || {}; return { id: id, ad: p.name || 'Adsız kullanıcı', avatarUrl: p.avatarUrl || '', rol: id === uid ? rol : (rl[id] || 'standart') }; })
+            return ids.map(function (id) { var p = prof[id] || {}; return { id: id, ad: p.name || 'Adsız kullanıcı', avatarUrl: p.avatarUrl || '', rol: id === uid ? rol : (rl[id] || 'standart'), no: numaralar[id] || '' }; })
               .sort(function (a, b) { return a.ad.localeCompare(b.ad, 'tr'); });
           });
         });
+      });
+    }
+    /* Katılma talepleri: katilim/<kulüp>/t/<kimlik>; yalnızca kulübün görevlileri görür ve onaylar */
+    function talepGuncelle() {
+      if (!db || !uid) return;
+      Object.keys(yon).forEach(function (k) {
+        var y = yon[k], gorevli = y.baskan === uid || y.yardimci === uid || y.sosyal === uid;
+        if (gorevli && !talepAbone[k]) {
+          talepAbone[k] = db.collection('katilim/' + k + '/t').limit(500).onSnapshot(function (q) {
+            var o = []; q.docs.forEach(function (d) { var b = d.data() || {}; if (str(d.id)) o.push({ id: d.id, t: typeof b.t === 'number' ? b.t : 0 }); });
+            talepler[k] = o.sort(function (a, b) { return a.t - b.t; }); bildir();
+          }, function () { talepler[k] = []; bildir(); });
+        }
+      });
+      Object.keys(talepAbone).forEach(function (k) {
+        var y = yon[k];
+        if (!y || !(y.baskan === uid || y.yardimci === uid || y.sosyal === uid)) { try { talepAbone[k](); } catch (e) {} delete talepAbone[k]; delete talepler[k]; }
       });
     }
     function gorevliler(k) { var y = yon[k] || {}; return ['baskan', 'yardimci', 'sosyal'].map(function (g) { return y[g]; }).filter(Boolean); }
@@ -7673,8 +7695,13 @@ var BGX = (function () {
       uyeListesi: function (k) { return (uyelik[k] || []).slice(); },
       tumUyeler: tumUyeler, uyeSayisi: function (k) { return tumUyeler(k).length; },
       uyeMi: uyeMi, hocaMi: hocaMi,
+      numara: function (id) { return numaralar[id || uid] || ''; },
       gorurMu: function (k) { return !db || uyeMi(k) || hocaMi(k); },
-      uyeEkleyebilirMi: function (k) { var y = yon[k]; return !!db && !!uid && ((!!y && (y.baskan === uid || y.yardimci === uid || y.sosyal === uid)) || hocaMi(k)); },
+      /* Üye ekleme ve katılma taleplerini onaylama yalnızca başkan, başkan yardımcısı ve sosyal medya sorumlusunda */
+      uyeEkleyebilirMi: function (k) { var y = yon[k]; return !!db && !!uid && !!y && (y.baskan === uid || y.yardimci === uid || y.sosyal === uid); },
+      talepler: function (k) { var u = tumUyeler(k); return (talepler[k] || []).filter(function (x) { return u.indexOf(x.id) < 0; }); },
+      talepGonder: function (k) { if (!db || !uid || !KULUP_RE.test(k)) return Promise.reject(); return db.doc('katilim/' + k + '/t/' + uid).set({ t: Date.now() }); },
+      talepSil: function (k, id) { if (!db || !KULUP_RE.test(k)) return Promise.reject(); return db.doc('katilim/' + k + '/t/' + (id || uid)).delete(); },
       uyeYaz: function (k, arr) {
         if (!db || !KULUP_RE.test(k)) return Promise.reject();
         var temiz = []; arr.forEach(function (x) { if (str(x) && temiz.indexOf(x) < 0) temiz.push(x); });
@@ -8400,13 +8427,13 @@ var BGX = (function () {
         secListe.appendChild(li0);
       }
       secKisiler.forEach(function (u) {
-        if (q && u.ad.toLocaleLowerCase('tr-TR').indexOf(q) < 0) return;
+        if (!kisiEslesir(u, q)) return;
         var li = document.createElement('li');
         li.innerHTML = '<button class="pl-row pl-btn" type="button"><span class="pl-av" aria-hidden="true"></span><span class="pl-txt"><span class="pl-t"></span><span class="pl-s"></span></span></button>';
         var b = li.firstChild; b.setAttribute('data-sec', u.id);
         b.querySelector('.pl-av').textContent = basHarf(u.ad); b.querySelector('.pl-t').textContent = u.ad + (u.id === Hesap.uid() ? ' (sen)' : '');
         var gs = Object.keys(GOREV).filter(function (g) { return y[g] === u.id; }).map(function (g) { return GOREV_KISA[g]; });
-        b.querySelector('.pl-s').textContent = ROLLER[u.rol] + (gs.length ? ' · ' + gs.join(', ') : '');
+        b.querySelector('.pl-s').textContent = (u.no ? 'ID ' + u.no + ' · ' : '') + ROLLER[u.rol] + (gs.length ? ' · ' + gs.join(', ') : '');
         secListe.appendChild(li); n++;
       });
       if (!n) { var e = document.createElement('li'); e.className = 'pl-row'; e.textContent = secKisiler.length ? 'Sonuç yok.' : 'Yükleniyor…'; secListe.appendChild(e); }
@@ -8485,11 +8512,23 @@ var BGX = (function () {
     }
     function uyeCiz(k) {
       var ekle = Hesap.uyeEkleyebilirMi(k) && canWrite, liste = Hesap.uyeListesi(k), tum = Hesap.tumUyeler(k), tur = ++kuTur;
+      var tl = ekle ? Hesap.talepler(k) : [];
       kuEkle.hidden = !ekle; if (!ekle) kuSecKapat();
-      uyeSay(k);
+      uyeSay(k); talepKontrol(k);
+      ktGelen.hidden = !tl.length; ktGelenSay.textContent = tl.length ? '· ' + tl.length : '';
       var ciz = function (ps) {
         if (tur !== kuTur || cur !== k) return;
         var ad = function (id) { return (ps[id] && ps[id].name) || (id === Hesap.uid() ? 'Sen' : 'Bir üye'); };
+        ktListe.textContent = '';
+        tl.forEach(function (x) {
+          var n = ad(x.id), no = Hesap.numara(x.id), li = document.createElement('li'), row = document.createElement('div'); row.className = 'ky-row';
+          row.innerHTML = '<span class="ky-av" aria-hidden="true"></span><span class="ky-txt"><span class="ky-rol">Katılma talebi</span><span class="ky-ad"></span><span class="ke-s"></span></span><span class="kt-btns"><button type="button" class="kt-onay">Onayla</button><button type="button" class="gp-uye-sil">Reddet</button></span>';
+          row.querySelector('.ky-av').textContent = basHarf(n); row.querySelector('.ky-ad').textContent = n;
+          row.querySelector('.ke-s').textContent = (no ? 'ID ' + no + ' · ' : '') + rel(x.t || Date.now());
+          var bs = row.querySelectorAll('button'); bs[0].setAttribute('data-onay', x.id); bs[1].setAttribute('data-red', x.id);
+          bs[0].setAttribute('aria-label', n + ' adlı kişinin katılma talebini onayla'); bs[1].setAttribute('aria-label', n + ' adlı kişinin katılma talebini reddet');
+          li.appendChild(row); ktListe.appendChild(li);
+        });
         var sira = tum.slice().sort(function (a, b) {
           var ga = gorevAdlari(k, a), gb = gorevAdlari(k, b), ia = ga.length ? Object.keys(GOREV).indexOf(ga[0]) : 9, ib = gb.length ? Object.keys(GOREV).indexOf(gb[0]) : 9;
           return ia - ib || ad(a).localeCompare(ad(b), 'tr');
@@ -8510,19 +8549,56 @@ var BGX = (function () {
         kuBos.hidden = sira.length > 0 || !Hesap.hazirMi();
         if (!kuSec.hidden) kuSecCiz();
       };
-      if (!tum.length) { kuListe.textContent = ''; kuBos.hidden = !Hesap.hazirMi(); if (!kuSec.hidden) kuSecCiz(); return; }
-      Hesap.adlar(tum).then(ciz, function () { ciz({}); });
+      if (!tum.length && !tl.length) { kuListe.textContent = ''; ktListe.textContent = ''; kuBos.hidden = !Hesap.hazirMi(); if (!kuSec.hidden) kuSecCiz(); return; }
+      Hesap.adlar(tum.concat(tl.map(function (x) { return x.id; }))).then(ciz, function () { ciz({}); });
     }
+    /* Katılma talebi: üye olmayan kişi gönderir ya da geri çeker */
+    var ktKart = document.getElementById('kt-kart'), ktT = document.getElementById('kt-t'), ktS = document.getElementById('kt-s'), ktBtn = document.getElementById('kt-gonder'), ktDurum = document.getElementById('kt-durum');
+    var ktGelen = document.getElementById('kt-gelen'), ktGelenSay = document.getElementById('kt-gelen-say'), ktListe = document.getElementById('kt-liste');
+    var benimTalep = null, talepUnsub = null, talepK = null, ktBekle = false;
+    function ktMesaj(m, err) { ktDurum.textContent = m || ''; ktDurum.hidden = !m; ktDurum.classList.toggle('hata', !!err); }
+    function talepGerek(k) { return !!Hesap.db() && !!Hesap.uid() && Hesap.uyelikHazir() && !Hesap.uyeMi(k) && !Hesap.hocaMi(k); }
+    function talepKontrol(k) {
+      if (talepGerek(k)) {
+        if (!talepUnsub || talepK !== k) {
+          if (talepUnsub) { try { talepUnsub(); } catch (e) {} }
+          benimTalep = null; talepK = k;
+          talepUnsub = Hesap.db().doc('katilim/' + k + '/t/' + Hesap.uid()).onSnapshot(function (s) { if (talepK !== k) return; benimTalep = s.exists ? (s.data() || {}) : false; ktCiz(k); }, function () { if (talepK === k) { benimTalep = false; ktCiz(k); } });
+        }
+      } else if (talepUnsub) { try { talepUnsub(); } catch (e) {} talepUnsub = null; talepK = null; benimTalep = null; }
+      ktCiz(k);
+    }
+    function ktCiz(k) {
+      var goster = talepGerek(k) && canWrite;
+      ktKart.hidden = !goster; if (!goster) { ktMesaj(''); return; }
+      var bekl = !!benimTalep;
+      ktT.textContent = bekl ? 'Katılma talebin gönderildi' : 'Bu kulübün üyesi değilsin.';
+      ktS.textContent = bekl ? 'Başkan, başkan yardımcısı ya da sosyal medya sorumlusu onaylayınca üye olursun.' : 'Katılmak için talep gönder. Başkan, başkan yardımcısı ya da sosyal medya sorumlusu onaylayınca üye olursun.';
+      ktBtn.querySelector('span').textContent = bekl ? 'Talebi geri çek' : 'Katılma talebi gönder';
+      ktBtn.classList.toggle('ikincil', bekl); ktBtn.disabled = benimTalep === null || ktBekle;
+    }
+    ktBtn.addEventListener('click', function () {
+      var k = cur, geri = !!benimTalep; if (ktBekle || benimTalep === null) return;
+      ktBekle = true; ktMesaj(''); ktCiz(k);
+      (geri ? Hesap.talepSil(k) : Hesap.talepGonder(k)).then(function () { ktBekle = false; ktCiz(k); }, function () { ktBekle = false; ktCiz(k); ktMesaj(geri ? 'Talep geri çekilemedi. Tekrar dene.' : 'Talep gönderilemedi. Tekrar dene.', true); });
+    });
+    ktListe.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-onay],[data-red]'); if (!b) return;
+      var k = cur, onay = b.hasAttribute('data-onay'), id = b.getAttribute(onay ? 'data-onay' : 'data-red');
+      Array.prototype.forEach.call(b.parentNode.querySelectorAll('button'), function (x) { x.disabled = true; });
+      var is = onay ? Hesap.uyeYaz(k, Hesap.uyeListesi(k).concat([id])).then(function () { return Hesap.talepSil(k, id).catch(function () {}); }) : Hesap.talepSil(k, id);
+      is.then(function () { kuMesaj(onay ? 'Talep onaylandı; kişi kulübe üye olarak eklendi.' : 'Talep reddedildi.'); }, function () { kuMesaj('İşlem yapılamadı. Yetkin olmayabilir.', true); uyeCiz(k); });
+    });
     function kuSecCiz() {
       var q = kuAra.value.trim().toLocaleLowerCase('tr-TR'), tum = Hesap.tumUyeler(cur), n = 0;
       kuSecListe.textContent = '';
       kuKisiler.forEach(function (u) {
-        if (q && u.ad.toLocaleLowerCase('tr-TR').indexOf(q) < 0) return;
+        if (!kisiEslesir(u, q)) return;
         var uye = tum.indexOf(u.id) >= 0, gs = gorevAdlari(cur, u.id), li = document.createElement('li');
         li.innerHTML = '<button class="pl-row pl-btn" type="button"><span class="pl-av" aria-hidden="true"></span><span class="pl-txt"><span class="pl-t"></span><span class="pl-s"></span></span></button>';
         var b = li.firstChild; b.querySelector('.pl-av').textContent = basHarf(u.ad);
         b.querySelector('.pl-t').textContent = u.ad + (u.id === Hesap.uid() ? ' (sen)' : '');
-        b.querySelector('.pl-s').textContent = (ROLLER[u.rol] || '') + (gs.length ? ' · ' + gs.map(function (g) { return GOREV_KISA[g]; }).join(', ') : '');
+        b.querySelector('.pl-s').textContent = (u.no ? 'ID ' + u.no + ' · ' : '') + (ROLLER[u.rol] || '') + (gs.length ? ' · ' + gs.map(function (g) { return GOREV_KISA[g]; }).join(', ') : '');
         if (uye) {
           b.classList.add('ku-var'); b.setAttribute('aria-disabled', 'true');
           var e = document.createElement('span'); e.className = 'ku-etiket'; e.innerHTML = TIK + '<span>Üye</span>'; b.appendChild(e);
@@ -8566,7 +8642,7 @@ var BGX = (function () {
       if (!KULUP_INFO[k]) return;
       vEl.style.setProperty('--av', kulupRenk(k));
       avEl.textContent = KULUP_INFO[k].av; adEl.textContent = KULUP_INFO[k].ad; adEl.classList.toggle('uzun', KULUP_INFO[k].ad.length > 18);
-      secKapat(); kyMesaj(''); renderYon(k); kuSecKapat(); kuMesaj(''); uyeCiz(k); Oylama.open(k); TalepForm.open(k);
+      secKapat(); kyMesaj(''); renderYon(k); kuSecKapat(); kuMesaj(''); ktMesaj(''); uyeCiz(k); Oylama.open(k); TalepForm.open(k);
       ta.value = drafts[k] || '';
       setDurum('');
       if (started) abone(k); else start();
@@ -8582,7 +8658,8 @@ var BGX = (function () {
         var b = li.firstChild; b.setAttribute('data-kulup', k);
         var av = b.querySelector('.pl-av'); av.textContent = ki.av; av.style.setProperty('--av', ki.renk);
         b.querySelector('.pl-t').textContent = ki.ad;
-        b.querySelector('.pl-s').textContent = Hesap.hazirMi() ? Hesap.uyeSayisi(k) + ' üye' + (Hesap.uyeMi(k) ? ' · Üyesin' : '') : '';
+        var tn = Hesap.uyeEkleyebilirMi(k) ? Hesap.talepler(k).length : 0;
+        b.querySelector('.pl-s').textContent = Hesap.hazirMi() ? Hesap.uyeSayisi(k) + ' üye' + (Hesap.uyeMi(k) ? ' · Üyesin' : '') + (tn ? ' · ' + tn + ' katılma talebi' : '') : '';
         listeEl.appendChild(li);
       });
       document.getElementById('kl-olustur').hidden = !(Hesap.hazirMi() && Hesap.matematikciMi() && canWrite);
@@ -8872,9 +8949,9 @@ var BGX = (function () {
     function secCiz() {
       var g = gruplar[cur], q = el('gp-ara').value.trim().toLocaleLowerCase('tr-TR'), ul = el('gp-sec-liste'), n = 0; ul.textContent = '';
       kisiler.forEach(function (u) {
-        if (!g || g.uyeler.indexOf(u.id) >= 0) return; if (q && u.ad.toLocaleLowerCase('tr-TR').indexOf(q) < 0) return;
+        if (!g || g.uyeler.indexOf(u.id) >= 0) return; if (!kisiEslesir(u, q)) return;
         var li = document.createElement('li'); li.innerHTML = '<button class="pl-row pl-btn" type="button"><span class="pl-av" aria-hidden="true"></span><span class="pl-txt"><span class="pl-t"></span><span class="pl-s"></span></span></button>';
-        var b = li.firstChild; b.setAttribute('data-ekle', u.id); b.querySelector('.pl-av').textContent = basHarf(u.ad); b.querySelector('.pl-t').textContent = u.ad; b.querySelector('.pl-s').textContent = ROLLER[u.rol] || '';
+        var b = li.firstChild; b.setAttribute('data-ekle', u.id); b.querySelector('.pl-av').textContent = basHarf(u.ad); b.querySelector('.pl-t').textContent = u.ad; b.querySelector('.pl-s').textContent = (u.no ? 'ID ' + u.no + ' · ' : '') + (ROLLER[u.rol] || '');
         ul.appendChild(li); n++;
       });
       if (!n) { var e2 = document.createElement('li'); e2.className = 'pl-row'; e2.textContent = kisiler.length ? 'Eklenecek kişi yok.' : 'Yükleniyor…'; ul.appendChild(e2); }
@@ -9032,7 +9109,7 @@ var BGX = (function () {
       el('grp-yonetim').hidden = !Hesap.gelistiriciMi();
       var fb = window.__FB;
       el('grp-hesap').hidden = !fb;
-      if (fb && fb.kullanici) { var k = fb.kullanici(); el('hs-ad').textContent = (k && k.ad) || 'Hesabım'; el('hs-alt').textContent = ((k && k.eposta) ? k.eposta + ' · ' : '') + ROLLER[Hesap.rol()]; }
+      if (fb && fb.kullanici) { var k = fb.kullanici(); el('hs-ad').textContent = (k && k.ad) || 'Hesabım'; el('hs-alt').textContent = ((k && k.eposta) ? k.eposta + ' · ' : '') + ROLLER[Hesap.rol()] + (Hesap.numara() ? ' · ID ' + Hesap.numara() : ''); }
     }
     Hesap.dinle(ciz); ciz();
     Hesap.dinle(function () { if (current === 'veri' && typeof VT !== 'undefined' && VT) VT.refresh(); });
@@ -9044,12 +9121,12 @@ var BGX = (function () {
       var q = ara.value.trim().toLocaleLowerCase('tr-TR'), n = 0;
       liste.textContent = '';
       kisiler.forEach(function (u) {
-        if (q && u.ad.toLocaleLowerCase('tr-TR').indexOf(q) < 0) return;
+        if (!kisiEslesir(u, q)) return;
         var li = document.createElement('li'), row = document.createElement('div'); row.className = 'pl-row';
         row.innerHTML = '<span class="pl-av" aria-hidden="true"></span><span class="pl-txt"><span class="pl-t"></span><span class="pl-s"></span></span><select class="ku-sec"></select>';
         row.querySelector('.pl-av').textContent = basHarf(u.ad);
         row.querySelector('.pl-t').textContent = u.ad;
-        var s = row.querySelector('.pl-s'); s.textContent = u.id === Hesap.uid() ? 'Sen' : ''; if (u.id === Hesap.uid()) s.className = 'pl-s ku-sen';
+        var s = row.querySelector('.pl-s'); s.textContent = (u.no ? 'ID ' + u.no : '') + (u.id === Hesap.uid() ? (u.no ? ' · ' : '') + 'Sen' : ''); if (u.id === Hesap.uid()) s.className = 'pl-s ku-sen';
         var sel = row.querySelector('select'); sel.setAttribute('aria-label', u.ad + ' rolü'); sel.setAttribute('data-id', u.id);
         Object.keys(ROLLER).forEach(function (r) { var o = document.createElement('option'); o.value = r; o.textContent = ROLLER[r]; sel.appendChild(o); });
         sel.value = u.rol; sel.disabled = u.id === Hesap.uid();

@@ -178,6 +178,26 @@
   }
   function girisGizle() { var g = el('giris'); if (g) g.hidden = true; document.documentElement.classList.remove('giris-acik'); }
 
+  /* Kişi ID'si: hesabın numarası yoksa sayaçtan sıradakini al (işlem içinde; kurallar sırayı denetler) */
+  function numaraAl(id) {
+    var nref = fs.doc('numara/' + id), sref = fs.doc('sayac/numara');
+    return nref.get().then(function (s) {
+      if (s.exists) return;
+      return fs.runTransaction(function (tx) {
+        return tx.get(nref).then(function (n) {
+          if (n.exists) return;
+          return tx.get(sref).then(function (c) {
+            if (!c.exists) return;
+            var no = (c.data() || {}).sonraki;
+            if (typeof no !== 'number' || no < 0) return;
+            tx.set(nref, { no: no, t: Date.now() });
+            tx.update(sref, { sonraki: no + 1 });
+          });
+        });
+      });
+    }).catch(function () {});
+  }
+
   var ilk = true;
   auth.onAuthStateChanged(function (u) {
     if (!u) {
@@ -202,6 +222,7 @@
       girisGizle();
       oturumAc();
       try { window.dispatchEvent(new Event('fb-oturum')); } catch (e) {}
+      numaraAl(u.uid);
     });
   });
 })();
