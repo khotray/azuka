@@ -807,6 +807,15 @@ body.in-ayar .set-list, body.in-ayar .kl-yaz, body.in-ayar .bd-item, body.in-aya
 .gr-link { align-self: center; border: 0; background: none; color: var(--num); font-family: inherit; font-size: 14.5px; font-weight: 600; cursor: pointer; padding: 6px 8px; }
 .gr-link[hidden] { display: none; }
 html.giris-acik .set-ico, html.giris-acik .e-ico { visibility: hidden; }
+/* Kulüp oluşturma (matematikçi, geliştirici) */
+.kl-olustur { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px 0 12px; border: 0; border-radius: 999px; cursor: pointer; font-family: inherit; font-size: 14.5px; font-weight: 700; color: #FFFFFF; background: #2563EB; box-shadow: 0 6px 14px -8px #2563EB; }
+.kl-olustur svg { width: 17px; height: 17px; }
+.kl-olustur[aria-expanded="true"] { background: var(--line); color: var(--fg); box-shadow: none; }
+.kl-olustur[hidden] { display: none; }
+.ko-renkler { display: flex; flex-wrap: wrap; gap: 10px; }
+.ko-renkler button { width: 34px; height: 34px; border-radius: 50%; border: 0; cursor: pointer; background: var(--sc); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .25); }
+.ko-renkler button[aria-checked="true"] { box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--sc); }
+.ky-row.atanmadi .ky-ad { color: var(--muted); font-weight: 500; }
 /* Ayarlar ikonu: ana ekranın sol altında, buton görünümü yok */
 .set-ico {
   position: fixed; z-index: 2; width: 52px; height: 52px; padding: 0; border: 0; border-radius: 50%;
@@ -2499,13 +2508,16 @@ button.ot:active { transform: scale(.97); }
         <button class="tab" type="button" role="tab" id="tb-bir" aria-selected="false" aria-controls="tp-bir" tabindex="-1" style="--tc: #D97706"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5v-.5a6 6 0 0 1 6-6h3a6 6 0 0 1 6 6v.5"/></svg><span class="tab-l">Bireysel kullanımlar</span></button>
       </div>
       <div class="tpanel" id="tp-kulup" role="tabpanel" aria-labelledby="tb-kulup">
-        <ul class="plist">
-          <li><button class="pl-row pl-btn" type="button" data-kulup="A"><span class="pl-av" style="--av: var(--av1)" aria-hidden="true">MT</span><span class="pl-txt"><span class="pl-t">Matematik ve Teknoloji Topluluğu (FÜ)</span><span class="pl-s">x üye</span></span><svg class="mr-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></li>
-          <li><button class="pl-row pl-btn" type="button" data-kulup="B"><span class="pl-av" style="--av: var(--av2)" aria-hidden="true">B</span><span class="pl-txt"><span class="pl-t">Kulüp B</span><span class="pl-s">x üye</span></span><svg class="mr-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></li>
-          <li><button class="pl-row pl-btn" type="button" data-kulup="C"><span class="pl-av" style="--av: var(--av3)" aria-hidden="true">C</span><span class="pl-txt"><span class="pl-t">Kulüp C</span><span class="pl-s">x üye</span></span><svg class="mr-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></li>
-          <li><button class="pl-row pl-btn" type="button" data-kulup="D"><span class="pl-av" style="--av: var(--av4)" aria-hidden="true">D</span><span class="pl-txt"><span class="pl-t">Kulüp D</span><span class="pl-s">x üye</span></span><svg class="mr-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></li>
-          <li><button class="pl-row pl-btn" type="button" data-kulup="E"><span class="pl-av" style="--av: var(--av5)" aria-hidden="true">E</span><span class="pl-txt"><span class="pl-t">Kulüp E</span><span class="pl-s">x üye</span></span><svg class="mr-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></li>
-        </ul>
+        <button class="kl-olustur" type="button" id="kl-olustur" aria-expanded="false" aria-controls="ko-form" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Kulüp oluştur</span></button>
+        <form class="oy-form" id="ko-form" hidden novalidate>
+          <label class="oy-l" for="ko-ad">Kulüp adı</label>
+          <input class="oy-in" id="ko-ad" maxlength="60" autocomplete="off">
+          <span class="oy-l" id="ko-renk-l">Renk</span>
+          <div class="ko-renkler" role="radiogroup" aria-labelledby="ko-renk-l"><button type="button" role="radio" aria-checked="true" aria-label="Renk 1" data-renk="#2563EB" style="--sc: #2563EB"></button><button type="button" role="radio" aria-checked="false" aria-label="Renk 2" data-renk="#16A34A" style="--sc: #16A34A"></button><button type="button" role="radio" aria-checked="false" aria-label="Renk 3" data-renk="#D97706" style="--sc: #D97706"></button><button type="button" role="radio" aria-checked="false" aria-label="Renk 4" data-renk="#DB2777" style="--sc: #DB2777"></button><button type="button" role="radio" aria-checked="false" aria-label="Renk 5" data-renk="#7C3AED" style="--sc: #7C3AED"></button><button type="button" role="radio" aria-checked="false" aria-label="Renk 6" data-renk="#0D9488" style="--sc: #0D9488"></button><button type="button" role="radio" aria-checked="false" aria-label="Renk 7" data-renk="#DC2626" style="--sc: #DC2626"></button></div>
+          <div class="oy-btns"><button class="oy-vazgec" type="button" id="ko-vazgec">Vazgeç</button><button class="kl-paylas" type="submit" id="ko-kaydet" disabled><span>Kulübü oluştur</span></button></div>
+          <p class="kl-durum" id="ko-durum" role="status" hidden></p>
+        </form>
+        <ul class="plist" id="kl-liste"></ul>
       </div>
       <div class="tpanel" id="tp-koy" role="tabpanel" aria-labelledby="tb-koy" hidden>
         <div class="koy-wrap" id="koy-wrap">
@@ -7475,16 +7487,17 @@ var BGX = (function () {
   MAT.kurumlar.forEach(grupSirala); grupSirala(MAT.bireysel);
   function basHarf(ad) { var w = ad.trim().split(/\s+/); return ((w[0] || '').charAt(0) + (w.length > 1 ? w[w.length - 1].charAt(0) : '')).toLocaleUpperCase('tr-TR'); }
   var KULUP_INFO = {
-    A: { ad: 'Matematik ve Teknoloji Topluluğu (FÜ)', av: 'MT', yonetim: [{ rol: 'Başkan', ad: 'Leyla' }, { rol: 'Başkan yardımcısı', ad: 'Miray' }, { rol: 'Kulüp hocası', kisi: 'haslan' }] }
+    A: { ad: 'Matematik ve Teknoloji Topluluğu (FÜ)', av: 'MT', renk: 'var(--av1)', yonetim: [{ rol: 'Başkan', ad: 'Leyla' }, { rol: 'Başkan yardımcısı', ad: 'Miray' }, { rol: 'Kulüp hocası', kisi: 'haslan' }] }
   };
   ['B', 'C', 'D', 'E'].forEach(function (k) {
-    KULUP_INFO[k] = { ad: 'Kulüp ' + k, av: k, yonetim: [{ rol: 'Başkan', ad: 'Ad Soyad', mail: 'baskan@example.com' }, { rol: 'Başkan yardımcısı', ad: 'Ad Soyad', mail: 'baskan.yardimcisi@example.com' }, { rol: 'Kulüp hocası', ad: 'Ad Soyad', mail: 'hoca@example.com' }] };
+    KULUP_INFO[k] = { ad: 'Kulüp ' + k, av: k, renk: 'var(--av' + (k.charCodeAt(0) - 64) + ')', yonetim: [{ rol: 'Başkan', ad: 'Ad Soyad', mail: 'baskan@example.com' }, { rol: 'Başkan yardımcısı', ad: 'Ad Soyad', mail: 'baskan.yardimcisi@example.com' }, { rol: 'Kulüp hocası', ad: 'Ad Soyad', mail: 'hoca@example.com' }] };
   });
   var Kisi = null;
+  var KULUP_RE = /^(?:[A-E]|k[a-z0-9]{6,24})$/, KULUP_SABIT = { A: 1, B: 1, C: 1, D: 1, E: 1 };
+  function kulupRenk(k) { return (KULUP_INFO[k] && KULUP_INFO[k].renk) || 'var(--av1)'; }
   /* Hesap: kimlik, rol (geliştirici, matematikçi, standart), kullanıcı kaydı ve kulüp yönetimi (başkan, yetkili) */
   var ROLLER = { standart: 'Standart', matematikci: 'Matematikçi', gelistirici: 'Geliştirici' };
   var Hesap = (function () {
-    var KUL = { A: 1, B: 1, C: 1, D: 1, E: 1 };
     var db = null, usr = null, uid = null, rol = 'standart', hazir = null, dinleyen = [], yon = {}, prof = {};
     function str(v) { return typeof v === 'string' && v.length > 0 && v.length <= 128 ? v : null; }
     function bildir() { dinleyen.forEach(function (f) { try { f(); } catch (e) {} }); }
@@ -7505,8 +7518,21 @@ var BGX = (function () {
               }, function () {});
               try { db.doc('uyeler/' + uid).set({ t: Date.now() }).catch(function () {}); } catch (e) {}
             }
-            db.collection('kulup_yonetim').limit(50).onSnapshot(function (q) {
-              var o = {}; q.docs.forEach(function (d) { var b = d.data() || {}; if (KUL[d.id]) o[d.id] = { baskan: str(b.baskan), yetkili: str(b.yetkili) }; });
+            db.collection('kulupler').limit(200).onSnapshot(function (q) {
+              var gor = {};
+              q.docs.forEach(function (d) {
+                var b = d.data() || {};
+                if (!/^k[a-z0-9]{6,24}$/.test(d.id) || typeof b.ad !== 'string' || !b.ad.trim() || b.ad.length > 60 || typeof b.olusturan !== 'string') return;
+                var renk = typeof b.renk === 'string' && /^#[0-9A-Fa-f]{6}$/.test(b.renk) ? b.renk : '#2563EB';
+                gor[d.id] = 1;
+                KULUP_INFO[d.id] = { ad: b.ad.trim(), av: basHarf(b.ad), renk: renk, olusturan: b.olusturan, t: typeof b.t === 'number' ? b.t : 0, dinamik: true,
+                  yonetim: [{ rol: 'Başkan', ad: 'Henüz atanmadı', bos: true }, { rol: 'Kurucu', uid: b.olusturan }] };
+              });
+              Object.keys(KULUP_INFO).forEach(function (k) { if (KULUP_INFO[k].dinamik && !gor[k]) delete KULUP_INFO[k]; });
+              bildir();
+            }, function () {});
+            db.collection('kulup_yonetim').limit(500).onSnapshot(function (q) {
+              var o = {}; q.docs.forEach(function (d) { var b = d.data() || {}; if (KULUP_RE.test(d.id)) o[d.id] = { baskan: str(b.baskan), yetkili: str(b.yetkili) }; });
               yon = o; bildir();
             }, function () {});
             res(); bildir();
@@ -7543,7 +7569,13 @@ var BGX = (function () {
       yonetimMi: function (k) { var y = yon[k]; return !!uid && !!y && (y.baskan === uid || y.yetkili === uid); },
       dinle: function (f) { dinleyen.push(f); },
       rolVer: function (id, r) { if (!db || !ROLLER[r] || id === uid) return Promise.reject(); return db.doc('roller/' + id).set({ rol: r, t: Date.now() }); },
-      baskanAta: function (k, id) { if (!db || !KUL[k]) return Promise.reject(); return db.doc('kulup_yonetim/' + k).set({ baskan: id, yetkili: null, t: Date.now() }); },
+      baskanAta: function (k, id) { if (!db || !KULUP_RE.test(k)) return Promise.reject(); return db.doc('kulup_yonetim/' + k).set({ baskan: id, yetkili: null, t: Date.now() }); },
+      kulupOlustur: function (ad, renk) {
+        if (!db || !uid) return Promise.reject();
+        var id = 'k' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+        return db.doc('kulupler/' + id).set({ ad: ad, av: basHarf(ad), renk: renk, olusturan: uid, t: Date.now() }).then(function () { return id; });
+      },
+      kulupSil: function (k) { if (!db || !KULUP_INFO[k] || !KULUP_INFO[k].dinamik) return Promise.reject(); return db.doc('kulupler/' + k).delete(); },
       yetkiVer: function (k, id) { var y = yon[k]; if (!db || !y || !y.baskan) return Promise.reject(); return db.doc('kulup_yonetim/' + k).set({ baskan: y.baskan, yetkili: id, t: Date.now() }); }
     };
   })();
@@ -7559,7 +7591,7 @@ var BGX = (function () {
     var cur = 'A', db = null, usr = null, uid = null, mode = null, started = false, canWrite = true, loadedP = false, loadedV = false;
     var polls = {}, votes = {}, prof = {}, sure = 86400000, busyP = 0, busyV = 0, wP = Promise.resolve(), wV = Promise.resolve(), askT = null, tick = null, sonDurum = '';
     function validP(p) {
-      if (!p || typeof p !== 'object' || typeof p.id !== 'string' || !p.id || p.id.length > 40 || !KULUPLER[p.k]) return false;
+      if (!p || typeof p !== 'object' || typeof p.id !== 'string' || !p.id || p.id.length > 40 || !KULUP_RE.test(p.k)) return false;
       if (typeof p.soru !== 'string' || !p.soru.trim() || p.soru.length > 140) return false;
       if (!Array.isArray(p.secenekler) || p.secenekler.length < 2 || p.secenekler.length > 6) return false;
       if (!p.secenekler.every(function (s) { return typeof s === 'string' && s.trim() && s.length <= 80; })) return false;
@@ -7628,7 +7660,7 @@ var BGX = (function () {
       var now = Date.now(), list = [];
       Object.keys(polls).forEach(function (a) { polls[a].forEach(function (p) { if (p.k === cur) list.push({ a: a, p: p, key: a + ':' + p.id }); }); });
       list.sort(function (x, y) { var ax = x.p.bitis > now, ay = y.p.bitis > now; if (ax !== ay) return ax ? -1 : 1; return ax ? x.p.bitis - y.p.bitis : y.p.bitis - x.p.bitis; });
-      var izin = canWrite && (mode === 'yerel' || Hesap.yonetimMi(cur) || Hesap.gelistiriciMi());
+      var izin = canWrite && (mode === 'yerel' || Hesap.yonetimMi(cur) || Hesap.matematikciMi());
       acBtn.hidden = !izin;
       if (!izin && !form.hidden) acik(false);
       var had = liste.contains(document.activeElement) ? document.activeElement.getAttribute('data-odak') : null;
@@ -7792,7 +7824,7 @@ var BGX = (function () {
     var formlar = {}, yanitlar = {}, prof = {}, sure = 0, busyF = 0, busyY = 0, wF = Promise.resolve(), wY = Promise.resolve();
     var taslak = {}, acikDetay = {}, tamam = {}, gonderiyor = {}, askT = null, tick = null;
     function validF(f) {
-      if (!f || typeof f !== 'object' || typeof f.id !== 'string' || !f.id || f.id.length > 40 || !KULUPLER[f.k]) return false;
+      if (!f || typeof f !== 'object' || typeof f.id !== 'string' || !f.id || f.id.length > 40 || !KULUP_RE.test(f.k)) return false;
       if (typeof f.baslik !== 'string' || !f.baslik.trim() || f.baslik.length > 100) return false;
       if (f.aciklama != null && (typeof f.aciklama !== 'string' || f.aciklama.length > 300)) return false;
       return typeof f.t === 'number' && f.t > 0 && (f.bitis == null || (typeof f.bitis === 'number' && f.bitis >= f.t));
@@ -7862,7 +7894,7 @@ var BGX = (function () {
       var now = Date.now(), list = [];
       Object.keys(formlar).forEach(function (a) { formlar[a].forEach(function (f) { if (f.k === cur) list.push({ a: a, f: f, key: a + ':' + f.id }); }); });
       list.sort(function (x, y) { var ax = x.f.bitis == null || x.f.bitis > now, ay = y.f.bitis == null || y.f.bitis > now; if (ax !== ay) return ax ? -1 : 1; return y.f.t - x.f.t; });
-      var izin = canWrite && (mode === 'yerel' || Hesap.yonetimMi(cur) || Hesap.gelistiriciMi());
+      var izin = canWrite && (mode === 'yerel' || Hesap.yonetimMi(cur) || Hesap.matematikciMi());
       acBtn.hidden = !izin;
       if (!izin && !form.hidden) acik(false);
       var ae = document.activeElement, odak = liste.contains(ae) ? ae.getAttribute('data-odak') : null, sel = odak && ae.tagName === 'TEXTAREA' ? [ae.selectionStart, ae.selectionEnd] : null;
@@ -8041,7 +8073,7 @@ var BGX = (function () {
     var all = {}, prof = {}, drafts = {}, writing = Promise.resolve(), busy = 0, fresh = null, askT = null;
 
     function valid(p) {
-      return !!p && typeof p === 'object' && typeof p.id === 'string' && p.id.length > 0 && p.id.length <= 40 && COL.hasOwnProperty(p.k) &&
+      return !!p && typeof p === 'object' && typeof p.id === 'string' && p.id.length > 0 && p.id.length <= 40 && typeof p.k === 'string' && KULUP_RE.test(p.k) &&
         typeof p.m === 'string' && p.m.length > 0 && p.m.length <= MAXLEN && typeof p.t === 'number' && p.t > 0 && p.t < 1e14 && (p.ka === undefined || typeof p.ka === 'boolean');
     }
     function clean(arr) { return Array.isArray(arr) ? arr.filter(valid).slice(-MAX) : []; }
@@ -8119,11 +8151,11 @@ var BGX = (function () {
         if (mode === 'yerel' && it.p.ka) resmi = true;
         var li = document.createElement('li'); li.className = 'kp-item' + (it.p.id === fresh && !reduce ? ' yeni' : '') + (resmi ? ' kulup-adina' : '');
         var av = document.createElement('span'); av.className = 'kp-av' + (resmi ? '' : ' kp-avs'); av.setAttribute('aria-hidden', 'true');
-        if (resmi) av.textContent = KULUP_INFO[cur].av; else av.setAttribute('data-a', it.a);
+        if (resmi) av.textContent = (KULUP_INFO[cur] || {}).av || ''; else av.setAttribute('data-a', it.a);
         var gov = document.createElement('div'); gov.className = 'kp-gov';
         var ust = document.createElement('div'); ust.className = 'kp-ust';
         var ad = document.createElement('span'); ad.className = 'kp-ad';
-        if (resmi) ad.textContent = KULUP_INFO[cur].ad; else ad.setAttribute('data-a', it.a);
+        if (resmi) ad.textContent = (KULUP_INFO[cur] || {}).ad || ''; else ad.setAttribute('data-a', it.a);
         var tm = document.createElement('time'); tm.className = 'kp-zaman'; tm.dateTime = new Date(it.p.t).toISOString(); tm.textContent = rel(it.p.t);
         ust.appendChild(ad);
         if (resmi) { var kim = document.createElement('span'); kim.className = 'kp-kim'; kim.setAttribute('data-kim', it.a); ust.appendChild(kim); }
@@ -8202,6 +8234,8 @@ var BGX = (function () {
         if (ben && y.baskan === ben) { btns.push(['yetki', y.yetkili ? 'Yetkiliyi değiştir' : 'Yetki ver', !Hesap.matematikciMi()]); if (y.yetkili) btns.push(['kaldir', 'Yetkiyi kaldır', false]); }
         else if (Hesap.matematikciMi() && y.yetkili) btns.push(['kaldir', 'Yetkiyi kaldır', false]);
       }
+      var ki = KULUP_INFO[k];
+      if (ki && ki.dinamik && Hesap.hazirMi() && (Hesap.gelistiriciMi() || (Hesap.matematikciMi() && ki.olusturan === ben))) btns.push(['sil', 'Kulübü sil', false]);
       arac.textContent = '';
       btns.forEach(function (b) { var e = document.createElement('button'); e.type = 'button'; e.setAttribute('data-ky', b[0]); e.textContent = b[1]; if (b[2]) e.className = 'ana'; arac.appendChild(e); });
       arac.hidden = !btns.length;
@@ -8233,6 +8267,11 @@ var BGX = (function () {
     arac.addEventListener('click', function (e) {
       var b = e.target.closest('[data-ky]'); if (!b) return;
       var m = b.getAttribute('data-ky'), k = cur;
+      if (m === 'sil') {
+        if (!b.classList.contains('onay')) { b.classList.add('onay'); b.textContent = 'Silmeyi onayla'; setTimeout(function () { if (b.isConnected) { b.classList.remove('onay'); b.textContent = 'Kulübü sil'; } }, 3000); return; }
+        Hesap.kulupSil(k).then(function () { if (current === 'kulup') goBack(); }, function () { kyMesaj('Kulüp silinemedi.', true); });
+        return;
+      }
       if (m === 'kaldir') { Hesap.yetkiVer(k, null).then(function () { kyMesaj('Yetki kaldırıldı.'); }, function () { kyMesaj('Yetki kaldırılamadı.', true); }); return; }
       if (secMod === m && !secK.hidden) secKapat(); else secAc(m);
     });
@@ -8249,8 +8288,10 @@ var BGX = (function () {
     function renderYon(k) {
       yonEl.textContent = '';
       var ya = Hesap.yon(k);
+      if (!KULUP_INFO[k]) return;
       KULUP_INFO[k].yonetim.forEach(function (y) {
         if (y.rol === 'Başkan' && ya.baskan) { yonEl.appendChild(hesapSatir('Başkan', ya.baskan)); return; }
+        if (y.uid) { yonEl.appendChild(hesapSatir(y.rol, y.uid)); return; }
         var p = y.kisi ? KISI_IDX[y.kisi] : null, ad = p ? p.unvan + ' ' + p.ad : y.ad, mail = p ? p.mail : (y.mail || '');
         var li = document.createElement('li'), row = document.createElement(p ? 'button' : 'div');
         row.className = 'ky-row' + (p ? ' ky-btn' : '');
@@ -8260,6 +8301,7 @@ var BGX = (function () {
         row.querySelector('.ky-rol').textContent = y.rol;
         row.querySelector('.ky-ad').textContent = ad;
         var m = row.querySelector('.ky-mail'); m.lastChild.textContent = mail || 'E-posta eklenmedi'; m.classList.toggle('bos', !mail);
+        if (y.bos) { m.remove(); row.classList.add('atanmadi'); row.querySelector('.ky-av').textContent = '?'; }
         li.appendChild(row); yonEl.appendChild(li);
         if (y.rol === 'Başkan yardımcısı' && ya.yetkili) yonEl.appendChild(hesapSatir('Yetkili üye', ya.yetkili));
       });
@@ -8269,19 +8311,54 @@ var BGX = (function () {
     yonEl.addEventListener('click', function (e) { var b = e.target.closest('[data-ac]'); if (b && Kisi) Kisi.open(b.getAttribute('data-ac')); });
     function open(k) {
       cur = k;
-      vEl.style.setProperty('--av', COL[k]);
+      if (!KULUP_INFO[k]) return;
+      vEl.style.setProperty('--av', kulupRenk(k));
       avEl.textContent = KULUP_INFO[k].av; adEl.textContent = KULUP_INFO[k].ad; adEl.classList.toggle('uzun', KULUP_INFO[k].ad.length > 18);
       secKapat(); kyMesaj(''); renderYon(k); Oylama.open(k); TalepForm.open(k);
       ta.value = drafts[k] || '';
       setDurum('');
       start(); syncForm(); render();
     }
-    Array.prototype.forEach.call(document.querySelectorAll('#tp-kulup [data-kulup]'), function (b) {
-      b.addEventListener('click', function () {
-        var k = b.getAttribute('data-kulup');
-        heroTransition(false, heroPairs(b, avEl, adEl, false), function () { open(k); nav('kulup'); });
+    var listeEl = document.getElementById('kl-liste');
+    function listeCiz() {
+      var ks = Object.keys(KULUP_INFO).sort(function (a, b) { var sa = !!KULUP_SABIT[a], sb = !!KULUP_SABIT[b]; if (sa !== sb) return sa ? -1 : 1; return sa ? a.localeCompare(b) : (KULUP_INFO[a].t || 0) - (KULUP_INFO[b].t || 0); });
+      listeEl.textContent = '';
+      ks.forEach(function (k) {
+        var ki = KULUP_INFO[k], li = document.createElement('li');
+        li.innerHTML = '<button class="pl-row pl-btn" type="button"><span class="pl-av" aria-hidden="true"></span><span class="pl-txt"><span class="pl-t"></span><span class="pl-s">x üye</span></span><svg class="mr-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>';
+        var b = li.firstChild; b.setAttribute('data-kulup', k);
+        var av = b.querySelector('.pl-av'); av.textContent = ki.av; av.style.setProperty('--av', ki.renk);
+        b.querySelector('.pl-t').textContent = ki.ad;
+        listeEl.appendChild(li);
       });
+      document.getElementById('kl-olustur').hidden = !(Hesap.hazirMi() && Hesap.matematikciMi() && canWrite);
+    }
+    listeEl.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-kulup]'); if (!b) return;
+      var k = b.getAttribute('data-kulup');
+      heroTransition(false, heroPairs(b, avEl, adEl, false), function () { open(k); nav('kulup'); });
     });
+    listeCiz();
+    Hesap.dinle(listeCiz);
+    /* Kulüp oluşturma formu */
+    (function () {
+      var btn = document.getElementById('kl-olustur'), f = document.getElementById('ko-form'), ad = document.getElementById('ko-ad'), kaydet = document.getElementById('ko-kaydet'), dur = document.getElementById('ko-durum'), renk = '#2563EB';
+      function mesaj(m, err) { dur.textContent = m || ''; dur.hidden = !m; dur.classList.toggle('hata', !!err); }
+      function ac(on) { f.hidden = !on; btn.setAttribute('aria-expanded', on ? 'true' : 'false'); btn.querySelector('span').textContent = on ? 'Kapat' : 'Kulüp oluştur'; if (on) { ad.value = ''; kaydet.disabled = true; mesaj(''); try { ad.focus(); } catch (e) {} } }
+      btn.addEventListener('click', function () { ac(f.hidden); });
+      document.getElementById('ko-vazgec').addEventListener('click', function () { ac(false); });
+      ad.addEventListener('input', function () { kaydet.disabled = ad.value.trim().length < 2; });
+      f.querySelector('.ko-renkler').addEventListener('click', function (e) {
+        var r = e.target.closest('[data-renk]'); if (!r) return; renk = r.getAttribute('data-renk');
+        Array.prototype.forEach.call(f.querySelectorAll('[data-renk]'), function (x) { x.setAttribute('aria-checked', x === r ? 'true' : 'false'); });
+      });
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var a = ad.value.trim().replace(/\s+/g, ' ').slice(0, 60); if (a.length < 2) return;
+        kaydet.disabled = true; mesaj('Oluşturuluyor…');
+        Hesap.kulupOlustur(a, renk).then(function () { ac(false); }, function () { kaydet.disabled = false; mesaj('Kulüp oluşturulamadı. Matematikçi yetkin olmayabilir.', true); });
+      });
+    })();
     heroBack.kulup = function (run) { heroTransition(true, heroPairs(document.querySelector('#tp-kulup [data-kulup="' + cur + '"]'), avEl, adEl, true), run); };
     heroBack.kulup.dest = 'top';
     return { render: function () { if (started) render(); }, go: function (k) { open(k); nav('kulup'); } };
