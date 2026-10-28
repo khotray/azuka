@@ -143,6 +143,10 @@
       if (c === 'auth/too-many-requests') return 'Çok fazla deneme yapıldı. Biraz sonra tekrar dene.';
       if (c === 'auth/network-request-failed') return 'İnternet bağlantısı yok gibi görünüyor.';
       if (c === 'auth/missing-password') return 'Şifreni yaz.';
+      if (c === 'auth/operation-not-allowed') return 'E-posta ile giriş Firebase\'de açık değil (Authentication → Sign-in method).';
+      if (c === 'auth/unauthorized-domain') return 'Bu site adresi Firebase\'de yetkili değil (Authentication → Settings → Authorized domains).';
+      if (c === 'auth/configuration-not-found') return 'Firebase\'de Authentication henüz başlatılmamış.';
+      if (c) return 'Bir sorun oluştu (' + c + '). Tekrar dene.';
       return 'Bir sorun oluştu. Tekrar dene.';
     }
     form.addEventListener('submit', function (e) {
