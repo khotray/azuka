@@ -830,6 +830,106 @@ html.giris-acik .set-ico, html.giris-acik .e-ico { visibility: hidden; }
 #gp-liste[hidden], #gp-bos[hidden] { display: none; }
 .gp-uye-sil { margin-left: auto; height: 32px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--line); background: none; color: var(--muted); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
 .ky-arac button.onay { background: #DC2626; color: #FFFFFF; border-color: transparent; }
+/* Eğlence: ana ekranın sol altındaki ikon, bal porsuğu geçişi, oyunlar sayfası */
+.eg-ico {
+  position: fixed; z-index: 2; width: 58px; height: 58px; padding: 0; border: 0; border-radius: 50%;
+  left: calc(max(16px, env(safe-area-inset-left, 0px)) - 11px); bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) - 4px);
+  display: grid; place-items: center; background: none; cursor: pointer; color: var(--fg);
+}
+body.on-home:not(.home-plain) .eg-ico { color: var(--on-glass); }
+body:not(.on-home) .eg-ico { display: none; }
+html.giris-acik .eg-ico { visibility: hidden; }
+.eg-ico svg { width: 36px; height: 36px; overflow: visible; filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .4)); transition: transform .3s ease; }
+body.home-plain .eg-ico svg { filter: none; }
+.eg-ico-dot { fill: var(--yellow); stroke: none; }
+.eg-ico:active svg { transform: scale(.88); }
+.eg-ico:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (hover: hover) { .eg-ico:hover svg { transform: translateY(-3px) rotate(-6deg); } }
+.porsuk-kat { position: fixed; inset: 0; z-index: 80; pointer-events: none; overflow: hidden; }
+.porsuk-kos { position: absolute; left: 0; bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 6px); width: 150px; height: 75px; transform: translateX(-150px); animation: porsukKos 1.4s cubic-bezier(.3, .15, .65, .9) forwards; }
+.porsuk-kos .porsuk-svg { width: 100%; height: 100%; display: block; }
+@keyframes porsukKos { 0% { transform: translateX(-150px); } 100% { transform: translateX(calc(100vw + 10px)); } }
+.porsuk-svg .pr-golge { fill: rgba(0, 0, 0, .18); }
+.porsuk-svg .pr-bacak { transform-box: fill-box; transform-origin: 50% 0; }
+.porsuk-kos .pr-govde { animation: prSek .2s ease-in-out infinite alternate; }
+.porsuk-kos .pr-a { animation: prBacak .2s ease-in-out infinite alternate; }
+.porsuk-kos .pr-b { animation: prBacak .2s ease-in-out infinite alternate-reverse; }
+@keyframes prSek { from { transform: translateY(0); } to { transform: translateY(-2.6px); } }
+@keyframes prBacak { from { transform: rotate(30deg); } to { transform: rotate(-30deg); } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .porsuk-svg .pr-govde { filter: drop-shadow(0 0 1.2px rgba(255, 255, 255, .45)); } :root:not([data-theme="light"]) .porsuk-svg .pr-golge { fill: rgba(0, 0, 0, .45); } }
+:root[data-theme="dark"] .porsuk-svg .pr-govde { filter: drop-shadow(0 0 1.2px rgba(255, 255, 255, .45)); }
+#v-eglence, #v-hedef24 { --eg: #C26A05; --eg-acik: color-mix(in srgb, #D97706 14%, var(--surface)); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #v-eglence, :root:not([data-theme="light"]) #v-hedef24 { --eg: #F5A524; } }
+:root[data-theme="dark"] #v-eglence, :root[data-theme="dark"] #v-hedef24 { --eg: #F5A524; }
+.eg-head { position: relative; overflow: hidden; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; min-height: 132px; padding: 18px 12px 12px 18px; border-radius: 20px; border: 1px solid var(--line); background: linear-gradient(150deg, color-mix(in srgb, #F2B13A 30%, var(--surface)), var(--surface) 70%); }
+.eg-hd { display: flex; flex-direction: column; gap: 2px; align-self: center; min-width: 0; }
+.eg-hd .eyebrow { color: var(--eg); }
+.eg-hd h2 { margin: 0; font-size: 28px; line-height: 1.15; }
+.eg-alt { margin: 2px 0 0; font-size: 14.5px; color: var(--muted); }
+.eg-porsuk { flex: none; width: 150px; margin: 0 -14px -6px 0; }
+.eg-porsuk .porsuk-svg { width: 100%; height: auto; display: block; }
+.eg-oyun { display: flex; align-items: center; gap: 14px; width: 100%; padding: 14px; border-radius: 18px; border: 1px solid color-mix(in srgb, var(--eg) 40%, transparent); background: var(--surface); color: var(--fg); font-family: inherit; text-align: left; cursor: pointer; box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 14px 28px -22px rgba(0, 0, 0, .45); transition: transform .15s ease; }
+.eg-oyun:active { transform: scale(.985); }
+.eg-oyun:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.eg-ic { width: 56px; height: 56px; border-radius: 16px; flex: none; display: grid; place-items: center; font-size: 25px; font-weight: 800; letter-spacing: -.02em; color: #FFFFFF; background: linear-gradient(160deg, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) 60%), #D97706; box-shadow: 0 10px 18px -10px #D97706; }
+.eg-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.eg-ad { font-size: 17px; font-weight: 700; }
+.eg-s { font-size: 13.5px; color: var(--muted); }
+.eg-oyna { margin-left: auto; flex: none; height: 34px; padding: 0 14px; border-radius: 999px; display: grid; place-items: center; font-size: 14px; font-weight: 700; color: #FFFFFF; background: #D97706; }
+.eg-liste li { display: flex; align-items: center; gap: 14px; padding: 11px 16px; }
+.eg-liste li + li { border-top: 1px solid var(--line); }
+.eg-mini { width: 40px; height: 40px; border-radius: 12px; flex: none; display: grid; place-items: center; color: var(--eg-c); background: color-mix(in srgb, var(--eg-c) 14%, transparent); }
+.eg-mini svg { width: 22px; height: 22px; }
+.eg-liste .eg-ad { font-size: 16px; font-weight: 600; }
+.eg-yakinda { margin-left: auto; flex: none; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--muted); background: var(--line); }
+/* Hedef 24 */
+.h24-istat { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; font-size: 13.5px; color: var(--muted); }
+.h24-istat b { color: var(--fg); font-size: 16px; }
+.h24-istat .h24-sure { margin-left: auto; font-variant-numeric: tabular-nums; font-weight: 600; }
+.h24-kural { margin: 0; font-size: 14.5px; color: var(--muted); }
+.h24-tahta { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 340px; margin: 4px auto 0; }
+.h24-tas { position: relative; aspect-ratio: 1; display: grid; place-items: center; padding: 6px; border-radius: 22px; border: 2px solid var(--line); background: var(--surface); color: var(--fg); font-family: inherit; font-size: clamp(36px, 12vw, 52px); font-weight: 800; font-variant-numeric: tabular-nums; cursor: pointer; box-shadow: 0 1px 2px rgba(0, 0, 0, .05), 0 16px 28px -24px rgba(0, 0, 0, .55); transition: transform .12s ease, border-color .15s ease, background-color .15s ease, color .15s ease; touch-action: manipulation; }
+.h24-tas:active { transform: scale(.96); }
+.h24-tas:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.h24-tas.secili { border-color: var(--eg); background: var(--eg); color: #FFFFFF; box-shadow: 0 14px 24px -14px var(--eg); }
+.h24-tas.ipucu { border-style: dashed; border-color: var(--eg); }
+.h24-tas.bos { visibility: hidden; }
+.h24-tas.yeni { animation: h24Pop .32s cubic-bezier(.2, .9, .3, 1.3) both; }
+.h24-tas .h24-kesir { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; font-size: .62em; }
+.h24-tas .h24-kesir span:first-child { padding: 0 .12em .06em; border-bottom: .07em solid currentColor; }
+.h24-tas .h24-kesir span:last-child { padding-top: .06em; }
+@keyframes h24Pop { from { transform: scale(.6); opacity: .2; } to { transform: none; opacity: 1; } }
+.h24-tahta.kazandi .h24-tas:not(.bos) { border-color: #16A34A; background: #16A34A; color: #FFFFFF; animation: h24Kazan .6s ease both; }
+@keyframes h24Kazan { 0% { transform: scale(1); } 40% { transform: scale(1.08) rotate(-2deg); } 100% { transform: none; } }
+.h24-tahta.olmadi .h24-tas:not(.bos) { border-color: #DC2626; color: #DC2626; animation: h24Salla .4s ease both; }
+@keyframes h24Salla { 0%, 100% { transform: none; } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.h24-ops { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; max-width: 340px; margin: 0 auto; }
+.h24-op { height: 58px; border-radius: 16px; border: 2px solid var(--line); background: var(--surface); color: var(--fg); font-family: inherit; font-size: 30px; font-weight: 700; line-height: 1; cursor: pointer; touch-action: manipulation; transition: transform .12s ease, background-color .15s ease, border-color .15s ease; }
+.h24-op:active { transform: scale(.94); }
+.h24-op:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.h24-op[aria-pressed="true"] { border-color: var(--eg); background: color-mix(in srgb, var(--eg) 18%, var(--surface)); color: var(--eg); }
+.h24-op.ipucu { border-style: dashed; border-color: var(--eg); }
+.h24-op:disabled { opacity: .45; cursor: default; }
+.h24-mesaj { margin: 0; min-height: 22px; text-align: center; font-size: 15px; font-weight: 600; color: var(--muted); }
+.h24-mesaj.iyi { color: #15803D; }
+.h24-mesaj.kotu { color: #DC2626; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .h24-mesaj.iyi { color: #6FDB9A; } }
+:root[data-theme="dark"] .h24-mesaj.iyi { color: #6FDB9A; }
+.h24-adimlar { list-style: none; margin: 0 auto; padding: 0; width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 6px; }
+.h24-adimlar:empty { display: none; }
+.h24-adimlar li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); font-size: 15.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.h24-adimlar li span:first-child { width: 22px; height: 22px; border-radius: 50%; flex: none; display: grid; place-items: center; font-size: 12px; color: var(--eg); background: color-mix(in srgb, var(--eg) 14%, transparent); }
+.h24-zorluk { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+.h24-araclar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; width: 100%; max-width: 340px; margin: 0 auto; }
+.h24-arac { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 9px 4px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.h24-arac svg { width: 21px; height: 21px; color: var(--eg); }
+.h24-arac:disabled { opacity: .45; cursor: default; }
+.h24-arac:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.h24-sonraki { justify-self: center; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; max-width: 340px; height: 48px; margin: 0 auto; border: 0; border-radius: 14px; background: var(--eg); color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 12px 22px -14px var(--eg); }
+.h24-sonraki svg { width: 20px; height: 20px; }
+.h24-cozum { margin: 0 auto; width: 100%; max-width: 340px; padding: 10px 14px; border-radius: 12px; border: 1px dashed var(--eg); text-align: center; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.h24-cozum[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .eg-ico svg, .h24-tas, .h24-op { transition: none; } .h24-tas.yeni, .h24-tahta.kazandi .h24-tas, .h24-tahta.olmadi .h24-tas { animation: none; } }
 /* Kulüp sayfası: kapak başlığı, başkan düğmesi, yönetim paneli, sekmeler, sabitlenmiş mesaj */
 #v-kulup .kl-head { position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; column-gap: 16px; row-gap: 14px; padding: 30px 18px 16px; }
 #v-kulup .kl-head > .kl-av { align-self: start; }
@@ -2781,6 +2881,66 @@ button.ot:active { transform: scale(.97); }
     </div>
   </section>
 
+  <section class="view" id="v-eglence" hidden>
+    <div class="page">
+      <header class="eg-head">
+        <div class="eg-hd"><span class="eyebrow">Eğlence</span><h2>Oyunlar</h2><p class="eg-alt">Kısa bir mola için.</p></div>
+        <span class="eg-porsuk" aria-hidden="true"><svg class="porsuk-svg" viewBox="0 0 160 80" aria-hidden="true" focusable="false"> <defs><linearGradient id="pr-manto-b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#CBC5B9"/><stop offset=".5" stop-color="#E6E1D7"/><stop offset="1" stop-color="#F3F0E9"/></linearGradient></defs> <ellipse class="pr-golge" cx="80" cy="66" rx="50" ry="3.2"/> <g class="pr-govde"> <g transform="translate(42 45)"><g class="pr-bacak pr-b"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#34343A"/><path d="M5 17.6l3.6.6M5 15.6l3.8-.3" stroke="#A9A49A" stroke-width="1.3" stroke-linecap="round"/></g></g> <g transform="translate(104 45)"><g class="pr-bacak pr-a"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#34343A"/><path d="M5 17.8l5.6.8M5 15.8l5.8-.1M4.8 13.8l5.4-.9" stroke="#A9A49A" stroke-width="1.3" stroke-linecap="round"/></g></g> <path d="M29 35C22 29 14 28 9.5 31C13.5 35 20 39 28 42Z" fill="#1E1E22"/> <path d="M9.5 31C14.5 28 22 28.5 29 34.5L28.6 37C22 32.6 15 31.6 9.5 31Z" fill="#CBC5B9"/> <path d="M28 42C26 28 40 18 66 17C92 16 110 20 118 28C124 34 124 46 116 52C104 58 52 58 40 54C32 51 29 47 28 42Z" fill="#1E1E22"/> <path d="M110 30C118 23 132 23 140 29C146 33 149 37 148 41C147 45 142 47 136 47L124 49C114 50 108 42 110 30Z" fill="#1E1E22"/> <path d="M27.4 40C26.4 27 40 15.6 66 15.2C92 14.8 110 18.6 118.4 25.6C123.6 22.8 133.4 23 141.6 29.6L138.6 32.8C131.6 30.6 124.6 30.8 118.4 32.2C104 29 86 28.2 66 28.6C48 29 36.4 32 29.2 42.4Z" fill="url(#pr-manto-b)"/> <circle cx="134.8" cy="36.4" r="1.9" fill="#0A0A0C"/><circle cx="135.4" cy="35.8" r=".6" fill="#FFFFFF"/> <circle cx="148.2" cy="40.2" r="2.4" fill="#0A0A0C"/> <g transform="translate(50 46)"><g class="pr-bacak pr-a"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#16161A"/><path d="M5 17.6l3.6.6M5 15.6l3.8-.3" stroke="#CFCAC0" stroke-width="1.3" stroke-linecap="round"/></g></g> <g transform="translate(112 46)"><g class="pr-bacak pr-b"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#16161A"/><path d="M5 17.8l5.6.8M5 15.8l5.8-.1M4.8 13.8l5.4-.9" stroke="#DCD8CF" stroke-width="1.3" stroke-linecap="round"/></g></g> </g> </svg></span>
+      </header>
+      <button class="eg-oyun" type="button" id="go-hedef24">
+        <span class="eg-ic" aria-hidden="true">24</span>
+        <span class="eg-txt"><span class="eg-ad">Hedef 24</span><span class="eg-s" id="eg-h24-s">Dört sayıyla 24'e ulaş</span></span>
+        <span class="eg-oyna" aria-hidden="true">Oyna</span>
+      </button>
+      <section class="kl-sec" aria-labelledby="eg-st-h">
+        <h3 class="kl-bas" id="eg-st-h">Strateji oyunları</h3>
+        <ul class="kl-kart eg-liste">
+          <li><span class="eg-mini" style="--eg-c: #0D9488"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="4"/><circle cx="7.5" cy="10" r="1.2"/><circle cx="12" cy="10" r="1.2"/><circle cx="16.5" cy="10" r="1.2"/><circle cx="7.5" cy="14" r="1.2"/><circle cx="12" cy="14" r="1.2"/><circle cx="16.5" cy="14" r="1.2"/></svg></span><span class="eg-ad">Mangala</span><span class="eg-yakinda">Yakında</span></li>
+          <li><span class="eg-mini" style="--eg-c: #7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6.5" r="2.6"/><path d="M9.8 9.6h4.4l1.1 6.4H8.7z"/><path d="M6.5 20h11l-1-4H7.5z"/></svg></span><span class="eg-ad">Satranç</span><span class="eg-yakinda">Yakında</span></li>
+          <li><span class="eg-mini" style="--eg-c: #DC2626"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="8.5" rx="7" ry="3"/><path d="M5 8.5v3.2c0 1.7 3.1 3 7 3s7-1.3 7-3V8.5"/><path d="M5 11.7v3.6c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.6"/></svg></span><span class="eg-ad">Dama</span><span class="eg-yakinda">Yakında</span></li>
+          <li><span class="eg-mini" style="--eg-c: #2563EB"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></span><span class="eg-ad">Reversi</span><span class="eg-yakinda">Yakında</span></li>
+          <li><span class="eg-mini" style="--eg-c: #16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M6 4v16M12 4v16M18 4v16" stroke-width="1.3"/><circle cx="12" cy="12" r="2.7" fill="currentColor"/><circle cx="18" cy="6" r="2.7" fill="var(--surface)"/></svg></span><span class="eg-ad">Go</span><span class="eg-yakinda">Yakında</span></li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <section class="view" id="v-hedef24" hidden>
+    <div class="page">
+      <div class="ph"><span class="eyebrow">Eğlence</span><h2>Hedef 24</h2></div>
+      <div class="oy-sure h24-zorluk" id="h24-zorluk" role="radiogroup" aria-label="Zorluk">
+        <button type="button" role="radio" aria-checked="true" data-z="kolay">Kolay</button>
+        <button type="button" role="radio" aria-checked="false" data-z="orta">Orta</button>
+        <button type="button" role="radio" aria-checked="false" data-z="zor">Zor</button>
+      </div>
+      <div class="h24-istat"><span><b id="h24-cozulen">0</b> çözülen</span><span><b id="h24-seri">0</b> seri</span><span><b id="h24-eniyi">0</b> en iyi seri</span><span class="h24-sure" id="h24-sure" aria-label="Süre">00:00</span></div>
+      <p class="h24-kural">Dört sayının hepsini birer kez kullanarak 24 elde et: bir sayı, bir işaret, sonra diğer sayıyı seç.</p>
+      <div class="h24-tahta" id="h24-tahta" role="group" aria-label="Sayılar">
+        <button class="h24-tas" type="button" data-i="0"></button>
+        <button class="h24-tas" type="button" data-i="1"></button>
+        <button class="h24-tas" type="button" data-i="2"></button>
+        <button class="h24-tas" type="button" data-i="3"></button>
+      </div>
+      <div class="h24-ops" id="h24-ops" role="group" aria-label="İşaretler">
+        <button class="h24-op" type="button" data-o="+" aria-label="artı" aria-pressed="false">+</button>
+        <button class="h24-op" type="button" data-o="-" aria-label="eksi" aria-pressed="false">−</button>
+        <button class="h24-op" type="button" data-o="*" aria-label="çarpı" aria-pressed="false">×</button>
+        <button class="h24-op" type="button" data-o="/" aria-label="bölü" aria-pressed="false">÷</button>
+      </div>
+      <p class="h24-mesaj" id="h24-mesaj" role="status" aria-live="polite"></p>
+      <p class="h24-cozum" id="h24-cozum" hidden></p>
+      <button class="h24-sonraki" type="button" id="h24-sonraki" hidden><span>Sonraki bulmaca</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <ol class="h24-adimlar" id="h24-adimlar" aria-label="Adımlar"></ol>
+      <div class="h24-araclar">
+        <button class="h24-arac" type="button" id="h24-geri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg><span>Geri al</span></button>
+        <button class="h24-arac" type="button" id="h24-bastan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Baştan</span></button>
+        <button class="h24-arac" type="button" id="h24-ipucu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg><span>İpucu</span></button>
+        <button class="h24-arac" type="button" id="h24-goster"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Çözüm</span></button>
+        <button class="h24-arac" type="button" id="h24-yeni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Yeni</span></button>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-kurumlar" hidden>
     <div class="page">
       <div class="ph"><span class="eyebrow">Matematikçiler</span><h2>Kurum bazlı</h2></div>
@@ -3692,6 +3852,7 @@ button.ot:active { transform: scale(.97); }
 </main>
 <button class="e-ico" type="button" id="go-e" aria-label="Kulüpler, köyler ve matematikçiler"><span class="e-sym" aria-hidden="true">e</span></button>
 <button class="set-ico" type="button" id="go-ayarlar" aria-label="Ayarlar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.75 4.64L10.02 1.79A10.4 10.4 0 0 1 13.98 1.79L14.25 4.64A7.7 7.7 0 0 1 15.61 5.20L17.82 3.38A10.4 10.4 0 0 1 20.62 6.18L18.80 8.39A7.7 7.7 0 0 1 19.36 9.75L22.21 10.02A10.4 10.4 0 0 1 22.21 13.98L19.36 14.25A7.7 7.7 0 0 1 18.80 15.61L20.62 17.82A10.4 10.4 0 0 1 17.82 20.62L15.61 18.80A7.7 7.7 0 0 1 14.25 19.36L13.98 22.21A10.4 10.4 0 0 1 10.02 22.21L9.75 19.36A7.7 7.7 0 0 1 8.39 18.80L6.18 20.62A10.4 10.4 0 0 1 3.38 17.82L5.20 15.61A7.7 7.7 0 0 1 4.64 14.25L1.79 13.98A10.4 10.4 0 0 1 1.79 10.02L4.64 9.75A7.7 7.7 0 0 1 5.20 8.39L3.38 6.18A10.4 10.4 0 0 1 6.18 3.38L8.39 5.20A7.7 7.7 0 0 1 9.75 4.64Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.6"/><circle class="set-ico-dot" cx="12" cy="12" r="1.9"/></svg></button>
+<button class="eg-ico" type="button" id="go-eglence" aria-label="Eğlence"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.6 6.8h8.8a5.2 5.2 0 0 1 5.1 4.2l.85 4.5a2.7 2.7 0 0 1-4.6 2.3l-2.3-2.4H8.55l-2.3 2.4a2.7 2.7 0 0 1-4.6-2.3l.85-4.5a5.2 5.2 0 0 1 5.1-4.2z"/><path d="M7.9 9.7v3.4M6.2 11.4h3.4"/><circle class="eg-ico-dot" cx="15.6" cy="10.4" r="1.15"/><circle class="eg-ico-dot" cx="17.6" cy="12.6" r="1.15"/></svg></button>
 
 <div class="vt" id="vt" role="dialog" aria-modal="true" aria-label="Veri toplama" hidden>
   <div class="vt-step mid" id="vt-onay">
@@ -6163,6 +6324,8 @@ var BGX = (function () {
     sosyal: document.getElementById('v-sosyal'),
     tesekkur: document.getElementById('v-tesekkur'),
     kullanicilar: document.getElementById('v-kullanicilar'),
+    eglence: document.getElementById('v-eglence'),
+    hedef24: document.getElementById('v-hedef24'),
     liste: document.getElementById('v-liste'),
     soru: document.getElementById('v-soru')
   };
@@ -6624,6 +6787,7 @@ var BGX = (function () {
     if (name === 'kulup' && typeof Kulup !== 'undefined') { Kulup.render(); if (typeof Oylama !== 'undefined' && Oylama) Oylama.tazele(); if (typeof TalepForm !== 'undefined' && TalepForm) TalepForm.tazele(); }
     if (name === 'top' && tabThumb) tabThumb(true);
     if (name === 'veri') VT.refresh();
+    if (name === 'eglence' && typeof Hedef24 !== 'undefined' && Hedef24) Hedef24.ozet();
     if (name === 'tema') TemaUI.open();
     current = name;
     applyWood();
@@ -7560,6 +7724,201 @@ var BGX = (function () {
     if (E_VIEWS[current]) { revealTransition(this, true, goRoot); return; }
     revealTransition(this, false, function () { nav('top'); });
   });
+  /* Eğlence: sol alttaki ikon. Girerken bal porsuğu ekranı boydan boya koşarak geçer, sayfa arada açılır */
+  var PORSUK = '<svg class="porsuk-svg" viewBox="0 0 160 80" aria-hidden="true" focusable="false"> <defs><linearGradient id="pr-manto-k" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#CBC5B9"/><stop offset=".5" stop-color="#E6E1D7"/><stop offset="1" stop-color="#F3F0E9"/></linearGradient></defs> <ellipse class="pr-golge" cx="80" cy="66" rx="50" ry="3.2"/> <g class="pr-govde"> <g transform="translate(42 45)"><g class="pr-bacak pr-b"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#34343A"/><path d="M5 17.6l3.6.6M5 15.6l3.8-.3" stroke="#A9A49A" stroke-width="1.3" stroke-linecap="round"/></g></g> <g transform="translate(104 45)"><g class="pr-bacak pr-a"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#34343A"/><path d="M5 17.8l5.6.8M5 15.8l5.8-.1M4.8 13.8l5.4-.9" stroke="#A9A49A" stroke-width="1.3" stroke-linecap="round"/></g></g> <path d="M29 35C22 29 14 28 9.5 31C13.5 35 20 39 28 42Z" fill="#1E1E22"/> <path d="M9.5 31C14.5 28 22 28.5 29 34.5L28.6 37C22 32.6 15 31.6 9.5 31Z" fill="#CBC5B9"/> <path d="M28 42C26 28 40 18 66 17C92 16 110 20 118 28C124 34 124 46 116 52C104 58 52 58 40 54C32 51 29 47 28 42Z" fill="#1E1E22"/> <path d="M110 30C118 23 132 23 140 29C146 33 149 37 148 41C147 45 142 47 136 47L124 49C114 50 108 42 110 30Z" fill="#1E1E22"/> <path d="M27.4 40C26.4 27 40 15.6 66 15.2C92 14.8 110 18.6 118.4 25.6C123.6 22.8 133.4 23 141.6 29.6L138.6 32.8C131.6 30.6 124.6 30.8 118.4 32.2C104 29 86 28.2 66 28.6C48 29 36.4 32 29.2 42.4Z" fill="url(#pr-manto-k)"/> <circle cx="134.8" cy="36.4" r="1.9" fill="#0A0A0C"/><circle cx="135.4" cy="35.8" r=".6" fill="#FFFFFF"/> <circle cx="148.2" cy="40.2" r="2.4" fill="#0A0A0C"/> <g transform="translate(50 46)"><g class="pr-bacak pr-a"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#16161A"/><path d="M5 17.6l3.6.6M5 15.6l3.8-.3" stroke="#CFCAC0" stroke-width="1.3" stroke-linecap="round"/></g></g> <g transform="translate(112 46)"><g class="pr-bacak pr-b"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#16161A"/><path d="M5 17.8l5.6.8M5 15.8l5.8-.1M4.8 13.8l5.4-.9" stroke="#DCD8CF" stroke-width="1.3" stroke-linecap="round"/></g></g> </g> </svg>';
+  var egKosuyor = false;
+  function porsukGecis(sonra) {
+    if (reduce) { sonra(); return; }
+    if (egKosuyor) return; egKosuyor = true;
+    var kat = document.createElement('div'); kat.className = 'porsuk-kat'; kat.setAttribute('aria-hidden', 'true');
+    kat.innerHTML = '<div class="porsuk-kos">' + PORSUK + '</div>';
+    document.body.appendChild(kat);
+    var kos = kat.firstChild, bitti = false;
+    var bit = function () { if (bitti) return; bitti = true; kat.remove(); egKosuyor = false; };
+    kos.addEventListener('animationend', function (e) { if (e.target === kos) bit(); });
+    setTimeout(bit, 2600);
+    setTimeout(sonra, 600);
+  }
+  /* Hedef 24: dört sayının hepsini birer kez kullanarak 24 elde etme oyunu (özgün ad, tasarım ve bulmacalar) */
+  var Hedef24 = (function () {
+    function el(id) { return document.getElementById(id); }
+    var LK = 'matematik-cepte-hedef24-v1', OPS = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+    var tahta = el('h24-tahta'), taslar = Array.prototype.slice.call(tahta.querySelectorAll('.h24-tas')), opBtn = Array.prototype.slice.call(el('h24-ops').querySelectorAll('.h24-op'));
+    var mesajEl = el('h24-mesaj'), cozumEl = el('h24-cozum'), sonrakiBtn = el('h24-sonraki'), adimEl = el('h24-adimlar'), sureEl = el('h24-sure'), vEl = el('v-hedef24');
+    var o = null, ist = { cozulen: 0, seri: 0, eniyi: 0 }, secA = null, secO = null, ipucu = null, yeniI = -1, tick = null, mesajT = null;
+    function ortak(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var t = b; b = a % b; a = t; } return a; }
+    function q(n, d) { if (d < 0) { n = -n; d = -d; } var g = ortak(n, d) || 1; return { n: n / g, d: d / g }; }
+    function islem(a, b, op) {
+      if (op === '+') return q(a.n * b.d + b.n * a.d, a.d * b.d);
+      if (op === '-') return q(a.n * b.d - b.n * a.d, a.d * b.d);
+      if (op === '*') return q(a.n * b.n, a.d * b.d);
+      return b.n === 0 ? null : q(a.n * b.d, a.d * b.n);
+    }
+    function yaz(v) { var s = (v.n < 0 ? '−' : '') + Math.abs(v.n); return v.d === 1 ? s : s + '/' + v.d; }
+    function tasHtml(v) {
+      if (v.d === 1) return (v.n < 0 ? '−' : '') + Math.abs(v.n);
+      return (v.n < 0 ? '−' : '') + '<span class="h24-kesir"><span>' + Math.abs(v.n) + '</span><span>' + v.d + '</span></span>';
+    }
+    /* Bütün yolları dener; negatifsiz ve tam sayılı ara sonuçlarla giden yolu öne alır */
+    function coz(items) {
+      var en = null, sayi = 0, gorulen = {};
+      function r(list, yol, tam) {
+        if (list.length === 1) {
+          var v = list[0].v;
+          if (v.d === 1 && v.n === 24) { if (!gorulen[list[0].s]) { gorulen[list[0].s] = 1; sayi++; } if (!en || (tam && !en.tam)) en = { yol: yol, s: list[0].s, tam: tam }; }
+          return;
+        }
+        for (var i = 0; i < list.length; i++) for (var j = i + 1; j < list.length; j++) {
+          var a = list[i], b = list[j], kalan = list.filter(function (_, k) { return k !== i && k !== j; });
+          var secenek = [[a, b, '+'], [a, b, '*'], [a, b, '-'], [b, a, '-'], [a, b, '/'], [b, a, '/']];
+          for (var s = 0; s < secenek.length; s++) {
+            var x = secenek[s][0], y = secenek[s][1], op = secenek[s][2], v2 = islem(x.v, y.v, op);
+            if (!v2) continue;
+            r(kalan.concat([{ v: v2, s: '(' + x.s + ' ' + OPS[op] + ' ' + y.s + ')', id: 'a' + yol.length }]), yol.concat([{ a: x.id, b: y.id, o: op }]), tam && v2.d === 1 && v2.n >= 0);
+          }
+        }
+      }
+      r(items, [], true);
+      return en ? { yol: en.yol, s: en.s.replace(/^\(/, '').replace(/\)$/, ''), tam: en.tam, sayi: sayi } : { yol: null, sayi: 0 };
+    }
+    function ogeler(t) { var a = []; t.forEach(function (x, i) { if (x) a.push({ v: x.v, s: yaz(x.v), id: i }); }); return a; }
+    /* Bulmaca üretimi: Kolay çok yollu, Orta az yollu, Zor tek-iki yollu ya da kesirli/negatif ara sonuç isteyen */
+    function uret(z, once) {
+      var ust = z === 'zor' ? 13 : 9;
+      for (var d = 0; d < 6000; d++) {
+        var s = [0, 0, 0, 0].map(function () { return 1 + Math.floor(Math.random() * ust); });
+        if (once && s.slice().sort().join() === once.slice().sort().join()) continue;
+        var c = coz(s.map(function (x, i) { return { v: q(x, 1), s: String(x), id: i }; }));
+        if (!c.yol) continue;
+        var sinif = c.sayi <= 2 || !c.tam ? 'zor' : c.sayi >= 10 ? 'kolay' : 'orta';
+        if (sinif === z) return s;
+      }
+      return z === 'zor' ? [3, 3, 8, 8] : [1, 2, 3, 4];
+    }
+    function kaydet() { try { localStorage.setItem(LK, JSON.stringify({ o: o, ist: ist })); } catch (e) {} }
+    function yukle() {
+      try {
+        var d = JSON.parse(localStorage.getItem(LK) || 'null');
+        if (d && d.ist) ist = { cozulen: d.ist.cozulen | 0, seri: d.ist.seri | 0, eniyi: d.ist.eniyi | 0 };
+        if (d && d.o && Array.isArray(d.o.s) && d.o.s.length === 4 && Array.isArray(d.o.t) && d.o.t.length === 4 && /^(kolay|orta|zor)$/.test(d.o.z)) { o = d.o; o.gecmis = Array.isArray(o.gecmis) ? o.gecmis : []; o.adim = Array.isArray(o.adim) ? o.adim : []; }
+      } catch (e) {}
+    }
+    function yeniOyun(z) {
+      var s = uret(z, o && o.s);
+      o = { z: z, s: s, t: s.map(function (x) { return { v: q(x, 1) }; }), adim: [], gecmis: [], durum: 'oyna', gosterildi: false, sure: 0 };
+      secA = secO = ipucu = null; yeniI = -1; mesaj(''); kaydet(); ciz();
+    }
+    function mesaj(m, tur) { clearTimeout(mesajT); mesajEl.textContent = m || ''; mesajEl.className = 'h24-mesaj' + (tur ? ' ' + tur : ''); }
+    function sureYaz() { var s = o ? o.sure : 0; sureEl.textContent = ('0' + Math.floor(s / 60)).slice(-2) + ':' + ('0' + s % 60).slice(-2); }
+    function ciz() {
+      if (!o) return;
+      var oyna = o.durum === 'oyna';
+      taslar.forEach(function (b, i) {
+        var t = o.t[i];
+        b.className = 'h24-tas' + (t ? '' : ' bos') + (secA === i ? ' secili' : '') + (ipucu && (ipucu.a === i || ipucu.b === i) ? ' ipucu' : '') + (yeniI === i ? ' yeni' : '');
+        b.innerHTML = t ? tasHtml(t.v) : '';
+        b.disabled = !t;
+        b.setAttribute('aria-pressed', secA === i ? 'true' : 'false');
+        if (t) b.setAttribute('aria-label', yaz(t.v)); else b.removeAttribute('aria-label');
+      });
+      yeniI = -1;
+      tahta.classList.toggle('kazandi', o.durum === 'kazandi'); tahta.classList.toggle('olmadi', o.durum === 'olmadi');
+      opBtn.forEach(function (b) { var op = b.getAttribute('data-o'); b.setAttribute('aria-pressed', secO === op ? 'true' : 'false'); b.classList.toggle('ipucu', !!ipucu && ipucu.o === op); b.disabled = !oyna; });
+      adimEl.textContent = '';
+      o.adim.forEach(function (a, i) { var li = document.createElement('li'); var n = document.createElement('span'); n.textContent = i + 1; var t = document.createElement('span'); t.textContent = a; li.appendChild(n); li.appendChild(t); adimEl.appendChild(li); });
+      el('h24-cozulen').textContent = ist.cozulen; el('h24-seri').textContent = ist.seri; el('h24-eniyi').textContent = ist.eniyi;
+      el('h24-geri').disabled = !o.gecmis.length || o.durum === 'kazandi';
+      el('h24-bastan').disabled = !o.adim.length || o.durum === 'kazandi';
+      el('h24-ipucu').disabled = o.durum === 'kazandi';
+      el('h24-goster').disabled = o.durum === 'kazandi' || o.gosterildi;
+      sonrakiBtn.hidden = !(o.durum === 'kazandi' || o.gosterildi);
+      cozumEl.hidden = !o.gosterildi; if (o.gosterildi && !cozumEl.textContent) { var c = coz(o.s.map(function (x, i) { return { v: q(x, 1), s: String(x), id: i }; })); cozumEl.textContent = c.yol ? c.s + ' = 24' : ''; }
+      Array.prototype.forEach.call(el('h24-zorluk').querySelectorAll('[data-z]'), function (b) { b.setAttribute('aria-checked', b.getAttribute('data-z') === o.z ? 'true' : 'false'); });
+      sureYaz();
+    }
+    function an() { return { t: o.t.map(function (x) { return x ? { v: { n: x.v.n, d: x.v.d } } : null; }), adim: o.adim.slice() }; }
+    function birlestir(a, op, b) {
+      var A = o.t[a].v, B = o.t[b].v, v = islem(A, B, op);
+      if (!v) { secO = null; ciz(); mesaj("0'a bölme yapılamaz.", 'kotu'); return; }
+      o.gecmis.push(an());
+      o.adim.push(yaz(A) + ' ' + OPS[op] + ' ' + yaz(B) + ' = ' + yaz(v));
+      o.t[b] = { v: v }; o.t[a] = null; yeniI = b; secA = b; secO = null; ipucu = null; mesaj('');
+      if (o.t.filter(Boolean).length === 1) {
+        secA = null;
+        if (v.d === 1 && v.n === 24) {
+          o.durum = 'kazandi';
+          if (!o.gosterildi) { ist.cozulen++; ist.seri++; if (ist.seri > ist.eniyi) ist.eniyi = ist.seri; }
+          mesaj("Harika! 24'e ulaştın.", 'iyi');
+        } else { o.durum = 'olmadi'; mesaj('24 olmadı. Geri al ya da baştan dene.', 'kotu'); }
+      }
+      kaydet(); ciz();
+    }
+    tahta.addEventListener('click', function (e) {
+      var b = e.target.closest('.h24-tas'); if (!b || !o || o.durum !== 'oyna') return;
+      var i = +b.getAttribute('data-i'); if (!o.t[i]) return;
+      ipucu = null;
+      if (secA === null) secA = i;
+      else if (secA === i) { secA = null; secO = null; }
+      else if (secO === null) secA = i;
+      else { birlestir(secA, secO, i); return; }
+      mesaj(''); ciz();
+    });
+    el('h24-ops').addEventListener('click', function (e) {
+      var b = e.target.closest('.h24-op'); if (!b || !o || o.durum !== 'oyna') return;
+      if (secA === null) { mesaj('Önce bir sayı seç.'); return; }
+      var op = b.getAttribute('data-o'); secO = secO === op ? null : op; ciz();
+    });
+    el('h24-geri').addEventListener('click', function () {
+      if (!o || !o.gecmis.length || o.durum === 'kazandi') return;
+      var g = o.gecmis.pop(); o.t = g.t; o.adim = g.adim; o.durum = 'oyna'; secA = secO = ipucu = null; mesaj(''); kaydet(); ciz();
+    });
+    el('h24-bastan').addEventListener('click', function () {
+      if (!o || o.durum === 'kazandi') return;
+      o.t = o.s.map(function (x) { return { v: q(x, 1) }; }); o.adim = []; o.gecmis = []; o.durum = 'oyna'; secA = secO = ipucu = null; mesaj(''); kaydet(); ciz();
+    });
+    el('h24-ipucu').addEventListener('click', function () {
+      if (!o || o.durum === 'kazandi') return;
+      if (o.durum === 'olmadi') { mesaj('Önce geri al ya da baştan başla.', 'kotu'); return; }
+      var c = coz(ogeler(o.t));
+      if (!c.yol) { ipucu = null; ciz(); mesaj("Bu durumdan 24'e ulaşılamıyor. Geri al ya da baştan başla.", 'kotu'); return; }
+      ipucu = c.yol[0]; secA = null; secO = null; ciz();
+      mesaj('İpucu: ' + yaz(o.t[ipucu.a].v) + ' ' + OPS[ipucu.o] + ' ' + yaz(o.t[ipucu.b].v) + ' ile başla.');
+    });
+    el('h24-goster').addEventListener('click', function () {
+      if (!o || o.durum === 'kazandi' || o.gosterildi) return;
+      o.gosterildi = true; ist.seri = 0; cozumEl.textContent = ''; mesaj('Bu bulmaca seriye sayılmaz.'); kaydet(); ciz();
+    });
+    function sonraki() { if (o && o.durum !== 'kazandi' && !o.gosterildi) ist.seri = 0; cozumEl.textContent = ''; yeniOyun(o ? o.z : 'kolay'); }
+    el('h24-yeni').addEventListener('click', sonraki);
+    sonrakiBtn.addEventListener('click', function () { sonraki(); try { taslar[0].focus({ preventScroll: true }); } catch (e) {} });
+    el('h24-zorluk').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-z]'); if (!b || !o) return; var z = b.getAttribute('data-z'); if (z === o.z) return;
+      if (o.durum !== 'kazandi' && !o.gosterildi && o.adim.length) ist.seri = 0;
+      cozumEl.textContent = ''; yeniOyun(z);
+    });
+    function saat() {
+      clearInterval(tick);
+      tick = setInterval(function () {
+        if (vEl.hidden) { clearInterval(tick); tick = null; kaydet(); return; }
+        if (document.hidden || !o || o.durum !== 'oyna') return;
+        o.sure++; sureYaz(); if (o.sure % 10 === 0) kaydet();
+      }, 1000);
+    }
+    function ozet() {
+      if (!o && !ist.cozulen) yukle();
+      el('eg-h24-s').textContent = ist.cozulen ? ist.cozulen + ' çözülen · seri ' + ist.seri + ' · en iyi ' + ist.eniyi : "Dört sayıyla 24'e ulaş";
+    }
+    return {
+      ac: function () { if (!o) yukle(); if (!o) yeniOyun('kolay'); secA = secO = ipucu = null; mesaj(o.durum === 'kazandi' ? "Harika! 24'e ulaştın." : o.durum === 'olmadi' ? '24 olmadı. Geri al ya da baştan dene.' : '', o.durum === 'kazandi' ? 'iyi' : o.durum === 'olmadi' ? 'kotu' : ''); ciz(); saat(); },
+      ozet: ozet
+    };
+  })();
+  document.getElementById('go-eglence').addEventListener('click', function () {
+    if (current !== 'home') return;
+    porsukGecis(function () { Hedef24.ozet(); nav('eglence'); });
+  });
+  document.getElementById('go-hedef24').addEventListener('click', function () { Hedef24.ac(); nav('hedef24'); });
+
   /* Matematikçiler */
   document.getElementById('go-mat').addEventListener('click', function () { secTransition(false, 'mat', 'mat', function () { nav('mat'); }); });
   document.querySelectorAll('.mrow').forEach(function (b) {
