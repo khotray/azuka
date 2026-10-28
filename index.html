@@ -834,7 +834,7 @@ html.giris-acik .set-ico, html.giris-acik .e-ico { visibility: hidden; }
 .ku-etiket svg { width: 14px; height: 14px; }
 .pl-btn.ku-var { cursor: default; }
 .pl-btn.ku-var:active { background: none; }
-#ku-liste:empty, #ku-liste[hidden] { display: none; }
+#km-liste:empty, #km-liste[hidden] { display: none; }
 .kl-kilit { margin: 0; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; border: 1px dashed var(--line); color: var(--muted); font-size: 14.5px; }
 .kl-kilit svg { width: 20px; height: 20px; flex: none; }
 .kl-kilit[hidden] { display: none; }
@@ -2597,17 +2597,17 @@ button.ot:active { transform: scale(.97); }
         </div>
         <p class="kl-durum" id="ky-durum" role="status" hidden></p>
       </section>
-      <section class="kl-sec" aria-labelledby="ku-h">
-        <div class="kl-sec-ust"><h3 class="kl-bas" id="ku-h">Üyeler <small id="ku-say"></small></h3><button class="oy-ac" type="button" id="ku-ekle" aria-expanded="false" aria-controls="ku-sec" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Üye ekle</span></button></div>
-        <div class="ky-sec" id="ku-sec" hidden>
+      <section class="kl-sec" aria-labelledby="km-h">
+        <div class="kl-sec-ust"><h3 class="kl-bas" id="km-h">Üyeler <small id="km-say"></small></h3><button class="oy-ac" type="button" id="km-ekle" aria-expanded="false" aria-controls="km-sec" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Üye ekle</span></button></div>
+        <div class="ky-sec" id="km-sec" hidden>
           <p class="ky-sec-bas">Kulübe eklenecek kişiyi seç</p>
-          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="ku-ara" type="search" placeholder="Kişi ara" aria-label="Kişi ara" autocomplete="off"></label>
-          <ul class="plist ky-sec-liste" id="ku-sec-liste"></ul>
-          <div class="oy-btns"><button class="oy-vazgec" type="button" id="ku-kapat">Kapat</button></div>
+          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="km-ara" type="search" placeholder="Kişi ara" aria-label="Kişi ara" autocomplete="off"></label>
+          <ul class="plist ky-sec-liste" id="km-sec-liste"></ul>
+          <div class="oy-btns"><button class="oy-vazgec" type="button" id="km-kapat">Kapat</button></div>
         </div>
-        <ul class="kl-kart kl-yon" id="ku-liste"></ul>
-        <p class="oy-bos" id="ku-bos" hidden>Henüz üye yok.</p>
-        <p class="kl-durum" id="ku-durum" role="status" hidden></p>
+        <ul class="kl-kart kl-yon" id="km-liste"></ul>
+        <p class="oy-bos" id="km-bos" hidden>Henüz üye yok.</p>
+        <p class="kl-durum" id="km-durum" role="status" hidden></p>
       </section>
       <section class="kl-sec" aria-labelledby="kl-etk-h">
         <h3 class="kl-bas" id="kl-etk-h">Son etkinlikler</h3>
@@ -8472,8 +8472,8 @@ var BGX = (function () {
         li.appendChild(row); return li;
     }
     /* Üyeler: başkan, başkan yardımcısı, sosyal medya sorumlusu ve kulübün hocası kişi ekler, çıkarır */
-    var kuListe = document.getElementById('ku-liste'), kuSay = document.getElementById('ku-say'), kuEkle = document.getElementById('ku-ekle'), kuSec = document.getElementById('ku-sec');
-    var kuAra = document.getElementById('ku-ara'), kuSecListe = document.getElementById('ku-sec-liste'), kuDurum = document.getElementById('ku-durum'), kuBos = document.getElementById('ku-bos');
+    var kuListe = document.getElementById('km-liste'), kuSay = document.getElementById('km-say'), kuEkle = document.getElementById('km-ekle'), kuSec = document.getElementById('km-sec');
+    var kuAra = document.getElementById('km-ara'), kuSecListe = document.getElementById('km-sec-liste'), kuDurum = document.getElementById('km-durum'), kuBos = document.getElementById('km-bos');
     var kuKisiler = [], kuTur = 0, kuSecBekle = false, uyePill = adEl.parentNode.querySelector('.kl-uye'), uyeSayEl = document.getElementById('kl-uye');
     var TIK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
     function kuMesaj(m, err) { kuDurum.textContent = m || ''; kuDurum.hidden = !m; kuDurum.classList.toggle('hata', !!err); }
@@ -8540,7 +8540,7 @@ var BGX = (function () {
       Hesap.kullanicilar().then(function (l) { kuKisiler = l; if (!kuSec.hidden) kuSecCiz(); }, function () { kuMesaj('Kullanıcılar yüklenemedi.', true); });
       try { kuAra.focus(); } catch (e) {}
     });
-    document.getElementById('ku-kapat').addEventListener('click', function () { kuSecKapat(); try { kuEkle.focus(); } catch (e) {} });
+    document.getElementById('km-kapat').addEventListener('click', function () { kuSecKapat(); try { kuEkle.focus(); } catch (e) {} });
     kuAra.addEventListener('input', kuSecCiz);
     kuSecListe.addEventListener('click', function (e) {
       var b = e.target.closest('[data-uye-ekle]'); if (!b || kuSecBekle) return;
