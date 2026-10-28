@@ -829,6 +829,52 @@ html.giris-acik .set-ico, html.giris-acik .e-ico { visibility: hidden; }
 #gp-liste[hidden], #gp-bos[hidden] { display: none; }
 .gp-uye-sil { margin-left: auto; height: 32px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--line); background: none; color: var(--muted); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
 .ky-arac button.onay { background: #DC2626; color: #FFFFFF; border-color: transparent; }
+/* Kulüp sayfası: kapak başlığı, başkan düğmesi, yönetim paneli, sekmeler, sabitlenmiş mesaj */
+#v-kulup .kl-head { position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; column-gap: 16px; row-gap: 14px; padding: 30px 18px 16px; }
+#v-kulup .kl-head > .kl-av { align-self: start; }
+#v-kulup .kl-head::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 64px; background: linear-gradient(120deg, var(--av, #2563EB), color-mix(in srgb, var(--av, #2563EB) 55%, #FFFFFF)); opacity: .9; }
+#v-kulup .kl-head > * { position: relative; }
+#v-kulup .kl-av { width: 76px; height: 76px; border: 4px solid var(--surface); box-shadow: 0 10px 22px -12px var(--av, #2563EB); }
+#v-kulup .kl-hd { padding-top: 40px; padding-bottom: 2px; }
+.kl-baskan { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); font-family: inherit; text-align: left; cursor: pointer; transition: background-color .15s ease, border-color .15s ease; }
+.kl-baskan:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.kl-baskan[aria-expanded="true"] { border-color: color-mix(in srgb, var(--av, #2563EB) 45%, transparent); background: color-mix(in srgb, var(--av, #2563EB) 7%, var(--surface)); }
+.kb-av { width: 36px; height: 36px; border-radius: 50%; flex: none; display: grid; place-items: center; font-size: 13.5px; font-weight: 700; color: var(--av, #2563EB); background: color-mix(in srgb, var(--av, #2563EB) 14%, transparent); }
+.kb-txt { display: flex; flex-direction: column; min-width: 0; }
+.kb-rol { font-size: 11.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--av, #2563EB); }
+.kb-ad { font-size: 15.5px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kb-ipucu { margin-left: auto; flex: none; font-size: 13px; font-weight: 600; color: var(--muted); }
+.kb-ok { width: 18px; height: 18px; flex: none; color: var(--muted); transition: transform .2s ease; }
+.kl-baskan[aria-expanded="true"] .kb-ok { transform: rotate(180deg); }
+.kl-yonetim { animation: kyAc .22s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes kyAc { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.ky-unvan { grid-template-columns: 1fr; }
+.ky-unvan button { white-space: normal; height: auto; min-height: 36px; padding: 6px 10px; }
+.kl-sekme-kap { margin-top: 2px; padding: 4px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.kl-sekmeler { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; }
+.kl-sekmeler.sag { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent); }
+.kl-sekmeler.sol { -webkit-mask-image: linear-gradient(90deg, transparent, #000 36px); mask-image: linear-gradient(90deg, transparent, #000 36px); }
+.kl-sekmeler.sol.sag { -webkit-mask-image: linear-gradient(90deg, transparent, #000 36px, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(90deg, transparent, #000 36px, #000 calc(100% - 36px), transparent); }
+.kl-sekmeler::-webkit-scrollbar { display: none; }
+.kl-sekme { flex: 1 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 38px; padding: 0 13px; border: 0; border-radius: 10px; background: none; color: var(--muted); font-family: inherit; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: background-color .15s ease, color .15s ease; }
+.kl-sekme[aria-selected="true"] { background: var(--av, #2563EB); color: #FFFFFF; box-shadow: 0 6px 14px -9px var(--av, #2563EB); }
+.kl-sekme:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.kl-rozet { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; display: inline-grid; place-items: center; font-size: 12px; font-weight: 700; background: #DC2626; color: #FFFFFF; }
+.kl-panel { display: flex; flex-direction: column; gap: 14px; }
+.kl-panel .kl-sec-ust { justify-content: flex-end; }
+.kl-panel .kl-sec-ust:has(> .oy-ac[hidden]) { display: none; }
+.kl-pin { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 16px; border: 1px solid color-mix(in srgb, var(--av, #2563EB) 45%, transparent); background: color-mix(in srgb, var(--av, #2563EB) 8%, var(--surface)); }
+.kl-pin-ust { display: flex; align-items: center; gap: 8px; }
+.kl-pin-ic { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; color: #FFFFFF; background: var(--av, #2563EB); flex: none; }
+.kl-pin-ic svg { width: 16px; height: 16px; }
+.kl-pin-l { font-size: 12.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--av, #2563EB); }
+.kl-pin-kaldir { margin-left: auto; height: 30px; padding: 0 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.kl-pin-alt { margin: 0; font-size: 13px; color: var(--muted); }
+.kp-pin { flex: none; margin: -6px -2px -6px auto; width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 10px; background: none; color: var(--muted); cursor: pointer; }
+.kp-pin svg { width: 18px; height: 18px; }
+.kp-pin + .kp-sil { margin-left: 0; }
+.kp-pin:active { background: var(--line); }
+@media (prefers-reduced-motion: reduce) { .kl-yonetim { animation: none; } .kb-ok, .kl-sekme { transition: none; } }
 /* Kulübe katılma talebi */
 .kt-kart { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px 14px; padding: 16px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
 .kt-ic { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; color: var(--av, #2563EB); background: color-mix(in srgb, var(--av, #2563EB) 13%, transparent); }
@@ -2596,55 +2642,69 @@ button.ot:active { transform: scale(.97); }
       <header class="kl-head">
         <span class="kl-av" id="kl-av" aria-hidden="true">A</span>
         <div class="kl-hd">
-          <span class="eyebrow">Kulüp bilgisi</span>
+          <span class="eyebrow">Kulüp</span>
           <h2 id="kl-ad">Kulüp A</h2>
           <p class="kl-uye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="7.5" r="3.5"/><path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.2a3.5 3.5 0 0 1 0 6.6"/></svg><span id="kl-uye">x üye</span></p>
         </div>
+        <button class="kl-baskan" type="button" id="kl-baskan" aria-expanded="false" aria-controls="kl-yonetim">
+          <span class="kb-av" id="kb-av" aria-hidden="true"></span>
+          <span class="kb-txt"><span class="kb-rol">Başkan</span><span class="kb-ad" id="kb-ad">Henüz atanmadı</span></span>
+          <span class="kb-ipucu">Yönetim</span><svg class="kb-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
       </header>
-      <div class="kt-kart" id="kt-kart" hidden>
-        <span class="kt-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 3 17.5V19"/><circle cx="9" cy="7.5" r="3.5"/><path d="M19 8v6M16 11h6"/></svg></span>
-        <div class="kt-txt"><p class="kt-t" id="kt-t">Bu kulübün üyesi değilsin.</p><p class="kt-s" id="kt-s"></p></div>
-        <button class="kl-paylas" type="button" id="kt-gonder"><span>Katılma talebi gönder</span></button>
-        <p class="kl-durum" id="kt-durum" role="status" hidden></p>
-      </div>
-      <section class="kl-sec" aria-labelledby="kl-yon-h">
-        <h3 class="kl-bas" id="kl-yon-h">Yönetim</h3>
+      <section class="kl-sec kl-yonetim" id="kl-yonetim" aria-labelledby="kl-yon-h" hidden>
+        <h3 class="kl-bas" id="kl-yon-h">Yönetim kurulu</h3>
         <ul class="kl-kart kl-yon" id="kl-yon"></ul>
         <div class="ky-arac" id="ky-arac" hidden></div>
         <div class="ky-sec" id="ky-sec" hidden>
           <p class="ky-sec-bas" id="ky-sec-bas">Başkanı seç</p>
+          <div class="oy-sure ky-unvan" id="ky-unvan" role="radiogroup" aria-label="Görev" hidden>
+            <button type="button" role="radio" aria-checked="true" data-unvan="sorumlu_yardimci">Sorumlu başkan yardımcısı</button>
+            <button type="button" role="radio" aria-checked="false" data-unvan="fahri_uye">Fahri yönetim kurulu üyesi</button>
+            <button type="button" role="radio" aria-checked="false" data-unvan="fahri_danisman">Fahri danışman</button>
+          </div>
           <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="ky-ara" type="search" placeholder="Ad ya da ID ile ara" aria-label="Ad ya da ID ile ara" autocomplete="off"></label>
           <ul class="plist ky-sec-liste" id="ky-sec-liste"></ul>
           <div class="oy-btns"><button class="oy-vazgec" type="button" id="ky-vazgec">Vazgeç</button></div>
         </div>
         <p class="kl-durum" id="ky-durum" role="status" hidden></p>
       </section>
-      <section class="kl-sec" aria-labelledby="km-h">
-        <div class="kl-sec-ust"><h3 class="kl-bas" id="km-h">Üyeler <small id="km-say"></small></h3><button class="oy-ac" type="button" id="km-ekle" aria-expanded="false" aria-controls="km-sec" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Üye ekle</span></button></div>
-        <div class="ky-sec" id="km-sec" hidden>
-          <p class="ky-sec-bas">Kulübe eklenecek kişiyi seç</p>
-          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="km-ara" type="search" placeholder="Ad ya da ID ile ara" aria-label="Ad ya da ID ile ara" autocomplete="off"></label>
-          <ul class="plist ky-sec-liste" id="km-sec-liste"></ul>
-          <div class="oy-btns"><button class="oy-vazgec" type="button" id="km-kapat">Kapat</button></div>
+      <div class="kt-kart" id="kt-kart" hidden>
+        <span class="kt-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 3 17.5V19"/><circle cx="9" cy="7.5" r="3.5"/><path d="M19 8v6M16 11h6"/></svg></span>
+        <div class="kt-txt"><p class="kt-t" id="kt-t">Bu kulübün üyesi değilsin.</p><p class="kt-s" id="kt-s"></p></div>
+        <button class="kl-paylas" type="button" id="kt-gonder"><span>Katılma talebi gönder</span></button>
+        <p class="kl-durum" id="kt-durum" role="status" hidden></p>
+      </div>
+      <div class="kl-pin" id="kl-pin" hidden>
+        <div class="kl-pin-ust"><span class="kl-pin-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3.5h5l-.8 5.2 3.3 3.1v1.7H7v-1.7l3.3-3.1z"/><path d="M12 13.5v7"/></svg></span><span class="kl-pin-l">Sabitlenmiş mesaj</span><button class="kl-pin-kaldir" type="button" id="kl-pin-kaldir" hidden>Sabitlemeyi kaldır</button></div>
+        <p class="kp-m" id="kl-pin-m"></p>
+        <p class="kl-pin-alt" id="kl-pin-alt"></p>
+      </div>
+      <div class="kl-sekme-kap"><div class="kl-sekmeler" role="tablist" aria-label="Kulüp bölümleri" id="kl-sekmeler">
+        <button class="kl-sekme" type="button" role="tab" id="kls-paylasim" aria-controls="klp-paylasim" aria-selected="true" tabindex="0" data-sekme="paylasim"><span>Paylaşımlar</span></button>
+        <button class="kl-sekme" type="button" role="tab" id="kls-oylama" aria-controls="klp-oylama" aria-selected="false" tabindex="-1" data-sekme="oylama"><span>Oylamalar</span></button>
+        <button class="kl-sekme" type="button" role="tab" id="kls-form" aria-controls="klp-form" aria-selected="false" tabindex="-1" data-sekme="form"><span>Talep formları</span></button>
+        <button class="kl-sekme" type="button" role="tab" id="kls-uye" aria-controls="klp-uye" aria-selected="false" tabindex="-1" data-sekme="uye"><span>Üyeler</span><span class="kl-rozet" id="kls-uye-n" hidden></span></button>
+        <button class="kl-sekme" type="button" role="tab" id="kls-etkinlik" aria-controls="klp-etkinlik" aria-selected="false" tabindex="-1" data-sekme="etkinlik"><span>Etkinlikler</span></button>
+      </div></div>
+      <div class="kl-panel" role="tabpanel" id="klp-paylasim" aria-labelledby="kls-paylasim">
+        <form class="kl-yaz" id="kl-yaz" novalidate>
+        <label class="sr-only" for="kl-metin">Paylaşım metni</label>
+        <textarea id="kl-metin" rows="3" maxlength="500" placeholder="Kulüpte bir şey paylaş…"></textarea>
+        <label class="kl-adina" id="kl-adina-k" hidden><input type="checkbox" id="kl-adina"><span class="kl-adina-k"></span><span>Kulüp adına paylaş</span></label>
+        <div class="kl-yaz-alt">
+          <span class="kl-say" id="kl-say" aria-hidden="true">0/500</span>
+          <button class="kl-paylas" type="submit" id="kl-paylas" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L10 14"/><path d="M21 3l-6.5 18-4.5-7-7-4.5z"/></svg><span>Paylaş</span></button>
         </div>
-        <div class="kt-gelen" id="kt-gelen" hidden>
-          <p class="ky-sec-bas">Katılma talepleri <small id="kt-gelen-say"></small></p>
-          <ul class="kl-kart kl-yon" id="kt-liste"></ul>
-        </div>
-        <ul class="kl-kart kl-yon" id="km-liste"></ul>
-        <p class="oy-bos" id="km-bos" hidden>Henüz üye yok.</p>
-        <p class="kl-durum" id="km-durum" role="status" hidden></p>
-      </section>
-      <section class="kl-sec" aria-labelledby="kl-etk-h">
-        <h3 class="kl-bas" id="kl-etk-h">Son etkinlikler</h3>
-        <ol class="kl-kart kl-etk">
-          <li class="ke-row"><span class="ke-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span class="ky-txt"><span class="ke-ad">Etkinlik 1</span><span class="ke-s">Tarih ve yer eklenecek</span></span></li>
-          <li class="ke-row"><span class="ke-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span class="ky-txt"><span class="ke-ad">Etkinlik 2</span><span class="ke-s">Tarih ve yer eklenecek</span></span></li>
-          <li class="ke-row"><span class="ke-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span class="ky-txt"><span class="ke-ad">Etkinlik 3</span><span class="ke-s">Tarih ve yer eklenecek</span></span></li>
-        </ol>
-      </section>
-      <section class="kl-sec" aria-labelledby="kl-oy-h">
-        <div class="kl-sec-ust"><h3 class="kl-bas" id="kl-oy-h">Oylamalar</h3><button class="oy-ac" type="button" id="oy-ac" aria-expanded="false" aria-controls="oy-form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Oylama aç</span></button></div>
+        <p class="kl-durum" id="kl-durum" role="status" hidden></p>
+      </form>
+      <h3 class="kl-bas sr-only">Paylaşımlar <small id="kl-sayi"></small></h3>
+      <ul class="kl-akis" id="kl-akis"></ul>
+      <p class="empty" id="kl-bos">Henüz paylaşım yok. İlk paylaşımı sen yap.</p>
+      </div>
+      <div class="kl-panel" role="tabpanel" id="klp-oylama" aria-labelledby="kls-oylama" hidden>
+        <section class="kl-sec" aria-labelledby="kl-oy-h">
+        <div class="kl-sec-ust"><h3 class="kl-bas sr-only" id="kl-oy-h">Oylamalar</h3><button class="oy-ac" type="button" id="oy-ac" aria-expanded="false" aria-controls="oy-form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Oylama aç</span></button></div>
         <form class="oy-form" id="oy-form" hidden novalidate>
           <label class="oy-l" for="oy-soru">Soru</label>
           <input class="oy-in" id="oy-soru" maxlength="140" placeholder="Ne oylansın?" autocomplete="off">
@@ -2665,8 +2725,10 @@ button.ot:active { transform: scale(.97); }
         <ul class="oy-liste" id="oy-liste"></ul>
         <p class="oy-bos" id="oy-bos">Henüz oylama yok.</p>
       </section>
-      <section class="kl-sec" aria-labelledby="kl-tf-h">
-        <div class="kl-sec-ust"><h3 class="kl-bas" id="kl-tf-h">Talep formları</h3><button class="oy-ac" type="button" id="tf-ac" aria-expanded="false" aria-controls="tf-form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Form aç</span></button></div>
+      </div>
+      <div class="kl-panel" role="tabpanel" id="klp-form" aria-labelledby="kls-form" hidden>
+        <section class="kl-sec" aria-labelledby="kl-tf-h">
+        <div class="kl-sec-ust"><h3 class="kl-bas sr-only" id="kl-tf-h">Talep formları</h3><button class="oy-ac" type="button" id="tf-ac" aria-expanded="false" aria-controls="tf-form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Form aç</span></button></div>
         <form class="oy-form" id="tf-form" hidden novalidate>
           <label class="oy-l" for="tf-baslik">Başlık</label>
           <input class="oy-in" id="tf-baslik" maxlength="100" placeholder="Örneğin: Bu dönem için etkinlik önerileri" autocomplete="off">
@@ -2686,19 +2748,35 @@ button.ot:active { transform: scale(.97); }
         <ul class="oy-liste" id="tf-liste"></ul>
         <p class="oy-bos" id="tf-bos">Henüz talep formu yok.</p>
       </section>
-      <form class="kl-yaz" id="kl-yaz" novalidate>
-        <label class="sr-only" for="kl-metin">Paylaşım metni</label>
-        <textarea id="kl-metin" rows="3" maxlength="500" placeholder="Kulüpte bir şey paylaş…"></textarea>
-        <label class="kl-adina" id="kl-adina-k" hidden><input type="checkbox" id="kl-adina"><span class="kl-adina-k"></span><span>Kulüp adına paylaş</span></label>
-        <div class="kl-yaz-alt">
-          <span class="kl-say" id="kl-say" aria-hidden="true">0/500</span>
-          <button class="kl-paylas" type="submit" id="kl-paylas" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L10 14"/><path d="M21 3l-6.5 18-4.5-7-7-4.5z"/></svg><span>Paylaş</span></button>
+      </div>
+      <div class="kl-panel" role="tabpanel" id="klp-uye" aria-labelledby="kls-uye" hidden>
+        <section class="kl-sec" aria-labelledby="km-h">
+        <div class="kl-sec-ust"><h3 class="kl-bas sr-only" id="km-h">Üyeler <small id="km-say"></small></h3><button class="oy-ac" type="button" id="km-ekle" aria-expanded="false" aria-controls="km-sec" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Üye ekle</span></button></div>
+        <div class="ky-sec" id="km-sec" hidden>
+          <p class="ky-sec-bas">Kulübe eklenecek kişiyi seç</p>
+          <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="km-ara" type="search" placeholder="Ad ya da ID ile ara" aria-label="Ad ya da ID ile ara" autocomplete="off"></label>
+          <ul class="plist ky-sec-liste" id="km-sec-liste"></ul>
+          <div class="oy-btns"><button class="oy-vazgec" type="button" id="km-kapat">Kapat</button></div>
         </div>
-        <p class="kl-durum" id="kl-durum" role="status" hidden></p>
-      </form>
-      <h3 class="kl-bas">Paylaşımlar <small id="kl-sayi"></small></h3>
-      <ul class="kl-akis" id="kl-akis"></ul>
-      <p class="empty" id="kl-bos">Henüz paylaşım yok. İlk paylaşımı sen yap.</p>
+        <div class="kt-gelen" id="kt-gelen" hidden>
+          <p class="ky-sec-bas">Katılma talepleri <small id="kt-gelen-say"></small></p>
+          <ul class="kl-kart kl-yon" id="kt-liste"></ul>
+        </div>
+        <ul class="kl-kart kl-yon" id="km-liste"></ul>
+        <p class="oy-bos" id="km-bos" hidden>Henüz üye yok.</p>
+        <p class="kl-durum" id="km-durum" role="status" hidden></p>
+      </section>
+      </div>
+      <div class="kl-panel" role="tabpanel" id="klp-etkinlik" aria-labelledby="kls-etkinlik" hidden>
+        <section class="kl-sec" aria-labelledby="kl-etk-h">
+        <h3 class="kl-bas sr-only" id="kl-etk-h">Son etkinlikler</h3>
+        <ol class="kl-kart kl-etk">
+          <li class="ke-row"><span class="ke-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span class="ky-txt"><span class="ke-ad">Etkinlik 1</span><span class="ke-s">Tarih ve yer eklenecek</span></span></li>
+          <li class="ke-row"><span class="ke-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span class="ky-txt"><span class="ke-ad">Etkinlik 2</span><span class="ke-s">Tarih ve yer eklenecek</span></span></li>
+          <li class="ke-row"><span class="ke-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span class="ky-txt"><span class="ke-ad">Etkinlik 3</span><span class="ke-s">Tarih ve yer eklenecek</span></span></li>
+        </ol>
+      </section>
+      </div>
     </div>
   </section>
 
@@ -7592,11 +7670,13 @@ var BGX = (function () {
   function kulupRenk(k) { return (KULUP_INFO[k] && KULUP_INFO[k].renk) || 'var(--av1)'; }
   /* Hesap: kimlik, rol (geliştirici, matematikçi, standart), kullanıcı kaydı ve kulüp yönetimi (başkan, yetkili) */
   var ROLLER = { standart: 'Standart', matematikci: 'Matematikçi', gelistirici: 'Geliştirici' };
+  /* Yönetim kuruluna başkan ve sosyal medya sorumlusunun eklediği ünvanlar (kulup_ekip/<kulüp>) */
+  var EKIP_UNVAN = { sorumlu_yardimci: 'Sorumlu başkan yardımcısı', fahri_uye: 'Fahri yönetim kurulu üyesi', fahri_danisman: 'Fahri danışman' };
   /* Kişi ID'si: hesap oluşturma sırasına göre 000000'dan başlayan 6 haneli numara (numara/<kimlik>) */
   function idYaz(n) { return typeof n === 'number' && n >= 0 && (n | 0) === n ? ('00000' + n).slice(-Math.max(6, String(n).length)) : ''; }
   function kisiEslesir(u, q) { if (!q) return true; var r = q.replace(/^#|^id\s*/i, ''); return u.ad.toLocaleLowerCase('tr-TR').indexOf(q) >= 0 || (!!u.no && /^\d+$/.test(r) && u.no.indexOf(r) >= 0); }
   var Hesap = (function () {
-    var db = null, usr = null, uid = null, rol = 'standart', hazir = null, dinleyen = [], yon = {}, prof = {}, uyelik = {}, yonY = false, uyeY = false, numaralar = {}, talepler = {}, talepAbone = {};
+    var db = null, usr = null, uid = null, rol = 'standart', hazir = null, dinleyen = [], yon = {}, prof = {}, uyelik = {}, yonY = false, uyeY = false, numaralar = {}, talepler = {}, talepAbone = {}, ekip = {};
     function str(v) { return typeof v === 'string' && v.length > 0 && v.length <= 128 ? v : null; }
     function bildir() { dinleyen.forEach(function (f) { try { f(); } catch (e) {} }); }
     function bagla() {
@@ -7638,6 +7718,14 @@ var BGX = (function () {
               var o = {}; q.docs.forEach(function (d) { var b = d.data() || {}; if (KULUP_RE.test(d.id) && Array.isArray(b.uyeler)) o[d.id] = b.uyeler.filter(function (x) { return !!str(x); }).slice(0, 1000); });
               uyelik = o; uyeY = true; bildir();
             }, function () { uyeY = true; bildir(); });
+            db.collection('kulup_ekip').limit(500).onSnapshot(function (q) {
+              var o = {};
+              q.docs.forEach(function (d) {
+                var b = d.data() || {}; if (!KULUP_RE.test(d.id) || !Array.isArray(b.liste)) return;
+                o[d.id] = b.liste.filter(function (x) { return x && str(x.u) && EKIP_UNVAN[x.g]; }).slice(0, 40).map(function (x) { return { u: x.u, g: x.g }; });
+              });
+              ekip = o; bildir();
+            }, function () {});
             db.collection('numara').limit(5000).onSnapshot(function (q) {
               var o = {}; q.docs.forEach(function (d) { var b = d.data() || {}; if (idYaz(b.no)) o[d.id] = idYaz(b.no); });
               numaralar = o; bildir();
@@ -7696,6 +7784,12 @@ var BGX = (function () {
       tumUyeler: tumUyeler, uyeSayisi: function (k) { return tumUyeler(k).length; },
       uyeMi: uyeMi, hocaMi: hocaMi,
       numara: function (id) { return numaralar[id || uid] || ''; },
+      ekip: function (k) { return (ekip[k] || []).slice(); },
+      ekipYaz: function (k, liste) {
+        if (!db || !KULUP_RE.test(k)) return Promise.reject();
+        var once = ekip[k]; ekip[k] = liste; bildir();
+        return db.doc('kulup_ekip/' + k).set({ liste: liste, t: Date.now() }).catch(function (e) { ekip[k] = once; bildir(); throw e; });
+      },
       gorurMu: function (k) { return !db || uyeMi(k) || hocaMi(k); },
       /* Üye ekleme ve katılma taleplerini onaylama yalnızca başkan, başkan yardımcısı ve sosyal medya sorumlusunda */
       uyeEkleyebilirMi: function (k) { var y = yon[k]; return !!db && !!uid && !!y && (y.baskan === uid || y.yardimci === uid || y.sosyal === uid); },
@@ -8261,6 +8355,21 @@ var BGX = (function () {
     kilitP.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg><span>Paylaşımları yalnızca kulüp üyeleri görebilir.</span>';
     akis.parentNode.insertBefore(kilitP, akis);
     var aboneDurum = null;
+    /* Sabitlenmiş mesaj: kulup_pin/<kulüp> { p: paylaşım }; yalnızca başkan ve sosyal medya sorumlusu sabitler */
+    var PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3.5h5l-.8 5.2 3.3 3.1v1.7H7v-1.7l3.3-3.1z"/><path d="M12 13.5v7"/></svg>', LPIN = 'matematik-cepte-kulup-pin-v1', pinId = null, pinUnsub = null;
+    var pinEl = document.getElementById('kl-pin'), pinM = document.getElementById('kl-pin-m'), pinAlt = document.getElementById('kl-pin-alt'), pinKaldir = document.getElementById('kl-pin-kaldir');
+    function yerelPin() { try { var o = JSON.parse(localStorage.getItem(LPIN) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+    function pinleyebilir() { return mode === 'yerel' || (canWrite && Hesap.paylasabilirMi(cur)); }
+    function pinYaz(k, id) {
+      var once = pinId; pinId = id; render();
+      if (mode === 'yerel') { var o = yerelPin(); if (id) o[k] = id; else delete o[k]; try { localStorage.setItem(LPIN, JSON.stringify(o)); } catch (e) {} return; }
+      if (!db || !uid) return;
+      var ref = db.doc('kulup_pin/' + k);
+      (id ? ref.set({ p: id, u: uid, t: Date.now() }) : ref.delete()).then(function () { if (cur === k) setDurum(id ? 'Mesaj kulüp sayfasının en üstüne sabitlendi.' : ''); }, function () {
+        if (cur === k) { pinId = once; render(); setDurum('Sabitlenemedi. Yalnızca başkan ve sosyal medya sorumlusu sabitleyebilir.', true); }
+      });
+    }
+    pinKaldir.addEventListener('click', function () { if (pinleyebilir()) pinYaz(cur, null); });
     function gorDurum(k) { if (mode === 'yerel') return 'acik'; if (!Hesap.hazirMi() || !Hesap.uyelikHazir()) return 'bekle'; return Hesap.gorurMu(k) ? 'acik' : 'kilitli'; }
     function gecerli(b) { return !!b && typeof b.u === 'string' && b.u.length <= 128 && typeof b.m === 'string' && b.m.length > 0 && b.m.length <= MAXLEN && typeof b.t === 'number' && b.t > 0 && b.t < 1e14; }
     function yerelHepsi() { try { var o = JSON.parse(localStorage.getItem(LKEY) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
@@ -8287,8 +8396,9 @@ var BGX = (function () {
     }
     function abone(k) {
       if (unsub) { try { unsub(); } catch (e) {} unsub = null; }
-      posts = []; loaded = false;
-      if (mode === 'yerel') { aboneDurum = 'acik'; posts = (yerelHepsi()[k] || []).filter(gecerli); loaded = true; syncForm(); render(); return; }
+      if (pinUnsub) { try { pinUnsub(); } catch (e) {} pinUnsub = null; }
+      posts = []; loaded = false; pinId = null;
+      if (mode === 'yerel') { aboneDurum = 'acik'; posts = (yerelHepsi()[k] || []).filter(gecerli); pinId = yerelPin()[k] || null; loaded = true; syncForm(); render(); return; }
       if (!db) { syncForm(); render(); return; }
       aboneDurum = gorDurum(k);
       if (aboneDurum !== 'acik') { loaded = aboneDurum === 'kilitli'; syncForm(); render(); return; }
@@ -8299,10 +8409,15 @@ var BGX = (function () {
         posts = o; loaded = true; syncForm(); render();
       }, function () {
         if (cur !== k) return;
-        posts = []; loaded = true; unsub = null;
+        posts = []; loaded = true; unsub = null; pinId = null;
+        if (pinUnsub) { try { pinUnsub(); } catch (e) {} pinUnsub = null; }
         if (Hesap.gorurMu(k)) { aboneDurum = 'hata'; setDurum('Paylaşımlar şu an yüklenemiyor.', true); } else aboneDurum = 'kilitli';
         syncForm(); render();
       });
+      pinUnsub = db.doc('kulup_pin/' + k).onSnapshot(function (s) {
+        if (cur !== k) return;
+        var d = s.exists ? s.data() || {} : null; pinId = d && typeof d.p === 'string' ? d.p : null; render();
+      }, function () { if (cur === k) { pinId = null; render(); } });
     }
     function syncForm() {
       var izin = paylasabilir();
@@ -8321,9 +8436,19 @@ var BGX = (function () {
     function nameOf(a) { var p = prof[a]; return (p && p.name) || (a === uid ? 'Sen' : 'Bir üye'); }
     function paint() {
       Array.prototype.forEach.call(akis.querySelectorAll('[data-kim]'), function (el) { el.textContent = '· ' + nameOf(el.getAttribute('data-kim')); });
+      Array.prototype.forEach.call(pinEl.querySelectorAll('[data-kim]'), function (el) { el.textContent = nameOf(el.getAttribute('data-kim')); });
     }
     function render() {
-      var list = posts.slice().sort(function (x, y) { return y.t - x.t; }), ki = KULUP_INFO[cur] || {};
+      var pinP = pinId ? posts.filter(function (x) { return x.id === pinId; })[0] : null;
+      var list = posts.filter(function (x) { return !pinP || x.id !== pinP.id; }).sort(function (x, y) { return y.t - x.t; }), ki = KULUP_INFO[cur] || {};
+      var pinIzin = !!uid && pinleyebilir();
+      pinEl.hidden = !pinP || aboneDurum === 'kilitli';
+      if (pinP) {
+        pinM.textContent = pinP.m; pinAlt.textContent = '';
+        var pk = document.createElement('span'); pk.setAttribute('data-kim', pinP.u); pinAlt.appendChild(pk);
+        pinAlt.appendChild(document.createTextNode(' · ' + rel(pinP.t)));
+        pinKaldir.hidden = !pinIzin;
+      }
       var had = akis.contains(document.activeElement), hoca = hocaMi(cur);
       akis.textContent = '';
       var ids = {};
@@ -8336,6 +8461,10 @@ var BGX = (function () {
         var kim = document.createElement('span'); kim.className = 'kp-kim'; kim.setAttribute('data-kim', p.u);
         var tm = document.createElement('time'); tm.className = 'kp-zaman'; tm.dateTime = new Date(p.t).toISOString(); tm.textContent = rel(p.t);
         ust.appendChild(ad); ust.appendChild(kim); ust.appendChild(tm);
+        if (pinIzin) {
+          var pb = document.createElement('button'); pb.type = 'button'; pb.className = 'kp-pin'; pb.setAttribute('data-pin', p.id);
+          pb.setAttribute('aria-label', 'Bu mesajı en üste sabitle'); pb.title = 'En üste sabitle'; pb.innerHTML = PIN; ust.appendChild(pb);
+        }
         if (uid && (p.u === uid || (mode !== 'yerel' && hoca))) {
           var sb = document.createElement('button'); sb.type = 'button'; sb.className = 'kp-sil'; sb.setAttribute('data-id', p.id);
           sb.setAttribute('aria-label', 'Paylaşımı sil'); sb.innerHTML = TRASH; ust.appendChild(sb);
@@ -8348,8 +8477,9 @@ var BGX = (function () {
       var kilitli = aboneDurum === 'kilitli';
       kilitP.hidden = !kilitli;
       bos.textContent = !loaded ? 'Paylaşımlar yükleniyor…' : 'Henüz paylaşım yok.';
-      bos.hidden = kilitli || (loaded && list.length > 0);
+      bos.hidden = kilitli || (loaded && (list.length > 0 || !!pinP));
       sayi.textContent = list.length ? '· ' + list.length : '';
+      if (pinP) ids[pinP.u] = 1;
       paint();
       var need = Object.keys(ids).filter(function (a) { return a !== 'ben' && !prof[a]; });
       if (usr && need.length && typeof usr.profiles === 'function') {
@@ -8373,6 +8503,7 @@ var BGX = (function () {
       });
     });
     akis.addEventListener('click', function (e) {
+      var pb = e.target.closest('.kp-pin'); if (pb) { if (uid && pinleyebilir()) pinYaz(cur, pb.getAttribute('data-pin')); return; }
       var b = e.target.closest('.kp-sil'); if (!b || !uid) return;
       if (!b.classList.contains('onay')) {
         Array.prototype.forEach.call(akis.querySelectorAll('.kp-sil.onay'), function (o) { o.classList.remove('onay'); o.innerHTML = TRASH; o.setAttribute('aria-label', 'Paylaşımı sil'); });
@@ -8412,6 +8543,7 @@ var BGX = (function () {
         btns.push(['yardimci', y.yardimci ? 'Yardımcıyı değiştir' : 'Başkan yardımcısını belirle', true]);
         btns.push(['sosyal', y.sosyal ? 'Sosyal medya sorumlusunu değiştir' : 'Sosyal medya sorumlusunu belirle', true]);
       }
+      if (Hesap.hazirMi() && canWrite && Hesap.paylasabilirMi(k)) btns.push(['ekip', 'Yönetime kişi ekle', true]);
       var ki = KULUP_INFO[k];
       if (ki && ki.dinamik && Hesap.hazirMi() && (Hesap.gelistiriciMi() || (Hesap.matematikciMi() && ki.olusturan === ben))) btns.push(['sil', 'Kulübü sil', false]);
       arac.textContent = '';
@@ -8433,6 +8565,7 @@ var BGX = (function () {
         var b = li.firstChild; b.setAttribute('data-sec', u.id);
         b.querySelector('.pl-av').textContent = basHarf(u.ad); b.querySelector('.pl-t').textContent = u.ad + (u.id === Hesap.uid() ? ' (sen)' : '');
         var gs = Object.keys(GOREV).filter(function (g) { return y[g] === u.id; }).map(function (g) { return GOREV_KISA[g]; });
+        Hesap.ekip(cur).forEach(function (x) { if (x.u === u.id) gs.push(EKIP_UNVAN[x.g]); });
         b.querySelector('.pl-s').textContent = (u.no ? 'ID ' + u.no + ' · ' : '') + ROLLER[u.rol] + (gs.length ? ' · ' + gs.join(', ') : '');
         secListe.appendChild(li); n++;
       });
@@ -8441,12 +8574,25 @@ var BGX = (function () {
     function secAc(mod) {
       if (typeof kuSecKapat === 'function') kuSecKapat();
       secMod = mod; secK.hidden = false; secAra.value = ''; secKisiler = [];
-      document.getElementById('ky-sec-bas').textContent = GOREV[mod] + ' seç';
+      document.getElementById('ky-sec-bas').textContent = mod === 'ekip' ? 'Görevi ve kişiyi seç' : GOREV[mod] + ' seç';
+      unvanEl.hidden = mod !== 'ekip';
       secCiz(); kyMesaj('');
       Hesap.kullanicilar().then(function (l) { secKisiler = l; if (!secK.hidden) secCiz(); }, function () { kyMesaj('Kullanıcılar yüklenemedi.', true); });
       try { secAra.focus(); } catch (e) {}
     }
-    function secKapat() { secK.hidden = true; secMod = null; }
+    function secKapat() { secK.hidden = true; secMod = null; unvanEl.hidden = true; }
+    var unvanEl = document.getElementById('ky-unvan'), unvanSec = 'sorumlu_yardimci';
+    unvanEl.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-unvan]'); if (!b) return; unvanSec = b.getAttribute('data-unvan');
+      Array.prototype.forEach.call(unvanEl.querySelectorAll('[data-unvan]'), function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+    });
+    function ekipEkle(k, id, g) {
+      var l = Hesap.ekip(k).filter(function (x) { return x.u !== id; }).concat([{ u: id, g: g }]);
+      Hesap.ekipYaz(k, l).then(function () {
+        kyMesaj(EKIP_UNVAN[g] + ' olarak eklendi.');
+        if (Hesap.tumUyeler(k).indexOf(id) < 0) Hesap.uyeYaz(k, Hesap.uyeListesi(k).concat([id])).catch(function () {});
+      }, function () { kyMesaj('Kaydedilemedi. Yetkin olmayabilir.', true); });
+    }
     arac.addEventListener('click', function (e) {
       var b = e.target.closest('[data-ky]'); if (!b) return;
       var m = b.getAttribute('data-ky'), k = cur;
@@ -8463,13 +8609,26 @@ var BGX = (function () {
       var b = e.target.closest('[data-sec]'); if (!b) return;
       var id = b.getAttribute('data-sec') || null, k = cur, m = secMod;
       secKapat();
+      if (m === 'ekip') { if (id) ekipEkle(k, id, unvanSec); return; }
       Hesap.gorevAta(k, m, id).then(function () {
         kyMesaj(id ? GOREV[m] + ' atandı.' : GOREV[m] + ' görevden alındı.');
       }, function () { kyMesaj('Kaydedilemedi. Yetkin olmayabilir.', true); });
     });
+    /* Yönetim kurulu: başkan, başkan yardımcısı, sorumlu başkan yardımcısı, sosyal medya sorumlusu, danışman, fahri danışman, fahri yönetim kurulu üyeleri */
+    function ekipSatirlari(k, g) {
+      var yonetir = canWrite && Hesap.paylasabilirMi(k);
+      return Hesap.ekip(k).filter(function (x) { return x.g === g; }).map(function (x) {
+        var li = hesapSatir(EKIP_UNVAN[g], x.u);
+        if (yonetir) {
+          var c = document.createElement('button'); c.type = 'button'; c.className = 'gp-uye-sil'; c.setAttribute('data-ekip-cikar', x.u); c.textContent = 'Çıkar';
+          c.setAttribute('aria-label', EKIP_UNVAN[g] + ' görevinden çıkar'); li.firstChild.appendChild(c);
+        }
+        return li;
+      });
+    }
     function renderYon(k) {
       yonEl.textContent = '';
-      var ya = Hesap.yon(k);
+      var ya = Hesap.yon(k), ekle = function (a) { a.forEach(function (li) { yonEl.appendChild(li); }); };
       if (!KULUP_INFO[k]) return;
       KULUP_INFO[k].yonetim.forEach(function (y) {
         if (y.rol === 'Başkan' && ya.baskan) { yonEl.appendChild(hesapSatir('Başkan', ya.baskan)); return; }
@@ -8477,6 +8636,7 @@ var BGX = (function () {
           if (ya.yardimci) yonEl.appendChild(hesapSatir('Başkan yardımcısı', ya.yardimci));
           else if (y.bos) yonEl.appendChild(bosSatir('Başkan yardımcısı'));
           else yonEl.appendChild(statikSatir(y));
+          ekle(ekipSatirlari(k, 'sorumlu_yardimci'));
           yonEl.appendChild(ya.sosyal ? hesapSatir('Sosyal medya sorumlusu', ya.sosyal) : bosSatir('Sosyal medya sorumlusu'));
           return;
         }
@@ -8484,8 +8644,44 @@ var BGX = (function () {
         if (y.bos) { yonEl.appendChild(bosSatir(y.rol)); return; }
         yonEl.appendChild(statikSatir(y));
       });
-      aracCiz(k);
+      ekle(ekipSatirlari(k, 'fahri_danisman')); ekle(ekipSatirlari(k, 'fahri_uye'));
+      aracCiz(k); bkCiz(k);
     }
+    /* Başlıkta yalnızca başkanın adı; basınca yönetim kurulu açılır */
+    var bkBtn = document.getElementById('kl-baskan'), bkAd = document.getElementById('kb-ad'), bkAv = document.getElementById('kb-av'), ykPanel = document.getElementById('kl-yonetim');
+    function bkCiz(k) {
+      var ya = Hesap.yon(k), ki = KULUP_INFO[k] || {}, st = (ki.yonetim || []).filter(function (y) { return y.rol === 'Başkan'; })[0];
+      if (ya.baskan) {
+        var id = ya.baskan, ben = id === Hesap.uid();
+        Hesap.adlar([id]).then(function (ps) { if (cur !== k || Hesap.yon(k).baskan !== id) return; var n = (ps[id] && ps[id].name) || (ben ? 'Sen' : 'Bir üye'); bkAd.textContent = n + (ben ? ' (sen)' : ''); bkAv.textContent = basHarf(n); });
+      } else if (st && !st.bos) { bkAd.textContent = st.ad; bkAv.textContent = basHarf(st.ad); }
+      else { bkAd.textContent = 'Henüz atanmadı'; bkAv.textContent = '?'; }
+    }
+    function ykAc(on) { ykPanel.hidden = !on; bkBtn.setAttribute('aria-expanded', on ? 'true' : 'false'); if (!on) { secKapat(); kyMesaj(''); } }
+    bkBtn.addEventListener('click', function () { ykAc(ykPanel.hidden); });
+    /* Sekmeler: Paylaşımlar, Oylamalar, Talep formları, Üyeler, Etkinlikler */
+    var sekmeEl = document.getElementById('kl-sekmeler'), SEKME = ['paylasim', 'oylama', 'form', 'uye', 'etkinlik'], sekmeCur = 'paylasim';
+    function sekmeSec(ad, odak) {
+      sekmeCur = ad;
+      SEKME.forEach(function (s) {
+        var b = document.getElementById('kls-' + s), on = s === ad;
+        b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; document.getElementById('klp-' + s).hidden = !on;
+      });
+      var b = document.getElementById('kls-' + ad);
+      if (sekmeEl.scrollWidth > sekmeEl.clientWidth) sekmeEl.scrollLeft = Math.max(0, b.offsetLeft - sekmeEl.offsetLeft - (sekmeEl.clientWidth - b.offsetWidth) / 2);
+      kenar();
+      if (odak) try { b.focus(); } catch (e) {}
+      if (ad === 'oylama') Oylama.tazele();
+      if (ad === 'form') TalepForm.tazele();
+    }
+    /* Taşan sekmelerde kenarlar solar; kaydırılabildiği belli olur */
+    function kenar() { var x = sekmeEl.scrollLeft, m = sekmeEl.scrollWidth - sekmeEl.clientWidth; sekmeEl.classList.toggle('sol', x > 2); sekmeEl.classList.toggle('sag', x < m - 2); }
+    sekmeEl.addEventListener('scroll', kenar, { passive: true }); window.addEventListener('resize', kenar);
+    sekmeEl.addEventListener('click', function (e) { var b = e.target.closest('[data-sekme]'); if (b) sekmeSec(b.getAttribute('data-sekme')); });
+    sekmeEl.addEventListener('keydown', function (e) {
+      var i = SEKME.indexOf(sekmeCur), j = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? SEKME.length - 1 : null;
+      if (j === null) return; e.preventDefault(); sekmeSec(SEKME[(j + SEKME.length) % SEKME.length], true);
+    });
     function statikSatir(y) {
         var p = y.kisi ? KISI_IDX[y.kisi] : null, ad = p ? p.unvan + ' ' + p.ad : y.ad, mail = p ? p.mail : (y.mail || '');
         var li = document.createElement('li'), row = document.createElement(p ? 'button' : 'div');
@@ -8516,6 +8712,7 @@ var BGX = (function () {
       kuEkle.hidden = !ekle; if (!ekle) kuSecKapat();
       uyeSay(k); talepKontrol(k);
       ktGelen.hidden = !tl.length; ktGelenSay.textContent = tl.length ? '· ' + tl.length : '';
+      var rz = document.getElementById('kls-uye-n'); rz.hidden = !tl.length; rz.textContent = tl.length || '';
       var ciz = function (ps) {
         if (tur !== kuTur || cur !== k) return;
         var ad = function (id) { return (ps[id] && ps[id].name) || (id === Hesap.uid() ? 'Sen' : 'Bir üye'); };
@@ -8538,7 +8735,8 @@ var BGX = (function () {
           var n = ad(id), gs = gorevAdlari(k, id), li = document.createElement('li'), row = document.createElement('div'); row.className = 'ky-row';
           row.innerHTML = '<span class="ky-av" aria-hidden="true"></span><span class="ky-txt"><span class="ky-rol"></span><span class="ky-ad"></span></span>';
           row.querySelector('.ky-av').textContent = basHarf(n);
-          row.querySelector('.ky-rol').textContent = gs.length ? gs.map(function (g) { return GOREV[g]; }).join(', ') : 'Üye';
+          var eu = Hesap.ekip(k).filter(function (x) { return x.u === id; })[0];
+          row.querySelector('.ky-rol').textContent = gs.length ? gs.map(function (g) { return GOREV[g]; }).join(', ') : eu ? EKIP_UNVAN[eu.g] : 'Üye';
           row.querySelector('.ky-ad').textContent = n + (id === Hesap.uid() ? ' (sen)' : '');
           if (ekle && !gs.length && liste.indexOf(id) >= 0) {
             var x = document.createElement('button'); x.type = 'button'; x.className = 'gp-uye-sil'; x.setAttribute('data-cikar', id); x.textContent = 'Çıkar';
@@ -8636,13 +8834,17 @@ var BGX = (function () {
         syncForm(); if (started) render();
       }
     });
-    yonEl.addEventListener('click', function (e) { var b = e.target.closest('[data-ac]'); if (b && Kisi) Kisi.open(b.getAttribute('data-ac')); });
+    yonEl.addEventListener('click', function (e) {
+      var c = e.target.closest('[data-ekip-cikar]');
+      if (c) { var id = c.getAttribute('data-ekip-cikar'), k = cur; Hesap.ekipYaz(k, Hesap.ekip(k).filter(function (x) { return x.u !== id; })).then(function () { kyMesaj('Yönetim kurulundan çıkarıldı.'); }, function () { kyMesaj('Kaydedilemedi. Yetkin olmayabilir.', true); }); return; }
+      var b = e.target.closest('[data-ac]'); if (b && Kisi) Kisi.open(b.getAttribute('data-ac'));
+    });
     function open(k) {
       cur = k;
       if (!KULUP_INFO[k]) return;
       vEl.style.setProperty('--av', kulupRenk(k));
       avEl.textContent = KULUP_INFO[k].av; adEl.textContent = KULUP_INFO[k].ad; adEl.classList.toggle('uzun', KULUP_INFO[k].ad.length > 18);
-      secKapat(); kyMesaj(''); renderYon(k); kuSecKapat(); kuMesaj(''); ktMesaj(''); uyeCiz(k); Oylama.open(k); TalepForm.open(k);
+      ykAc(false); sekmeSec('paylasim'); kyMesaj(''); renderYon(k); kuSecKapat(); kuMesaj(''); ktMesaj(''); uyeCiz(k); Oylama.open(k); TalepForm.open(k);
       ta.value = drafts[k] || '';
       setDurum('');
       if (started) abone(k); else start();
@@ -8692,7 +8894,7 @@ var BGX = (function () {
     })();
     heroBack.kulup = function (run) { heroTransition(true, heroPairs(document.querySelector('#tp-kulup [data-kulup="' + cur + '"]'), avEl, adEl, true), run); };
     heroBack.kulup.dest = 'top';
-    return { render: function () { if (started) render(); }, go: function (k) { open(k); nav('kulup'); } };
+    return { render: function () { if (started) render(); requestAnimationFrame(kenar); }, go: function (k) { open(k); nav('kulup'); } };
   })();
   /* Matematikçiler: Kurum bazlı (kurum → hocalar) ve Bireysel; her kişinin kendi sayfası */
   Kisi = (function () {
