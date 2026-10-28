@@ -810,7 +810,7 @@ html.giris-acik .set-ico, html.giris-acik .e-ico { visibility: hidden; }
 /* Ayarlar ikonu: ana ekranın sol altında, buton görünümü yok */
 .set-ico {
   position: fixed; z-index: 2; width: 52px; height: 52px; padding: 0; border: 0; border-radius: 50%;
-  left: calc(max(16px, env(safe-area-inset-left, 0px)) - 11px); bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) - 8px);
+  left: calc(max(16px, env(safe-area-inset-left, 0px)) - 12px); top: calc(env(safe-area-inset-top, 0px) + 10px);
   display: grid; place-items: center; background: none; cursor: pointer; color: var(--fg);
 }
 body.on-home:not(.home-plain) .set-ico { color: var(--on-glass); }
@@ -820,7 +820,9 @@ body.home-plain .set-ico svg { filter: none; }
 .set-ico-dot { fill: var(--yellow); }
 body.in-ayar .set-ico { display: grid; color: var(--fg); }
 body.in-ayar .set-ico svg { filter: none; transform: rotate(45deg); }
-body.in-ayar .view { padding-bottom: 88px; }
+body.in-ayar .view { padding-bottom: 32px; }
+body.on-home .top, body.in-ayar .top { padding-left: 44px; }
+body.on-home .top { min-height: 72px; }
 .vt-keep::view-transition-old(ayar-ikon), .vt-keep::view-transition-new(ayar-ikon) { animation-duration: .5s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
 .vt-ayar.vt-keep::view-transition-old(ayar-ikon) { animation-name: gearTurnOut; }
 .vt-ayar.vt-keep::view-transition-new(ayar-ikon) { animation-name: gearTurnIn; }
@@ -8482,6 +8484,7 @@ var BGX = (function () {
       if (fb && fb.kullanici) { var k = fb.kullanici(); el('hs-ad').textContent = (k && k.ad) || 'Hesabım'; el('hs-alt').textContent = ((k && k.eposta) ? k.eposta + ' · ' : '') + ROLLER[Hesap.rol()]; }
     }
     Hesap.dinle(ciz); ciz();
+    Hesap.dinle(function () { if (current === 'veri' && typeof VT !== 'undefined' && VT) VT.refresh(); });
     window.addEventListener('fb-oturum', ciz);
     el('go-cikis').addEventListener('click', function () { if (window.__FB && window.__FB.cikis) window.__FB.cikis(); });
     var liste = el('ku-liste'), ara = el('ku-ara'), bos = el('ku-bos'), durum = el('ku-durum'), kisiler = [];
@@ -8588,7 +8591,8 @@ var BGX = (function () {
       if (sess && !sess.bitti) bResume.textContent = 'Yazar ' + sess.no + ' için devam et';
       init().then(function () {
         if (!db) { setMsg('Veri toplama sadece claude.ai içinde, hesabınla giriş yapılmışken çalışır.'); return; }
-        if (!owner) { setMsg('Veri toplama sadece uygulamanın sahibi olan hesapla açılır.'); return; }
+        if (!owner && typeof Hesap !== 'undefined' && Hesap.gelistiriciMi()) owner = true;
+        if (!owner) { setMsg('Veri toplama sadece geliştirici hesabıyla açılır.'); return; }
         setMsg(''); bNew.disabled = false;
         base().get().then(function (q) {
           var done = 0, half = 0, n = 0;
