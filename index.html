@@ -660,6 +660,7 @@ body.in-ayar .set-list, body.in-ayar .kl-yaz, body.in-ayar .bd-item, body.in-aya
 .ks-rozet-ic svg { width: 19px; height: 19px; }
 .ks-rozet-t { flex: 1; min-width: 0; font-size: 15px; font-weight: 600; line-height: 1.35; }
 .ks-rozet .mr-go { margin-left: auto; }
+.ks-gorev { margin: 0; cursor: default; }
 .ks-mail a { color: var(--fg); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--fg) 30%, transparent); text-underline-offset: 3px; }
 .ks-mail .bos { color: var(--muted); font-weight: 400; }
 /* Kulüp yönetimi: satırlar listede, hoca satırı dokunulabilir */
@@ -2846,6 +2847,7 @@ button.ot:active { transform: scale(.97); }
           <p class="ks-uni"><span class="ks-uni-ic" id="ks-uni-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 4l9 5.5"/><path d="M5.5 10v8M10 10v8M14 10v8M18.5 10v8"/><path d="M3 20.5h18"/></svg></span><span id="ks-uni">X Üniversitesi</span></p>
         </div>
       </header>
+      <p class="ks-rozet ks-gorev" id="ks-gorev" hidden><span class="ks-rozet-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11L12 4.5l8.5 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg></span><span class="ks-rozet-t" id="ks-gorev-t"></span></p>
       <button class="ks-rozet" type="button" id="ks-rozet" hidden><span class="ks-rozet-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="7.5" r="3.5"/><path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.2a3.5 3.5 0 0 1 0 6.6"/></svg></span><span class="ks-rozet-t" id="ks-rozet-t"></span><svg class="mr-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
       <section class="ks-sec ks-s0" aria-labelledby="ks-h0">
         <h3 id="ks-h0"><span class="ks-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.8 6.6L12 12.8l8.2-6.2"/></svg></span>E-posta</h3>
@@ -7647,7 +7649,7 @@ var BGX = (function () {
         hoca('Prof. Dr.', 'Vedat Asıl', 'vasil@firat.edu.tr')
       ] }
     ],
-    bireysel: { id: 'bireysel', ad: 'Bireysel', kisiler: [hoca('Prof. Dr.', 'Ali Nesin', '')] }
+    bireysel: { id: 'bireysel', ad: 'Bireysel', kisiler: [hoca('Prof. Dr.', 'Ali Nesin', '', { gorev: 'Matematik Köyü Başkanı' })] }
   };
   var KISI_IDX = {}, AV_COLS = ['#2563EB', '#16A34A', '#D97706', '#DB2777', '#7C3AED', '#0D9488', '#DC2626'];
   function grupSirala(g) {
@@ -8930,7 +8932,7 @@ var BGX = (function () {
         li.innerHTML = '<button class="pl-row pl-btn" type="button"><span class="pl-av" aria-hidden="true"></span><span class="pl-txt"><span class="pl-t"></span><span class="pl-s"></span></span>' + CHEV + '</button>';
         var b = li.firstChild; b.setAttribute('data-kisi', p.id);
         var av = b.querySelector('.pl-av'); av.textContent = basHarf(p.ad); av.style.setProperty('--av', p.renk);
-        b.querySelector('.pl-t').textContent = p.ad; b.querySelector('.pl-s').textContent = p.unvan;
+        b.querySelector('.pl-t').textContent = p.ad; b.querySelector('.pl-s').textContent = p.unvan + (p.gorev ? ' · ' + p.gorev : '');
         liste.appendChild(li); n++;
       });
       liste.hidden = !n; el('ml-bos').hidden = !!n;
@@ -8965,6 +8967,7 @@ var BGX = (function () {
       avEl.textContent = basHarf(p.ad); adEl.textContent = p.ad;
       el('ks-unvan').textContent = p.unvan; el('ks-uni').textContent = p.kurum;
       el('ks-uni-ic').innerHTML = p.kurum === 'Bireysel' ? I_USER : I_UNI;
+      el('ks-gorev').hidden = !p.gorev; el('ks-gorev-t').textContent = p.gorev || '';
       var dk = p.danisman || Object.keys(KULUP_INFO).filter(function (k) { return KULUP_INFO[k].dinamik && KULUP_INFO[k].olusturan === p.id; })[0];
       var rz = el('ks-rozet'); rz.hidden = !dk; rz.setAttribute('data-kulup', dk || '');
       if (dk) el('ks-rozet-t').textContent = dk === 'A' ? 'FÜ Matematik ve Teknoloji Topluluğu danışmanı' : KULUP_INFO[dk].ad + ' danışmanı';
