@@ -7602,13 +7602,13 @@ var BGX = (function () {
                 var renk = typeof b.renk === 'string' && /^#[0-9A-Fa-f]{6}$/.test(b.renk) ? b.renk : '#2563EB';
                 gor[d.id] = 1;
                 KULUP_INFO[d.id] = { ad: b.ad.trim(), av: basHarf(b.ad), renk: renk, olusturan: b.olusturan, t: typeof b.t === 'number' ? b.t : 0, dinamik: true,
-                  yonetim: [{ rol: 'Başkan', ad: 'Henüz atanmadı', bos: true }, { rol: 'Danışman', uid: b.olusturan }] };
+                  yonetim: [{ rol: 'Başkan', ad: 'Henüz atanmadı', bos: true }, { rol: 'Başkan yardımcısı', ad: 'Henüz atanmadı', bos: true }, { rol: 'Danışman', uid: b.olusturan }] };
               });
               Object.keys(KULUP_INFO).forEach(function (k) { if (KULUP_INFO[k].dinamik && !gor[k]) delete KULUP_INFO[k]; });
               bildir();
             }, function () {});
             db.collection('kulup_yonetim').limit(500).onSnapshot(function (q) {
-              var o = {}; q.docs.forEach(function (d) { var b = d.data() || {}; if (KULUP_RE.test(d.id)) o[d.id] = { baskan: str(b.baskan), yetkili: str(b.yetkili) }; });
+              var o = {}; q.docs.forEach(function (d) { var b = d.data() || {}; if (KULUP_RE.test(d.id)) o[d.id] = { baskan: str(b.baskan), yardimci: str(b.yardimci), sosyal: str(b.sosyal) }; });
               yon = o; bildir();
             }, function () {});
             res(); bildir();
@@ -7639,20 +7639,24 @@ var BGX = (function () {
     return {
       bagla: bagla, adlar: adlar, kullanicilar: kullanicilar, db: function () { return db; },
       uid: function () { return uid; }, rol: function () { return rol; }, hazirMi: function () { return !!db; },
-      yon: function (k) { return yon[k] || { baskan: null, yetkili: null }; },
+      yon: function (k) { return yon[k] || { baskan: null, yardimci: null, sosyal: null }; },
       gelistiriciMi: function () { return rol === 'gelistirici'; },
       matematikciMi: function () { return rol === 'matematikci' || rol === 'gelistirici'; },
-      yonetimMi: function (k) { var y = yon[k]; return !!uid && !!y && (y.baskan === uid || y.yetkili === uid); },
+      yonetimMi: function (k) { var y = yon[k]; return !!uid && !!y && (y.baskan === uid || y.yardimci === uid || y.sosyal === uid); },
+      paylasabilirMi: function (k) { var y = yon[k]; return !!uid && !!y && (y.baskan === uid || y.sosyal === uid); },
       dinle: function (f) { dinleyen.push(f); },
       rolVer: function (id, r) { if (!db || !ROLLER[r] || id === uid) return Promise.reject(); return db.doc('roller/' + id).set({ rol: r, t: Date.now() }); },
-      baskanAta: function (k, id) { if (!db || !KULUP_RE.test(k)) return Promise.reject(); return db.doc('kulup_yonetim/' + k).set({ baskan: id, yetkili: null, t: Date.now() }); },
+      gorevAta: function (k, alan, id) {
+        if (!db || !KULUP_RE.test(k) || ['baskan', 'yardimci', 'sosyal'].indexOf(alan) < 0) return Promise.reject();
+        var y = yon[k] || {}, b = { baskan: y.baskan || null, yardimci: y.yardimci || null, sosyal: y.sosyal || null, t: Date.now() }; b[alan] = id || null;
+        return db.doc('kulup_yonetim/' + k).set(b);
+      },
       kulupOlustur: function (ad, renk) {
         if (!db || !uid) return Promise.reject();
         var id = 'k' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
         return db.doc('kulupler/' + id).set({ ad: ad, av: basHarf(ad), renk: renk, olusturan: uid, t: Date.now() }).then(function () { return id; });
       },
       kulupSil: function (k) { if (!db || !KULUP_INFO[k] || !KULUP_INFO[k].dinamik) return Promise.reject(); return db.doc('kulupler/' + k).delete(); },
-      yetkiVer: function (k, id) { var y = yon[k]; if (!db || !y || !y.baskan) return Promise.reject(); return db.doc('kulup_yonetim/' + k).set({ baskan: y.baskan, yetkili: id, t: Date.now() }); }
     };
   })();
   Hesap.bagla();
@@ -8138,62 +8142,59 @@ var BGX = (function () {
   })();
   /* Kulüpler: her kulübün kendi sayfası; paylaşımlar herkesin kendi belgesinde (kulup/<id>) tutulur */
   var Kulup = (function () {
-    var COL = { A: 'var(--av1)', B: 'var(--av2)', C: 'var(--av3)', D: 'var(--av4)', E: 'var(--av5)' };
-    var MAX = 100, MAXLEN = 500, LKEY = 'matematik-cepte-kulup-v1';
+    var MAXLEN = 500, LKEY = 'matematik-cepte-kulup-v2';
     var TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M9 7V4.5h6V7"/><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v5M14 11v5"/></svg>';
     var vEl = document.getElementById('v-kulup'), avEl = document.getElementById('kl-av'), adEl = document.getElementById('kl-ad');
     var form = document.getElementById('kl-yaz'), ta = document.getElementById('kl-metin'), btn = document.getElementById('kl-paylas');
     var sayEl = document.getElementById('kl-say'), durum = document.getElementById('kl-durum');
     var akis = document.getElementById('kl-akis'), bos = document.getElementById('kl-bos'), sayi = document.getElementById('kl-sayi');
     var cur = 'A', db = null, usr = null, uid = null, mode = null, loaded = false, started = false, canWrite = true;
-    var all = {}, prof = {}, drafts = {}, writing = Promise.resolve(), busy = 0, fresh = null, askT = null;
-
-    function valid(p) {
-      return !!p && typeof p === 'object' && typeof p.id === 'string' && p.id.length > 0 && p.id.length <= 40 && typeof p.k === 'string' && KULUP_RE.test(p.k) &&
-        typeof p.m === 'string' && p.m.length > 0 && p.m.length <= MAXLEN && typeof p.t === 'number' && p.t > 0 && p.t < 1e14 && (p.ka === undefined || typeof p.ka === 'boolean');
-    }
-    function clean(arr) { return Array.isArray(arr) ? arr.filter(valid).slice(-MAX) : []; }
-    var adina = document.getElementById('kl-adina'), adinaK = document.getElementById('kl-adina-k');
-    function loadLocal() { try { return clean(JSON.parse(localStorage.getItem(LKEY) || '[]')); } catch (e) { return []; } }
-    function saveLocal(arr) { try { localStorage.setItem(LKEY, JSON.stringify(arr)); } catch (e) {} }
+    var posts = [], prof = {}, drafts = {}, fresh = null, askT = null, unsub = null;
+    /* Kulüpte yalnızca başkan ve sosyal medya sorumlusu paylaşım yapar (paylaşımlar kulup_paylasim/<kulüp>/p) */
+    document.getElementById('kl-adina-k').hidden = true;
+    var yetkiNot = document.createElement('p'); yetkiNot.className = 'oy-bilgi kl-yetki-not'; yetkiNot.hidden = true;
+    yetkiNot.textContent = 'Kulüpte yalnızca başkan ve sosyal medya sorumlusu paylaşım yapabilir.';
+    form.parentNode.insertBefore(yetkiNot, form);
+    function gecerli(b) { return !!b && typeof b.u === 'string' && b.u.length <= 128 && typeof b.m === 'string' && b.m.length > 0 && b.m.length <= MAXLEN && typeof b.t === 'number' && b.t > 0 && b.t < 1e14; }
+    function yerelHepsi() { try { var o = JSON.parse(localStorage.getItem(LKEY) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+    function yerelYaz(k, arr) { var o = yerelHepsi(); o[k] = arr; try { localStorage.setItem(LKEY, JSON.stringify(o)); } catch (e) {} }
     function setDurum(msg, err) { durum.textContent = msg || ''; durum.hidden = !msg; durum.classList.toggle('hata', !!err); }
+    function hocaMi(k) { var ki = KULUP_INFO[k], ben = Hesap.uid(); return Hesap.gelistiriciMi() || (Hesap.matematikciMi() && (!ki || !ki.dinamik || ki.olusturan === ben)); }
+    function paylasabilir() { return mode === 'yerel' || (canWrite && Hesap.paylasabilirMi(cur)); }
 
     function start() {
       if (started) return;
       started = true;
-      var yerel = function () { mode = 'yerel'; db = null; usr = null; uid = 'ben'; all = { ben: loadLocal() }; loaded = true; syncForm(); render(); };
+      var yerel = function () { mode = 'yerel'; db = null; usr = null; uid = 'ben'; abone(cur); };
       if (!window.claude || typeof window.claude.use !== 'function') { yerel(); return; }
       Promise.all([window.claude.use('db'), window.claude.use('user')]).then(function (r) {
         if (!r[0]) { yerel(); return; }
         db = r[0]; usr = r[1]; mode = 'db';
-        var idP = usr ? usr.id() : Promise.resolve(null);
-        idP.then(function (id) {
+        (usr ? usr.id() : Promise.resolve(null)).then(function (id) {
           uid = id || null;
           if (!uid) canWrite = false;
           else if (typeof usr.can === 'function') usr.can('data.write').then(function (c) { if (c === false) { canWrite = false; syncForm(); render(); } }, function () {});
-          db.collection('kulup').limit(1000).onSnapshot(function (q) {
-            var o = {};
-            q.docs.forEach(function (d) { var arr = clean((d.data() || {}).p); if (arr.length) o[d.id] = arr; });
-            if (busy && uid && all[uid]) o[uid] = all[uid];
-            all = o; loaded = true; syncForm(); render();
-          }, function () { loaded = true; syncForm(); render(); setDurum('Paylaşımlar şu an yüklenemiyor.', true); });
+          abone(cur);
         }, yerel);
       }, yerel);
     }
-    function write(arr) {
-      busy++;
-      var body = { p: arr, t: Date.now() };
-      var job = writing.then(function () { return db.doc('kulup/' + uid).set(body); });
-      writing = job.catch(function () {});
-      return job.then(function () { busy--; }, function (e) { busy--; throw e; });
+    function abone(k) {
+      if (unsub) { try { unsub(); } catch (e) {} unsub = null; }
+      posts = []; loaded = false;
+      if (mode === 'yerel') { posts = (yerelHepsi()[k] || []).filter(gecerli); loaded = true; syncForm(); render(); return; }
+      if (!db) { syncForm(); render(); return; }
+      syncForm(); render();
+      unsub = db.collection('kulup_paylasim/' + k + '/p').orderBy('t', 'desc').limit(200).onSnapshot(function (q) {
+        if (cur !== k) return;
+        var o = []; q.docs.forEach(function (d) { var b = d.data() || {}; if (gecerli(b)) o.push({ id: d.id, u: b.u, m: b.m, t: b.t }); });
+        posts = o; loaded = true; syncForm(); render();
+      }, function () { loaded = true; syncForm(); render(); setDurum('Paylaşımlar şu an yüklenemiyor.', true); });
     }
     function syncForm() {
-      adinaK.hidden = !(mode === 'yerel' ? false : Hesap.yonetimMi(cur)) || !canWrite;
-      if (adinaK.hidden) adina.checked = false;
-      ta.disabled = !canWrite;
-      btn.disabled = !loaded || !canWrite || !ta.value.trim();
+      var izin = paylasabilir();
+      form.hidden = !izin; yetkiNot.hidden = izin || !started;
+      btn.disabled = !loaded || !izin || !ta.value.trim();
       sayEl.textContent = ta.value.length + '/' + MAXLEN;
-      if (!canWrite) setDurum('Paylaşımları görebilirsin; paylaşım yapma iznin yok.');
     }
     function rel(t) {
       var s = (Date.now() - t) / 1000;
@@ -8206,50 +8207,35 @@ var BGX = (function () {
     function nameOf(a) { var p = prof[a]; return (p && p.name) || (a === uid ? 'Sen' : 'Bir üye'); }
     function paint() {
       Array.prototype.forEach.call(akis.querySelectorAll('[data-kim]'), function (el) { el.textContent = '· ' + nameOf(el.getAttribute('data-kim')); });
-      Array.prototype.forEach.call(akis.querySelectorAll('[data-a]'), function (el) {
-        var a = el.getAttribute('data-a'), p = prof[a];
-        if (el.classList.contains('kp-ad')) { el.textContent = nameOf(a); return; }
-        el.textContent = '';
-        if (p && p.avatarUrl) { var img = document.createElement('img'); img.alt = ''; img.src = p.avatarUrl; el.appendChild(img); }
-        else el.textContent = nameOf(a).charAt(0).toLocaleUpperCase('tr-TR');
-      });
     }
     function render() {
-      var list = [];
-      Object.keys(all).forEach(function (a) { all[a].forEach(function (p) { if (p.k === cur) list.push({ a: a, p: p }); }); });
-      list.sort(function (x, y) { return y.p.t - x.p.t; });
-      list = list.slice(0, 200);
-      var had = akis.contains(document.activeElement);
+      var list = posts.slice().sort(function (x, y) { return y.t - x.t; }), ki = KULUP_INFO[cur] || {};
+      var had = akis.contains(document.activeElement), hoca = hocaMi(cur);
       akis.textContent = '';
       var ids = {};
-      list.forEach(function (it) {
-        var yk = Hesap.yon(cur), resmi = !!it.p.ka && mode !== 'yerel' && (it.a === yk.baskan || it.a === yk.yetkili);
-        if (mode === 'yerel' && it.p.ka) resmi = true;
-        var li = document.createElement('li'); li.className = 'kp-item' + (it.p.id === fresh && !reduce ? ' yeni' : '') + (resmi ? ' kulup-adina' : '');
-        var av = document.createElement('span'); av.className = 'kp-av' + (resmi ? '' : ' kp-avs'); av.setAttribute('aria-hidden', 'true');
-        if (resmi) av.textContent = (KULUP_INFO[cur] || {}).av || ''; else av.setAttribute('data-a', it.a);
+      list.forEach(function (p) {
+        var li = document.createElement('li'); li.className = 'kp-item kulup-adina' + (p.id === fresh && !reduce ? ' yeni' : '');
+        var av = document.createElement('span'); av.className = 'kp-av'; av.setAttribute('aria-hidden', 'true'); av.textContent = ki.av || '';
         var gov = document.createElement('div'); gov.className = 'kp-gov';
         var ust = document.createElement('div'); ust.className = 'kp-ust';
-        var ad = document.createElement('span'); ad.className = 'kp-ad';
-        if (resmi) ad.textContent = (KULUP_INFO[cur] || {}).ad || ''; else ad.setAttribute('data-a', it.a);
-        var tm = document.createElement('time'); tm.className = 'kp-zaman'; tm.dateTime = new Date(it.p.t).toISOString(); tm.textContent = rel(it.p.t);
-        ust.appendChild(ad);
-        if (resmi) { var kim = document.createElement('span'); kim.className = 'kp-kim'; kim.setAttribute('data-kim', it.a); ust.appendChild(kim); }
-        ust.appendChild(tm);
-        if (it.a === uid && canWrite) {
-          var sb = document.createElement('button'); sb.type = 'button'; sb.className = 'kp-sil'; sb.setAttribute('data-id', it.p.id);
+        var ad = document.createElement('span'); ad.className = 'kp-ad'; ad.textContent = ki.ad || '';
+        var kim = document.createElement('span'); kim.className = 'kp-kim'; kim.setAttribute('data-kim', p.u);
+        var tm = document.createElement('time'); tm.className = 'kp-zaman'; tm.dateTime = new Date(p.t).toISOString(); tm.textContent = rel(p.t);
+        ust.appendChild(ad); ust.appendChild(kim); ust.appendChild(tm);
+        if (uid && (p.u === uid || (mode !== 'yerel' && hoca))) {
+          var sb = document.createElement('button'); sb.type = 'button'; sb.className = 'kp-sil'; sb.setAttribute('data-id', p.id);
           sb.setAttribute('aria-label', 'Paylaşımı sil'); sb.innerHTML = TRASH; ust.appendChild(sb);
         }
-        var m = document.createElement('p'); m.className = 'kp-m'; m.textContent = it.p.m;
+        var m = document.createElement('p'); m.className = 'kp-m'; m.textContent = p.m;
         gov.appendChild(ust); gov.appendChild(m); li.appendChild(av); li.appendChild(gov); akis.appendChild(li);
-        ids[it.a] = 1;
+        ids[p.u] = 1;
       });
       fresh = null;
-      bos.textContent = !loaded ? 'Paylaşımlar yükleniyor…' : (canWrite ? 'Henüz paylaşım yok. İlk paylaşımı sen yap.' : 'Henüz paylaşım yok.');
+      bos.textContent = !loaded ? 'Paylaşımlar yükleniyor…' : 'Henüz paylaşım yok.';
       bos.hidden = loaded && list.length > 0;
       sayi.textContent = list.length ? '· ' + list.length : '';
       paint();
-      var need = Object.keys(ids).filter(function (a) { return a !== 'ben'; });
+      var need = Object.keys(ids).filter(function (a) { return a !== 'ben' && !prof[a]; });
       if (usr && need.length && typeof usr.profiles === 'function') {
         usr.profiles(need).then(function (ps) { need.forEach(function (a) { if (ps && ps[a]) prof[a] = ps[a]; }); paint(); }, function () {});
       }
@@ -8259,19 +8245,15 @@ var BGX = (function () {
     ta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!btn.disabled) form.requestSubmit ? form.requestSubmit() : btn.click(); } });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var m = ta.value.trim().slice(0, MAXLEN);
-      if (!m || !loaded || !canWrite || !uid) return;
-      var p = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7), k: cur, m: m, t: Date.now() };
-      if (adinaK && !adinaK.hidden && adina.checked) { p.ka = true; adina.checked = false; }
-      var mine = (all[uid] || []).concat([p]).slice(-MAX);
-      all[uid] = mine; fresh = p.id; ta.value = ''; drafts[cur] = '';
-      setDurum(''); syncForm(); render();
-      if (mode === 'yerel') { saveLocal(mine); return; }
-      var k = cur;
-      write(mine).catch(function () {
-        all[uid] = (all[uid] || []).filter(function (x) { return x.id !== p.id; });
+      var m = ta.value.trim().slice(0, MAXLEN), k = cur;
+      if (!m || !loaded || !paylasabilir() || !uid) return;
+      var p = { u: uid, m: m, t: Date.now() };
+      ta.value = ''; drafts[k] = ''; setDurum(''); syncForm();
+      if (mode === 'yerel') { p.id = Date.now().toString(36); posts = [p].concat(posts); fresh = p.id; yerelYaz(k, posts); render(); return; }
+      var ref = db.collection('kulup_paylasim/' + k + '/p').doc(); fresh = ref.id;
+      ref.set(p).catch(function () {
         if (cur === k && !ta.value) { ta.value = m; drafts[k] = m; }
-        syncForm(); render(); setDurum('Paylaşım gönderilemedi. Tekrar dene.', true);
+        syncForm(); setDurum('Paylaşım gönderilemedi. Yetkin olmayabilir.', true);
       });
     });
     akis.addEventListener('click', function (e) {
@@ -8283,16 +8265,15 @@ var BGX = (function () {
         return;
       }
       clearTimeout(askT);
-      var id = b.getAttribute('data-id'), before = all[uid] || [];
-      var mine = before.filter(function (x) { return x.id !== id; });
-      if (mine.length === before.length) return;
-      all[uid] = mine; render(); setDurum('');
-      if (mode === 'yerel') { saveLocal(mine); return; }
-      write(mine).catch(function () { all[uid] = before; render(); setDurum('Paylaşım silinemedi. Tekrar dene.', true); });
+      var id = b.getAttribute('data-id'), k = cur;
+      if (mode === 'yerel') { posts = posts.filter(function (x) { return x.id !== id; }); yerelYaz(k, posts); render(); return; }
+      db.doc('kulup_paylasim/' + k + '/p/' + id).delete().catch(function () { setDurum('Paylaşım silinemedi.', true); });
     });
     var yonEl = document.getElementById('kl-yon'), arac = document.getElementById('ky-arac'), secK = document.getElementById('ky-sec');
     var secListe = document.getElementById('ky-sec-liste'), secAra = document.getElementById('ky-ara'), kyDurum = document.getElementById('ky-durum');
     var secMod = null, secKisiler = [];
+    var GOREV = { baskan: 'Başkan', yardimci: 'Başkan yardımcısı', sosyal: 'Sosyal medya sorumlusu' };
+    var GOREV_KISA = { baskan: 'Başkan', yardimci: 'Başkan yardımcısı', sosyal: 'Sosyal medya' };
     function kyMesaj(m, err) { kyDurum.textContent = m || ''; kyDurum.hidden = !m; kyDurum.classList.toggle('hata', !!err); }
     function hesapSatir(rolAd, id) {
       var li = document.createElement('li'), row = document.createElement('div'); row.className = 'ky-row';
@@ -8303,13 +8284,17 @@ var BGX = (function () {
       Hesap.adlar([id]).then(function (ps) { var n = (ps[id] && ps[id].name) || (id === Hesap.uid() ? 'Sen' : 'Bir üye'); adS.textContent = n + (id === Hesap.uid() ? ' (sen)' : ''); avS.textContent = basHarf(n); });
       li.appendChild(row); return li;
     }
+    function bosSatir(rolAd) {
+      var li = document.createElement('li'), row = document.createElement('div'); row.className = 'ky-row atanmadi';
+      row.innerHTML = '<span class="ky-av" aria-hidden="true">?</span><span class="ky-txt"><span class="ky-rol"></span><span class="ky-ad">Henüz atanmadı</span></span>';
+      row.querySelector('.ky-rol').textContent = rolAd; li.appendChild(row); return li;
+    }
     function aracCiz(k) {
       var y = Hesap.yon(k), ben = Hesap.uid(), btns = [];
-      if (Hesap.hazirMi() && canWrite) {
-        var kiA = KULUP_INFO[k], atar = Hesap.gelistiriciMi() || (Hesap.matematikciMi() && (!kiA || !kiA.dinamik || kiA.olusturan === ben));
-        if (atar) btns.push(['baskan', y.baskan ? 'Başkanı değiştir' : 'Başkanı belirle', true]);
-        if (ben && y.baskan === ben) { btns.push(['yetki', y.yetkili ? 'Yetkiliyi değiştir' : 'Yetki ver', !Hesap.matematikciMi()]); if (y.yetkili) btns.push(['kaldir', 'Yetkiyi kaldır', false]); }
-        else if (atar && y.yetkili) btns.push(['kaldir', 'Yetkiyi kaldır', false]);
+      if (Hesap.hazirMi() && canWrite && hocaMi(k)) {
+        btns.push(['baskan', y.baskan ? 'Başkanı değiştir' : 'Başkanı belirle', true]);
+        btns.push(['yardimci', y.yardimci ? 'Yardımcıyı değiştir' : 'Başkan yardımcısını belirle', true]);
+        btns.push(['sosyal', y.sosyal ? 'Sosyal medya sorumlusunu değiştir' : 'Sosyal medya sorumlusunu belirle', true]);
       }
       var ki = KULUP_INFO[k];
       if (ki && ki.dinamik && Hesap.hazirMi() && (Hesap.gelistiriciMi() || (Hesap.matematikciMi() && ki.olusturan === ben))) btns.push(['sil', 'Kulübü sil', false]);
@@ -8321,21 +8306,25 @@ var BGX = (function () {
     function secCiz() {
       var q = secAra.value.trim().toLocaleLowerCase('tr-TR'), y = Hesap.yon(cur), n = 0;
       secListe.textContent = '';
+      if (secMod && y[secMod]) {
+        var li0 = document.createElement('li'); li0.innerHTML = '<button class="pl-row pl-btn" type="button" data-sec=""><span class="pl-av" aria-hidden="true">–</span><span class="pl-txt"><span class="pl-t">Görevden al</span><span class="pl-s">Bu görevi boş bırak</span></span></button>';
+        secListe.appendChild(li0);
+      }
       secKisiler.forEach(function (u) {
-        if (secMod === 'yetki' && (u.id === y.baskan)) return;
         if (q && u.ad.toLocaleLowerCase('tr-TR').indexOf(q) < 0) return;
         var li = document.createElement('li');
         li.innerHTML = '<button class="pl-row pl-btn" type="button"><span class="pl-av" aria-hidden="true"></span><span class="pl-txt"><span class="pl-t"></span><span class="pl-s"></span></span></button>';
         var b = li.firstChild; b.setAttribute('data-sec', u.id);
         b.querySelector('.pl-av').textContent = basHarf(u.ad); b.querySelector('.pl-t').textContent = u.ad + (u.id === Hesap.uid() ? ' (sen)' : '');
-        b.querySelector('.pl-s').textContent = ROLLER[u.rol] + (u.id === y.baskan ? ' · Başkan' : u.id === y.yetkili ? ' · Yetkili' : '');
+        var gs = Object.keys(GOREV).filter(function (g) { return y[g] === u.id; }).map(function (g) { return GOREV_KISA[g]; });
+        b.querySelector('.pl-s').textContent = ROLLER[u.rol] + (gs.length ? ' · ' + gs.join(', ') : '');
         secListe.appendChild(li); n++;
       });
       if (!n) { var e = document.createElement('li'); e.className = 'pl-row'; e.textContent = secKisiler.length ? 'Sonuç yok.' : 'Yükleniyor…'; secListe.appendChild(e); }
     }
     function secAc(mod) {
       secMod = mod; secK.hidden = false; secAra.value = ''; secKisiler = [];
-      document.getElementById('ky-sec-bas').textContent = mod === 'baskan' ? 'Başkanı seç' : 'Kulüp adına paylaşım yapacak kişiyi seç';
+      document.getElementById('ky-sec-bas').textContent = GOREV[mod] + ' seç';
       secCiz(); kyMesaj('');
       Hesap.kullanicilar().then(function (l) { secKisiler = l; if (!secK.hidden) secCiz(); }, function () { kyMesaj('Kullanıcılar yüklenemedi.', true); });
       try { secAra.focus(); } catch (e) {}
@@ -8349,17 +8338,16 @@ var BGX = (function () {
         Hesap.kulupSil(k).then(function () { if (current === 'kulup') goBack(); }, function () { kyMesaj('Kulüp silinemedi.', true); });
         return;
       }
-      if (m === 'kaldir') { Hesap.yetkiVer(k, null).then(function () { kyMesaj('Yetki kaldırıldı.'); }, function () { kyMesaj('Yetki kaldırılamadı.', true); }); return; }
       if (secMod === m && !secK.hidden) secKapat(); else secAc(m);
     });
     secAra.addEventListener('input', secCiz);
     document.getElementById('ky-vazgec').addEventListener('click', secKapat);
     secListe.addEventListener('click', function (e) {
       var b = e.target.closest('[data-sec]'); if (!b) return;
-      var id = b.getAttribute('data-sec'), k = cur, m = secMod;
+      var id = b.getAttribute('data-sec') || null, k = cur, m = secMod;
       secKapat();
-      (m === 'baskan' ? Hesap.baskanAta(k, id) : Hesap.yetkiVer(k, id)).then(function () {
-        kyMesaj(m === 'baskan' ? 'Başkan güncellendi.' : 'Yetki verildi.');
+      Hesap.gorevAta(k, m, id).then(function () {
+        kyMesaj(id ? GOREV[m] + ' atandı.' : GOREV[m] + ' görevden alındı.');
       }, function () { kyMesaj('Kaydedilemedi. Yetkin olmayabilir.', true); });
     });
     function renderYon(k) {
@@ -8368,7 +8356,20 @@ var BGX = (function () {
       if (!KULUP_INFO[k]) return;
       KULUP_INFO[k].yonetim.forEach(function (y) {
         if (y.rol === 'Başkan' && ya.baskan) { yonEl.appendChild(hesapSatir('Başkan', ya.baskan)); return; }
+        if (y.rol === 'Başkan yardımcısı') {
+          if (ya.yardimci) yonEl.appendChild(hesapSatir('Başkan yardımcısı', ya.yardimci));
+          else if (y.bos) yonEl.appendChild(bosSatir('Başkan yardımcısı'));
+          else yonEl.appendChild(statikSatir(y));
+          yonEl.appendChild(ya.sosyal ? hesapSatir('Sosyal medya sorumlusu', ya.sosyal) : bosSatir('Sosyal medya sorumlusu'));
+          return;
+        }
         if (y.uid) { yonEl.appendChild(hesapSatir(y.rol, y.uid)); return; }
+        if (y.bos) { yonEl.appendChild(bosSatir(y.rol)); return; }
+        yonEl.appendChild(statikSatir(y));
+      });
+      aracCiz(k);
+    }
+    function statikSatir(y) {
         var p = y.kisi ? KISI_IDX[y.kisi] : null, ad = p ? p.unvan + ' ' + p.ad : y.ad, mail = p ? p.mail : (y.mail || '');
         var li = document.createElement('li'), row = document.createElement(p ? 'button' : 'div');
         row.className = 'ky-row' + (p ? ' ky-btn' : '');
@@ -8378,11 +8379,7 @@ var BGX = (function () {
         row.querySelector('.ky-rol').textContent = y.rol;
         row.querySelector('.ky-ad').textContent = ad;
         var m = row.querySelector('.ky-mail'); m.lastChild.textContent = mail || 'E-posta eklenmedi'; m.classList.toggle('bos', !mail);
-        if (y.bos) { m.remove(); row.classList.add('atanmadi'); row.querySelector('.ky-av').textContent = '?'; }
-        li.appendChild(row); yonEl.appendChild(li);
-        if (y.rol === 'Başkan yardımcısı' && ya.yetkili) yonEl.appendChild(hesapSatir('Yetkili üye', ya.yetkili));
-      });
-      aracCiz(k);
+        li.appendChild(row); return li;
     }
     Hesap.dinle(function () { if (!vEl.hidden || started) { renderYon(cur); syncForm(); if (started) render(); } });
     yonEl.addEventListener('click', function (e) { var b = e.target.closest('[data-ac]'); if (b && Kisi) Kisi.open(b.getAttribute('data-ac')); });
@@ -8394,7 +8391,8 @@ var BGX = (function () {
       secKapat(); kyMesaj(''); renderYon(k); Oylama.open(k); TalepForm.open(k);
       ta.value = drafts[k] || '';
       setDurum('');
-      start(); syncForm(); render();
+      if (started) abone(k); else start();
+      syncForm(); render();
     }
     var listeEl = document.getElementById('kl-liste');
     function listeCiz() {
