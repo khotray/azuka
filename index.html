@@ -600,6 +600,34 @@ body.in-ayar .kl-yaz textarea { background: color-mix(in srgb, var(--ay-3) 72%, 
     var(--ay-base);
 }
 body.in-ayar .ayar-bg { display: block; }
+/* Oyun ekranları (Eğlence, Hedef Asal): yeşil renk paleti arka planı */
+:root {
+  --yz-base: #E2F0E4; --yz-1: #BCE2C5; --yz-2: #96D1A9; --yz-3: #F1F9F2; --yz-4: #6FBF8C;
+  --yz-card: rgba(250, 255, 251, .80); --yz-line: rgba(18, 72, 40, .14); --yz-ink: #0F2618; --yz-muted: #4A6A55; --yz-acc: #1E7A46;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --yz-base: #0D1912; --yz-1: #19331F; --yz-2: #21462F; --yz-3: #122219; --yz-4: #2A5C3C;
+    --yz-card: rgba(21, 40, 28, .78); --yz-line: rgba(190, 255, 215, .10); --yz-ink: #E7F5EC; --yz-muted: #9DC2AA; --yz-acc: #6FD39A;
+  }
+}
+:root[data-theme="dark"] {
+  --yz-base: #0D1912; --yz-1: #19331F; --yz-2: #21462F; --yz-3: #122219; --yz-4: #2A5C3C;
+  --yz-card: rgba(21, 40, 28, .78); --yz-line: rgba(190, 255, 215, .10); --yz-ink: #E7F5EC; --yz-muted: #9DC2AA; --yz-acc: #6FD39A;
+}
+.oyun-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; display: none;
+  background:
+    radial-gradient(62% 44% at 10% 4%, var(--yz-1), transparent 72%),
+    radial-gradient(56% 40% at 96% 22%, var(--yz-2), transparent 72%),
+    radial-gradient(72% 50% at 86% 100%, var(--yz-4), transparent 74%),
+    radial-gradient(60% 46% at 2% 82%, var(--yz-3), transparent 72%),
+    var(--yz-base);
+}
+body.in-oyun .oyun-bg { display: block; }
+body.in-oyun { --fg: var(--yz-ink); --muted: var(--yz-muted); --surface: var(--yz-card); --line: var(--yz-line); --num: var(--yz-acc); --focus: var(--yz-acc); background: var(--yz-base); }
+body.in-oyun .eg-head, body.in-oyun .eg-oyun, body.in-oyun .kl-kart, body.in-oyun .h24-tas, body.in-oyun .h24-op, body.in-oyun .h24-arac, body.in-oyun .h24-adimlar li, body.in-oyun .oy-sure { -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); }
+body.in-oyun .eg-head { background: linear-gradient(150deg, color-mix(in srgb, var(--yz-2) 55%, var(--surface)), var(--surface) 72%); }
 body.in-ayar { --fg: var(--ay-ink); --muted: var(--ay-muted); --surface: var(--ay-card); --line: var(--ay-line); --num: var(--ay-acc); --focus: var(--ay-acc); background: var(--ay-base); }
 body.in-ayar .set-list, body.in-ayar .kl-yaz, body.in-ayar .bd-item, body.in-ayar .ay-bos { -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); }
 .ay-page { gap: 22px; }
@@ -2241,6 +2269,7 @@ button.ot:active { transform: scale(.97); }
   </div>
 </div>
 <div class="ayar-bg" aria-hidden="true"></div>
+<div class="oyun-bg" aria-hidden="true"></div>
 <div class="wood" id="wood" aria-hidden="true" hidden><canvas data-sec="tanim"></canvas><canvas data-sec="ornek"></canvas><canvas data-sec="fayda"></canvas></div>
 
 <h1 class="sr-only">Matematik Cepte</h1>
@@ -6807,6 +6836,7 @@ var BGX = (function () {
     document.body.classList.toggle('in-e', inE);
     var eBtn = document.getElementById('go-e'); if (eBtn) { eBtn.setAttribute('aria-label', inE ? 'Kulüpler, köyler ve matematikçilerden çık' : 'Kulüpler, köyler ve matematikçiler'); eBtn.setAttribute('aria-pressed', inE ? 'true' : 'false'); }
     document.body.classList.toggle('in-ayar', inAyar);
+    document.body.classList.toggle('in-oyun', name === 'eglence' || name === 'hedef24');
     var gearBtn = document.getElementById('go-ayarlar'); if (gearBtn) { gearBtn.setAttribute('aria-label', inAyar ? 'Ayarlardan çık' : 'Ayarlar'); gearBtn.setAttribute('aria-pressed', inAyar ? 'true' : 'false'); }
     if (menu) bg.start(); else bg.stop();
     if (name === 'liste' && prev === 'soru') renderList(listKind);
