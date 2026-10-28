@@ -845,9 +845,32 @@ body.home-plain .eg-ico svg { filter: none; }
 .eg-ico:active svg { transform: scale(.88); }
 .eg-ico:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 @media (hover: hover) { .eg-ico:hover svg { transform: translateY(-3px) rotate(-6deg); } }
+/* Porsuk sayfayı duvar gibi iter: eski sayfa porsuğun önünde kayar, arkasında yeni sayfa görünür */
+.porsuk-vt { position: fixed; left: 0; top: 0; width: 150px; height: 75px; pointer-events: none; transform: translateX(-400px); view-transition-name: porsuk; }
+.porsuk-vt .porsuk-svg, .porsuk-kos .porsuk-svg { width: 100%; height: 100%; display: block; }
+.porsuk-vt.geri .porsuk-svg, .porsuk-kat.geri .porsuk-svg { transform: scaleX(-1); }
+.porsuk-vt .pr-govde { animation: prSek .2s ease-in-out infinite alternate; }
+.porsuk-vt .pr-a { animation: prBacak .2s ease-in-out infinite alternate; }
+.porsuk-vt .pr-b { animation: prBacak .2s ease-in-out infinite alternate-reverse; }
+.vt-porsuk::view-transition-group(root) { animation: none; }
+.vt-porsuk::view-transition-image-pair(root) { isolation: isolate; }
+.vt-porsuk::view-transition-new(root) { animation: none; mix-blend-mode: normal; opacity: 1; z-index: 0; }
+.vt-porsuk::view-transition-old(root) { mix-blend-mode: normal; opacity: 1; z-index: 1; animation: 1.3s cubic-bezier(.45, .05, .55, .95) both; }
+.vt-porsuk-ileri::view-transition-old(root) { animation-name: duvarIleri; box-shadow: -16px 0 28px -10px rgba(0, 0, 0, .5); }
+.vt-porsuk-geri::view-transition-old(root) { animation-name: duvarGeri; box-shadow: 16px 0 28px -10px rgba(0, 0, 0, .5); }
+.vt-porsuk::view-transition-old(porsuk) { animation: none; opacity: 0; }
+.vt-porsuk::view-transition-new(porsuk) { animation: none; opacity: 1; }
+.vt-porsuk::view-transition-group(porsuk) { animation: 1.3s cubic-bezier(.45, .05, .55, .95) both; }
+.vt-porsuk-ileri::view-transition-group(porsuk) { animation-name: prItIleri; }
+.vt-porsuk-geri::view-transition-group(porsuk) { animation-name: prItGeri; }
+@keyframes duvarIleri { from { transform: translateX(0); } to { transform: translateX(calc(100vw + 160px)); } }
+@keyframes duvarGeri { from { transform: translateX(0); } to { transform: translateX(calc(-100vw - 160px)); } }
+@keyframes prItIleri { from { transform: translate(-150px, var(--pr-y, 70vh)); } to { transform: translate(calc(100vw + 10px), var(--pr-y, 70vh)); } }
+@keyframes prItGeri { from { transform: translate(100vw, var(--pr-y, 70vh)); } to { transform: translate(-160px, var(--pr-y, 70vh)); } }
 .porsuk-kat { position: fixed; inset: 0; z-index: 80; pointer-events: none; overflow: hidden; }
+.porsuk-kat.geri .porsuk-kos { animation-name: porsukKosGeri; }
+@keyframes porsukKosGeri { 0% { transform: translateX(calc(100vw + 10px)); } 100% { transform: translateX(-150px); } }
 .porsuk-kos { position: absolute; left: 0; bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 6px); width: 150px; height: 75px; transform: translateX(-150px); animation: porsukKos 1.4s cubic-bezier(.3, .15, .65, .9) forwards; }
-.porsuk-kos .porsuk-svg { width: 100%; height: 100%; display: block; }
 @keyframes porsukKos { 0% { transform: translateX(-150px); } 100% { transform: translateX(calc(100vw + 10px)); } }
 .porsuk-svg .pr-golge { fill: rgba(0, 0, 0, .18); }
 .porsuk-svg .pr-bacak { transform-box: fill-box; transform-origin: 50% 0; }
@@ -6348,6 +6371,7 @@ var BGX = (function () {
     if (dest === 'home' && SEC_OF_VIEW[leaving.name]) secTransition(true, SEC_OF_VIEW[leaving.name] === 'bos' ? bosSec : SEC_OF_VIEW[leaving.name], leaving.name, run);
     else if (dest === 'home' && leaving.name === 'ayarlar') revealTransition(document.getElementById('go-ayarlar'), true, run);
     else if (dest === 'home' && leaving.name === 'top') revealTransition(document.getElementById('go-e'), true, run);
+    else if (dest === 'home' && leaving.name === 'eglence') porsukGecis(true, run);
     else if (heroBack[leaving.name] && heroBack[leaving.name].dest === dest) heroBack[leaving.name](run);
     else run();
   }
@@ -7729,13 +7753,28 @@ var BGX = (function () {
     if (E_VIEWS[current]) { revealTransition(this, true, goRoot); return; }
     revealTransition(this, false, function () { nav('top'); });
   });
-  /* Eğlence: sol alttaki ikon. Girerken bal porsuğu ekranı boydan boya koşarak geçer, sayfa arada açılır */
+  /* Eğlence: sol alttaki ikon. Girerken bal porsuğu soldan gelip sayfayı duvar gibi iter, arkasında Eğlence açılır;
+     ana ekrana dönerken öteki taraftan gelip sayfayı geri iter */
   var PORSUK = '<svg class="porsuk-svg" viewBox="0 0 160 80" aria-hidden="true" focusable="false"> <defs><linearGradient id="pr-manto-k" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#CBC5B9"/><stop offset=".5" stop-color="#E6E1D7"/><stop offset="1" stop-color="#F3F0E9"/></linearGradient></defs> <ellipse class="pr-golge" cx="80" cy="66" rx="50" ry="3.2"/> <g class="pr-govde"> <g transform="translate(42 45)"><g class="pr-bacak pr-b"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#34343A"/><path d="M5 17.6l3.6.6M5 15.6l3.8-.3" stroke="#A9A49A" stroke-width="1.3" stroke-linecap="round"/></g></g> <g transform="translate(104 45)"><g class="pr-bacak pr-a"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#34343A"/><path d="M5 17.8l5.6.8M5 15.8l5.8-.1M4.8 13.8l5.4-.9" stroke="#A9A49A" stroke-width="1.3" stroke-linecap="round"/></g></g> <path d="M29 35C22 29 14 28 9.5 31C13.5 35 20 39 28 42Z" fill="#1E1E22"/> <path d="M9.5 31C14.5 28 22 28.5 29 34.5L28.6 37C22 32.6 15 31.6 9.5 31Z" fill="#CBC5B9"/> <path d="M28 42C26 28 40 18 66 17C92 16 110 20 118 28C124 34 124 46 116 52C104 58 52 58 40 54C32 51 29 47 28 42Z" fill="#1E1E22"/> <path d="M110 30C118 23 132 23 140 29C146 33 149 37 148 41C147 45 142 47 136 47L124 49C114 50 108 42 110 30Z" fill="#1E1E22"/> <path d="M27.4 40C26.4 27 40 15.6 66 15.2C92 14.8 110 18.6 118.4 25.6C123.6 22.8 133.4 23 141.6 29.6L138.6 32.8C131.6 30.6 124.6 30.8 118.4 32.2C104 29 86 28.2 66 28.6C48 29 36.4 32 29.2 42.4Z" fill="url(#pr-manto-k)"/> <circle cx="134.8" cy="36.4" r="1.9" fill="#0A0A0C"/><circle cx="135.4" cy="35.8" r=".6" fill="#FFFFFF"/> <circle cx="148.2" cy="40.2" r="2.4" fill="#0A0A0C"/> <g transform="translate(50 46)"><g class="pr-bacak pr-a"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#16161A"/><path d="M5 17.6l3.6.6M5 15.6l3.8-.3" stroke="#CFCAC0" stroke-width="1.3" stroke-linecap="round"/></g></g> <g transform="translate(112 46)"><g class="pr-bacak pr-b"><path d="M-6.5 0H6.5L6 14C6 17 4.5 18.5 1.5 18.5H-4C-6.5 18.5-7.5 17-7 14Z" fill="#16161A"/><path d="M5 17.8l5.6.8M5 15.8l5.8-.1M4.8 13.8l5.4-.9" stroke="#DCD8CF" stroke-width="1.3" stroke-linecap="round"/></g></g> </g> </svg>';
   var egKosuyor = false;
-  function porsukGecis(sonra) {
+  function porsukGecis(geri, sonra) {
     if (reduce) { sonra(); return; }
     if (egKosuyor) return; egKosuyor = true;
-    var kat = document.createElement('div'); kat.className = 'porsuk-kat'; kat.setAttribute('aria-hidden', 'true');
+    var root = document.documentElement;
+    if (typeof document.startViewTransition === 'function') {
+      var pr = document.createElement('div'); pr.className = 'porsuk-vt' + (geri ? ' geri' : ''); pr.setAttribute('aria-hidden', 'true'); pr.innerHTML = PORSUK;
+      document.body.appendChild(pr);
+      var alt = parseFloat(getComputedStyle(document.getElementById('go-eglence')).bottom) || 12;
+      root.style.setProperty('--pr-y', Math.max(0, window.innerHeight - 75 - alt - 4) + 'px');
+      root.classList.add('vt-run', 'vt-porsuk', geri ? 'vt-porsuk-geri' : 'vt-porsuk-ileri');
+      var son = function () { root.classList.remove('vt-run', 'vt-porsuk', 'vt-porsuk-geri', 'vt-porsuk-ileri'); if (pr.parentNode) pr.remove(); egKosuyor = false; };
+      var tr;
+      try { tr = document.startViewTransition(function () { sonra(); }); }
+      catch (e) { son(); sonra(); return; }
+      tr.finished.then(son, son);
+      return;
+    }
+    var kat = document.createElement('div'); kat.className = 'porsuk-kat' + (geri ? ' geri' : ''); kat.setAttribute('aria-hidden', 'true');
     kat.innerHTML = '<div class="porsuk-kos">' + PORSUK + '</div>';
     document.body.appendChild(kat);
     var kos = kat.firstChild, bitti = false;
@@ -7924,7 +7963,7 @@ var BGX = (function () {
   })();
   document.getElementById('go-eglence').addEventListener('click', function () {
     if (current !== 'home') return;
-    porsukGecis(function () { Hedef24.ozet(); nav('eglence'); });
+    porsukGecis(false, function () { Hedef24.ozet(); nav('eglence'); });
   });
   document.getElementById('go-hedef24').addEventListener('click', function () { Hedef24.ac(); nav('hedef24'); });
 
