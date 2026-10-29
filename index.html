@@ -1228,6 +1228,56 @@ body.home-plain .eg-ico svg { filter: none; }
 .ib-soru::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background-image: radial-gradient(circle, rgba(255, 255, 255, .55) 1.6px, transparent 2px); background-size: 18px 18px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 80%); mask-image: linear-gradient(180deg, #000, transparent 80%); }
 .ib-soru > * { position: relative; }
 @media (prefers-reduced-motion: reduce) { .ibm-d.simdi, .ibm-d.simdi::after, .ibm-cocuk .ib-c-ust, .ibm-cocuk .ib-c-bacak, .ibm-not { animation: none !important; } .ibm-kilitbant { transition: none; } }
+/* Ana ekran: konular yalnızca geliştiricide; matematikçi ve standartta Gelen mesajlar, Gruplar, Profil; çocukta Oyunlar, Profil */
+body:not(.ev-konu) #topic-chip, body:not(.ev-konu) #konu-pick, body:not(.ev-konu) #go-tanim, body:not(.ev-konu) #go-ornek, body:not(.ev-konu) #go-fayda, body:not(.ev-konu) #go-mat { display: none !important; }
+body:not(.ev-mesaj) #go-mesajlar, body:not(.ev-mesaj) #go-gruplar { display: none !important; }
+body:not(.ev-profil) #go-profil { display: none !important; }
+body:not(.ev-cocuk) #go-oyunlar { display: none !important; }
+body.ev-bekle #sec-menu, body.ev-bekle #topic-chip { visibility: hidden; }
+#sec-menu .t-rozet { flex: none; min-width: 24px; height: 24px; padding: 0 7px; border-radius: 999px; display: grid; place-items: center; background: #DC2626; color: #FFFFFF; font-size: 13px; font-weight: 800; line-height: 1; text-shadow: none; box-shadow: 0 2px 6px -2px rgba(0, 0, 0, .4); }
+body.ev-konu.ev-mesaj #sec-menu { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; }
+body.ev-konu.ev-mesaj #sec-menu .tile:not(.ev) { grid-column: 1 / -1; }
+body.ev-konu.ev-mesaj #sec-menu .tile.ev { flex-direction: column; justify-content: center; align-items: center; gap: 6px; min-height: 0; padding: 12px 6px 10px; text-align: center; }
+body.ev-konu.ev-mesaj #sec-menu .tile.ev .t-sub, body.ev-konu.ev-mesaj #sec-menu .tile.ev .t-go { display: none; }
+body.ev-konu.ev-mesaj #sec-menu .tile.ev .t-txt { flex: none; align-items: center; }
+body.ev-konu.ev-mesaj #sec-menu .tile.ev .t-label { font-size: 14px; }
+body.ev-konu.ev-mesaj #sec-menu .tile.ev .t-ic { width: 38px; height: 38px; border-radius: 12px; }
+body.ev-konu.ev-mesaj #sec-menu .tile.ev .t-rozet { position: absolute; top: 6px; right: 6px; min-width: 20px; height: 20px; font-size: 11.5px; padding: 0 6px; }
+/* Gelen mesajlar ve sohbet */
+.ms-bul { display: flex; flex-direction: column; gap: 10px; }
+.ms-yuk { padding: 14px 16px; color: var(--muted); font-size: 14.5px; list-style: none; }
+.ms-etiket { font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.ms-liste > li + li { border-top: 1px solid var(--line); }
+.ms-row { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 16px; border: 0; background: none; color: var(--fg); font-family: inherit; text-align: left; cursor: pointer; }
+.ms-row:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.ms-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.ms-ust { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.ms-ad { flex: 1; min-width: 0; font-size: 16px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ms-z { flex: none; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ms-on { font-size: 14px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ms-nokta { width: 10px; height: 10px; border-radius: 50%; flex: none; background: transparent; }
+.ms-row.yeni .ms-nokta { background: #2563EB; }
+.ms-row.yeni .ms-on { color: var(--fg); font-weight: 600; }
+.ms-row.yeni .ms-z { color: #2563EB; font-weight: 700; }
+.sh-sayfa { gap: 12px; min-height: 100%; }
+.sh-ust { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+.sh-txt { display: flex; flex-direction: column; min-width: 0; }
+.page .sh-txt h2 { margin: 0; font-size: 19px; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sh-txt small { font-size: 13px; color: var(--muted); }
+.sh-akis { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.sh-akis:empty { display: none; }
+.sh-m { max-width: 82%; align-self: flex-start; padding: 9px 12px 6px; border-radius: 18px 18px 18px 6px; background: var(--surface); border: 1px solid var(--line); }
+.sh-m.ben { align-self: flex-end; border-radius: 18px 18px 6px 18px; border-color: transparent; background: #2563EB; color: #FFFFFF; }
+.sh-m p { margin: 0; font-size: 15.5px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
+.sh-m time { display: block; margin-top: 2px; font-size: 11.5px; text-align: right; opacity: .7; font-variant-numeric: tabular-nums; }
+.sh-gun { align-self: center; margin: 8px 0 2px; padding: 4px 11px; border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--muted); background: var(--surface); border: 1px solid var(--line); }
+.sh-bos { text-align: center; }
+.sh-yaz { position: sticky; bottom: 0; z-index: 2; display: flex; align-items: flex-end; gap: 8px; margin-top: auto; padding: 10px 0 4px; background: linear-gradient(to bottom, transparent, var(--bg) 35%); }
+.sh-yaz textarea { flex: 1; min-width: 0; min-height: 46px; max-height: 140px; resize: none; padding: 12px 16px; border-radius: 23px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); font-family: inherit; font-size: 15.5px; line-height: 1.4; }
+.sh-yaz textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.kl-paylas.sh-gonder { width: 46px; height: 46px; flex: none; padding: 0; border-radius: 50%; justify-content: center; }
+.kl-paylas.sh-gonder svg { width: 20px; height: 20px; }
+.pr-head { align-items: center; }
 /* Aile: çocuk ve veli hesapları */
 body.e-yok #go-e { display: none !important; }
 body.veli-mod #topic-chip, body.veli-mod #konu-pick, body.veli-mod #go-tanim, body.veli-mod #go-ornek, body.veli-mod #go-fayda, body.veli-mod #go-mat { display: none !important; }
@@ -2621,6 +2671,26 @@ button.ot:active { transform: scale(.97); }
         <span class="t-txt"><span class="t-label">Matematiğe giriş</span><span class="t-sub">Teoremler, inşalar, kanıt yöntemleri</span></span>
         <svg class="t-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
       </button>
+      <button class="tile ev" type="button" id="go-mesajlar">
+        <span class="t-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8 8 0 0 1-11.6 7.2L3.5 20.5l1.3-4.6A8 8 0 1 1 20.5 12z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg></span>
+        <span class="t-txt"><span class="t-label">Gelen mesajlar</span><span class="t-sub">Sohbetler ve davetler</span></span><span class="t-rozet" id="mesaj-rozet" hidden></span>
+        <svg class="t-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <button class="tile ev c3" type="button" id="go-gruplar">
+        <span class="t-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="7.5" r="3.5"/><path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.2a3.5 3.5 0 0 1 0 6.6"/></svg></span>
+        <span class="t-txt"><span class="t-label">Gruplar</span><span class="t-sub">Üyesi olduğun gruplar</span></span>
+        <svg class="t-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <button class="tile ev c2" type="button" id="go-profil">
+        <span class="t-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5v-.5a6 6 0 0 1 6-6h3a6 6 0 0 1 6 6v.5"/></svg></span>
+        <span class="t-txt"><span class="t-label">Profil</span><span class="t-sub">ID, bağlantılar</span></span>
+        <svg class="t-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <button class="tile ev c4" type="button" id="go-oyunlar">
+        <span class="t-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="11" rx="5.5"/><path d="M7.5 10.5v4M5.5 12.5h4"/><circle cx="15.5" cy="11.5" r="1"/><circle cx="17.8" cy="13.8" r="1"/></svg></span>
+        <span class="t-txt"><span class="t-label">Oyunlar</span><span class="t-sub">Eğlence</span></span>
+        <svg class="t-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
     </nav>
     <nav class="konu-pick" id="cocuk-pick" aria-label="Çocuklar" hidden></nav>
     <nav class="konu-pick" id="konu-pick" aria-label="Konular" hidden>
@@ -3090,6 +3160,7 @@ button.ot:active { transform: scale(.97); }
         </div>
       </div>
       <div class="tpanel" id="tp-bir" role="tabpanel" aria-labelledby="tb-bir" hidden>
+        <div class="gp-kap" id="gp-kap">
         <button class="kl-olustur" type="button" id="gp-olustur" aria-expanded="false" aria-controls="gp-form" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Grup oluştur</span></button>
         <form class="oy-form" id="gp-form" hidden novalidate>
           <label class="oy-l" for="gp-yeni-ad">Grup adı</label>
@@ -3102,6 +3173,7 @@ button.ot:active { transform: scale(.97); }
         </form>
         <ul class="plist" id="gp-liste" hidden></ul>
         <div class="e-bos" id="gp-bos"><span class="e-bos-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="7.5" r="3.5"/><path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.2a3.5 3.5 0 0 1 0 6.6"/></svg></span><p id="gp-bos-t">Henüz bir grubun yok. Hocan seni bir gruba eklediğinde burada görünür.</p></div>
+        </div>
       </div>
     </div>
   </section>
@@ -3570,6 +3642,64 @@ button.ot:active { transform: scale(.97); }
       </div>
       </div>
       <p class="ay-alt">Matematik Cepte · Z-Tekno</p>
+    </div>
+  </section>
+
+  <section class="view" id="v-gruplar" hidden>
+    <div class="page">
+      <div class="ph"><span class="eyebrow">Ana ekran</span><h2>Gruplar</h2></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-mesajlar" hidden>
+    <div class="page">
+      <div class="ph"><span class="eyebrow">Mesajlar</span><h2>Gelen mesajlar</h2></div>
+      <p class="set-note">Yalnızca bağlantılı olduğun kişilerle mesajlaşırsın. Birini bulup davet gönder; daveti kabul edince sohbet açılır.</p>
+      <div class="ms-bul">
+        <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="ms-ara" type="search" placeholder="Ad ya da ID ile kişi bul" aria-label="Ad ya da ID ile kişi bul" autocomplete="off"></label>
+        <ul class="kl-kart kl-yon aile-liste" id="ms-sonuc" hidden></ul>
+      </div>
+      <p class="kl-durum" id="ms-durum" role="status" hidden></p>
+      <h3 class="kl-bas" id="ms-davet-bas">Davetler <small id="ms-davet-n"></small></h3>
+      <ul class="kl-kart kl-yon aile-liste" id="ms-davetler" hidden></ul>
+      <p class="empty" id="ms-davet-bos">Bekleyen davet yok.</p>
+      <h3 class="kl-bas">Sohbetler</h3>
+      <ul class="kl-kart kl-yon ms-liste" id="ms-liste" hidden></ul>
+      <p class="empty" id="ms-bos">Henüz bağlantın yok.</p>
+    </div>
+  </section>
+
+  <section class="view" id="v-sohbet" hidden>
+    <div class="page sh-sayfa">
+      <header class="sh-ust"><span class="ky-av" id="sh-av" aria-hidden="true"></span><div class="sh-txt"><h2 id="sh-ad"></h2><small id="sh-id"></small></div></header>
+      <ol class="sh-akis" id="sh-akis"></ol>
+      <p class="empty sh-bos" id="sh-bos">Henüz mesaj yok. İlk mesajı sen yaz.</p>
+      <p class="kl-durum" id="sh-durum" role="status" hidden></p>
+      <form class="sh-yaz" id="sh-form" novalidate>
+        <label class="sr-only" for="sh-metin">Mesaj</label>
+        <textarea id="sh-metin" rows="1" maxlength="1000" placeholder="Mesaj yaz…"></textarea>
+        <button class="kl-paylas sh-gonder" type="submit" id="sh-gonder" disabled aria-label="Gönder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L10 14"/><path d="M21 3l-6.5 18-4.5-7-7-4.5z"/></svg></button>
+      </form>
+    </div>
+  </section>
+
+  <section class="view" id="v-profil" hidden>
+    <div class="page">
+      <header class="kl-head pr-head">
+        <span class="kl-av" id="pr-av" aria-hidden="true"></span>
+        <div class="kl-hd"><span class="eyebrow" id="pr-rol">Profil</span><h2 id="pr-ad"></h2><p class="kl-uye" id="pr-id"></p></div>
+      </header>
+      <p class="set-note" id="pr-not">ID'ni paylaşırsan seni bulup bağlantı daveti gönderebilirler.</p>
+      <section class="kl-sec" id="pr-hoca" hidden>
+        <h3 class="kl-bas">Matematikçi profili</h3>
+        <ul class="kl-kart kl-yon"><li><div class="ky-row"><span class="ky-txt"><span class="ky-rol">Unvan ve kurum</span><span class="ky-ad" id="pr-hoca-s"></span></span><span class="kt-btns"><button class="gp-uye-sil" type="button" id="pr-hoca-duzenle">Düzenle</button></span></div></li></ul>
+      </section>
+      <section class="kl-sec" id="pr-bag-sec" hidden>
+        <h3 class="kl-bas">Bağlantılarım <small id="pr-bag-n"></small></h3>
+        <ul class="kl-kart kl-yon aile-liste" id="pr-baglar" hidden></ul>
+        <p class="empty" id="pr-bag-bos">Henüz bağlantın yok. Gelen mesajlar bölümünden davet gönderebilirsin.</p>
+      </section>
+      <p class="kl-durum" id="pr-durum" role="status" hidden></p>
     </div>
   </section>
 
@@ -6822,6 +6952,10 @@ var BGX = (function () {
     tesekkur: document.getElementById('v-tesekkur'),
     kullanicilar: document.getElementById('v-kullanicilar'),
     veliekle: document.getElementById('v-veliekle'),
+    gruplar: document.getElementById('v-gruplar'),
+    mesajlar: document.getElementById('v-mesajlar'),
+    sohbet: document.getElementById('v-sohbet'),
+    profil: document.getElementById('v-profil'),
     cocuklar: document.getElementById('v-cocuklar'),
     analiz: document.getElementById('v-analiz'),
     eglence: document.getElementById('v-eglence'),
@@ -7354,6 +7488,7 @@ var BGX = (function () {
     applyWood();
     if (typeof Kulup !== 'undefined' && Kulup) Kulup.arka();
     if (typeof Aile !== 'undefined' && Aile) Aile.goster(name);
+    if (typeof Mesaj !== 'undefined' && Mesaj) Mesaj.goster(name);
   }
 
   function finish() {
@@ -9168,7 +9303,7 @@ var BGX = (function () {
   function kisiEslesir(u, q) { if (!q) return true; var r = q.replace(/^#|^id\s*/i, ''); return u.ad.toLocaleLowerCase('tr-TR').indexOf(q) >= 0 || (!!u.no && /^\d+$/.test(r) && u.no.indexOf(r) >= 0); }
   var Hesap = (function () {
     var db = null, usr = null, uid = null, rol = 'standart', hazir = null, dinleyen = [], yon = {}, prof = {}, uyelik = {}, yonY = false, uyeY = false, numaralar = {}, talepler = {}, talepAbone = {}, ekip = {};
-    var ekipGrup = {}, gorunum = {}, grupYazildi = {}, kulY = false, ekY = false;
+    var ekipGrup = {}, gorunum = {}, grupYazildi = {}, kulY = false, ekY = false, rolY = false, baglandi = false;
     function str(v) { return typeof v === 'string' && v.length > 0 && v.length <= 128 ? v : null; }
     function bildir() { dinleyen.forEach(function (f) { try { f(); } catch (e) {} }); }
     function bagla() {
@@ -9183,9 +9318,10 @@ var BGX = (function () {
             if (sahip) rol = 'gelistirici';
             if (uid) {
               db.doc('roller/' + uid).onSnapshot(function (s) {
-                var d = s.exists ? s.data() : null, r2 = sahip ? 'gelistirici' : (d && ROLLER[d.rol] ? d.rol : 'standart');
-                if (r2 !== rol) { rol = r2; bildir(); }
-              }, function () {});
+                var d = s.exists ? s.data() : null, r2 = sahip ? 'gelistirici' : (d && ROLLER[d.rol] ? d.rol : 'standart'), ilk = !rolY;
+                rolY = true;
+                if (r2 !== rol || ilk) { rol = r2; bildir(); }
+              }, function () { if (!rolY) { rolY = true; bildir(); } });
               try { db.doc('uyeler/' + uid).set({ t: Date.now() }).catch(function () {}); } catch (e) {}
             }
             db.collection('kulupler').limit(200).onSnapshot(function (q) {
@@ -9235,6 +9371,7 @@ var BGX = (function () {
           }, function () { res(); });
         }, function () { res(); });
       });
+      hazir.then(function () { baglandi = true; bildir(); });
       return hazir;
     }
     function adlar(ids) {
@@ -9332,6 +9469,8 @@ var BGX = (function () {
         return db.doc('uyelik/' + k).set({ uyeler: temiz, t: Date.now() }).catch(function (e) { uyelik[k] = once; bildir(); throw e; });
       },
       uid: function () { return uid; }, rol: function () { return rol; }, hazirMi: function () { return !!db; },
+      /* Ana ekran için: 'bekle' (hesap ya da rol yükleniyor), 'yerel' (hesapsız sürüm), 'hazir' */
+      durum: function () { if (!baglandi) return 'bekle'; if (!db || !uid) return 'yerel'; return rolY ? 'hazir' : 'bekle'; },
       yon: function (k) { return yon[k] || { baskan: null, yardimci: null, sosyal: null }; },
       gelistiriciMi: function () { return rol === 'gelistirici'; },
       matematikciMi: function () { return rol === 'matematikci' || rol === 'gelistirici'; },
@@ -11139,6 +11278,268 @@ var BGX = (function () {
       goster: function (name) {
         if (name !== 'home' && !ccPick.hidden) ccPickAc(false);
         if (name === 'analiz' && anC) analizCiz();
+      }
+    };
+  })();
+  /* Ana ekran ve mesajlaşma.
+     Konular ve Tanım, Örnek, Ne işe yarayacak, Matematiğe giriş yalnızca geliştirici hesabında (ve hesapsız sürümde) görünür.
+     Matematikçi ve standart hesapların ana ekranında Gelen mesajlar, Gruplar ve Profil bulunur; çocuk hesabında Oyunlar ve Profil.
+     Mesajlaşma için iki kişinin bağlantılı olması gerekir: biri davet gönderir (baglanti_davet/<gönderen>_<hedef>),
+     öteki Davetler kutusundan kabul edince bağlantı kurulur (baglanti/<küçük kimlik>_<büyük kimlik>); mesajlar sohbet/<bağlantı>/m altında.
+     Okunma bilgisi data/users/<kimlik>/sohbet/okundu belgesinde tutulur. */
+  var MESAJ_ROL = { standart: 1, matematikci: 1, gelistirici: 1 };
+  var Mesaj = (function () {
+    function el(id) { return document.getElementById(id); }
+    var db = null, uid = null, acik = false, abone = [], baglar = [], gelen = [], giden = [], okundu = {}, okY = false, adlar = {}, roller = {};
+    var AV_RENK = ['#2563EB', '#16A34A', '#D97706', '#DB2777', '#7C3AED', '#0D9488', '#DC2626'];
+    function renk(id) { var h = 0; for (var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0; return AV_RENK[h % AV_RENK.length]; }
+    function cift(a, b) { return a < b ? a + '_' + b : b + '_' + a; }
+    function karsi(bg) { return bg.u[0] === uid ? bg.u[1] : bg.u[0]; }
+    function ad(x) { return adlar[x] || '…'; }
+    function gun(d) { return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+    var AY_AD = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
+    function saat(t) { var d = new Date(t); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
+    function kisaZaman(t) {
+      var d = new Date(t), b = new Date();
+      if (gun(d) === gun(b)) return saat(t);
+      if (gun(d) === gun(new Date(b.getFullYear(), b.getMonth(), b.getDate() - 1))) return 'Dün';
+      return d.getDate() + ' ' + AY_AD[d.getMonth()];
+    }
+    function adGetir(ids) {
+      ids = ids.filter(function (x) { return x && !adlar[x]; }); if (!ids.length) return;
+      Hesap.adlar(ids).then(function (ps) { ids.forEach(function (x) { adlar[x] = (ps[x] && ps[x].name) || 'Bir kullanıcı'; }); ciz(); if (shK) shCiz(); });
+    }
+    function mesajAcik() { return Hesap.durum() === 'hazir' && !!MESAJ_ROL[Hesap.rol()]; }
+    /* ---- abonelikler ---- */
+    function kapat() { abone.forEach(function (f) { try { f(); } catch (e) {} }); abone = []; baglar = []; gelen = []; giden = []; okundu = {}; okY = false; shKapat(); }
+    function bagla() {
+      var d2 = Hesap.db(), u2 = Hesap.uid(), a2 = mesajAcik();
+      if (d2 === db && u2 === uid && a2 === acik) return;
+      kapat(); db = d2; uid = u2; acik = a2;
+      if (!acik) return;
+      abone.push(db.collection('baglanti').where('u', 'array-contains', uid).limit(300).onSnapshot(function (q) {
+        var o = []; q.docs.forEach(function (d) { var b = d.data() || {}; if (Array.isArray(b.u) && b.u.length === 2 && b.u.indexOf(uid) >= 0 && d.id === b.u[0] + '_' + b.u[1]) o.push({ id: d.id, u: b.u, t: typeof b.t === 'number' ? b.t : 0, son: b.son && typeof b.son.m === 'string' && typeof b.son.t === 'number' ? { u: b.son.u, m: b.son.m, t: b.son.t } : null }); });
+        baglar = o; adGetir(o.map(karsi)); ciz(); if (shK && !baglar.some(function (b) { return b.id === shK; }) && current === 'sohbet') goBack();
+      }, function () { baglar = []; ciz(); }));
+      function davetler(alan, f) {
+        abone.push(db.collection('baglanti_davet').where(alan, '==', uid).limit(200).onSnapshot(function (q) {
+          var o = []; q.docs.forEach(function (d) { var b = d.data() || {}; if (typeof b.k === 'string' && typeof b.h === 'string' && d.id === b.k + '_' + b.h) o.push({ id: d.id, k: b.k, h: b.h, t: typeof b.t === 'number' ? b.t : 0 }); });
+          f(o.sort(function (a, b) { return b.t - a.t; })); adGetir(o.map(function (x) { return alan === 'h' ? x.k : x.h; })); ciz();
+        }, function () { f([]); ciz(); }));
+      }
+      davetler('h', function (o) { gelen = o; }); davetler('k', function (o) { giden = o; });
+      abone.push(db.doc('data/users/' + uid + '/sohbet/okundu').onSnapshot(function (s) {
+        var d = s.exists ? s.data() || {} : {}; var o = {}; if (d.s && typeof d.s === 'object') Object.keys(d.s).forEach(function (k) { if (typeof d.s[k] === 'number') o[k] = d.s[k]; });
+        Object.keys(okundu).forEach(function (k) { if ((okundu[k] || 0) > (o[k] || 0)) o[k] = okundu[k]; });
+        okundu = o; okY = true; ciz();
+      }, function () { okY = true; }));
+    }
+    function okunmamis(b) { return !!b.son && b.son.u !== uid && b.son.t > (okundu[b.id] || 0); }
+    var okT = null;
+    function okunduYaz(id, t) {
+      if (!db || !uid || !t || (okundu[id] || 0) >= t) return;
+      okundu[id] = t; ciz();
+      clearTimeout(okT); okT = setTimeout(function () { if (db && uid) db.doc('data/users/' + uid + '/sohbet/okundu').set({ s: okundu, t: Date.now() }).catch(function () {}); }, 600);
+    }
+    /* ---- ana ekran ---- */
+    var mesajEtiket = null;
+    function evCiz() {
+      var d = Hesap.durum(), r = Hesap.rol(), hazir = d === 'hazir';
+      var konu = d === 'yerel' || (hazir && r === 'gelistirici'), mes = hazir && !!MESAJ_ROL[r], cocuk = hazir && r === 'cocuk';
+      var B = document.body.classList;
+      B.toggle('ev-bekle', d === 'bekle'); B.toggle('ev-konu', konu); B.toggle('ev-mesaj', mes); B.toggle('ev-profil', mes || cocuk); B.toggle('ev-cocuk', cocuk);
+      if (!konu && !konuPick.hidden) setPicker(false);
+      if (!mesajEtiket) mesajEtiket = el('go-mesajlar').querySelector('.t-label');
+      mesajEtiket.textContent = konu && mes ? 'Mesajlar' : 'Gelen mesajlar';
+      var n = baglar.filter(okunmamis).length + gelen.length, rz = el('mesaj-rozet');
+      rz.hidden = !n || !mes; rz.textContent = n > 99 ? '99+' : String(n || '');
+      el('go-mesajlar').setAttribute('aria-label', 'Gelen mesajlar' + (n ? ', ' + n + ' yeni' : ''));
+    }
+    el('go-mesajlar').addEventListener('click', function () { msMesaj(''); nav('mesajlar'); });
+    el('go-gruplar').addEventListener('click', function () { nav('gruplar'); });
+    el('go-profil').addEventListener('click', function () { prMesaj(''); nav('profil'); });
+    el('go-oyunlar').addEventListener('click', function () { el('go-eglence').click(); });
+    /* Gruplar listesi: e bölümündeki "Bireysel kullanımlar" sekmesi ile ana ekrandaki Gruplar sayfası aynı içeriği kullanır */
+    var gpKap = el('gp-kap'), tpBir = el('tp-bir'), gpSayfa = el('v-gruplar').querySelector('.page');
+    /* ---- satırlar ---- */
+    function satir(id, rolAd, butonlar, alt) {
+      var li = document.createElement('li'), row = document.createElement('div'); row.className = 'ky-row';
+      row.innerHTML = '<span class="ky-av" aria-hidden="true"></span><span class="ky-txt"><span class="ky-rol"></span><span class="ky-ad"></span><span class="ke-s"></span></span><span class="kt-btns"></span>';
+      var n = ad(id), no = Hesap.numara(id);
+      row.style.setProperty('--av', renk(id));
+      row.querySelector('.ky-av').textContent = adlar[id] ? basHarf(n) : '';
+      row.querySelector('.ky-rol').textContent = rolAd; row.querySelector('.ky-ad').textContent = n;
+      row.querySelector('.ke-s').textContent = alt != null ? alt : (no ? 'ID ' + no : '');
+      var kb = row.querySelector('.kt-btns');
+      butonlar.forEach(function (b) {
+        if (b[0] === 'etiket') { var s = document.createElement('span'); s.className = 'ms-etiket'; s.textContent = b[3]; kb.appendChild(s); return; }
+        var x = document.createElement('button'); x.type = 'button'; x.className = b[0]; x.setAttribute(b[1], b[2]); x.textContent = b[3]; x.setAttribute('aria-label', n + ': ' + b[3]); kb.appendChild(x);
+      });
+      li.appendChild(row); return li;
+    }
+    function liste(ul, bas, ogeler) { ul.textContent = ''; ogeler.forEach(function (li) { ul.appendChild(li); }); ul.hidden = !ogeler.length; if (bas) bas.hidden = !ogeler.length; }
+    function rolAdi(id) { var r = roller[id]; return r === 'matematikci' ? 'Matematikçi' : r === 'gelistirici' ? 'Geliştirici' : 'Kullanıcı'; }
+    /* ---- Gelen mesajlar ---- */
+    function msMesaj(m, err) { var d = el('ms-durum'); d.textContent = m || ''; d.hidden = !m; d.classList.toggle('hata', !!err); }
+    var kisiler = null, kisiYuk = false, araEl = el('ms-ara');
+    function kisileriYukle() {
+      if (kisiler || kisiYuk) return; kisiYuk = true;
+      Hesap.kullanicilar().then(function (l) { kisiler = l; l.forEach(function (u) { roller[u.id] = u.rol; if (!adlar[u.id]) adlar[u.id] = u.ad; }); kisiYuk = false; sonucCiz(); ciz(); }, function () { kisiYuk = false; msMesaj('Kişiler yüklenemedi.', true); });
+    }
+    araEl.addEventListener('focus', kisileriYukle);
+    araEl.addEventListener('input', function () { kisileriYukle(); sonucCiz(); });
+    function durumu(id) {
+      var c = cift(uid, id);
+      if (baglar.some(function (b) { return b.id === c; })) return 'bagli';
+      if (gelen.some(function (x) { return x.k === id; })) return 'gelen';
+      if (giden.some(function (x) { return x.h === id; })) return 'giden';
+      return '';
+    }
+    function sonucCiz() {
+      var ul = el('ms-sonuc'), q = araEl.value.trim().toLocaleLowerCase('tr-TR');
+      if (!q) { liste(ul, null, []); return; }
+      if (!kisiler) { ul.innerHTML = '<li class="ms-yuk">Yükleniyor…</li>'; ul.hidden = false; return; }
+      var o = kisiler.filter(function (u) { return u.id !== uid && MESAJ_ROL[u.rol] && kisiEslesir(u, q); }).slice(0, 20).map(function (u) {
+        var dr = durumu(u.id), b = dr === 'bagli' ? [['kt-onay', 'data-sohbet', cift(uid, u.id), 'Mesaj']] : dr === 'gelen' ? [['kt-onay', 'data-kabul', u.id + '_' + uid, 'Kabul et']] : dr === 'giden' ? [['etiket', '', '', 'Davet gönderildi']] : [['kt-onay', 'data-davet', u.id, 'Davet et']];
+        return satir(u.id, rolAdi(u.id), b, (u.no ? 'ID ' + u.no : ''));
+      });
+      if (!o.length) { ul.innerHTML = '<li class="ms-yuk">Sonuç yok.</li>'; ul.hidden = false; return; }
+      liste(ul, null, o);
+    }
+    function davetEt(id) {
+      if (!db || !uid || id === uid) return;
+      var gel = gelen.filter(function (x) { return x.k === id; })[0];
+      if (gel) { kabulEt(gel.id); return; }
+      db.doc('baglanti_davet/' + uid + '_' + id).set({ k: uid, h: id, t: Date.now() }).then(function () { msMesaj(ad(id) + ' kişisine davet gönderildi.'); }, function () { msMesaj('Davet gönderilemedi.', true); });
+    }
+    function kabulEt(davetId) {
+      var x = gelen.filter(function (y) { return y.id === davetId; })[0]; if (!x || !db) return;
+      var u = [x.k, uid].sort();
+      db.doc('baglanti/' + u[0] + '_' + u[1]).set({ u: u, t: Date.now() }).then(function () {
+        db.doc('baglanti_davet/' + x.id).delete().catch(function () {});
+        var ters = giden.filter(function (y) { return y.h === x.k; })[0]; if (ters) db.doc('baglanti_davet/' + ters.id).delete().catch(function () {});
+        msMesaj(ad(x.k) + ' ile bağlantı kuruldu. Artık mesajlaşabilirsiniz.');
+      }, function () { msMesaj('Davet kabul edilemedi.', true); ciz(); });
+    }
+    function tikla(e) {
+      var b = e.target.closest('[data-davet],[data-kabul],[data-red],[data-geri],[data-sohbet],[data-kaldir]'); if (!b || !db) return;
+      if (b.hasAttribute('data-davet')) { b.disabled = true; davetEt(b.getAttribute('data-davet')); return; }
+      if (b.hasAttribute('data-kabul')) { b.disabled = true; kabulEt(b.getAttribute('data-kabul')); return; }
+      if (b.hasAttribute('data-sohbet')) { shAc(b.getAttribute('data-sohbet')); return; }
+      if (b.hasAttribute('data-red') || b.hasAttribute('data-geri')) {
+        var id = b.getAttribute(b.hasAttribute('data-red') ? 'data-red' : 'data-geri'), red = b.hasAttribute('data-red'); b.disabled = true;
+        db.doc('baglanti_davet/' + id).delete().then(function () { msMesaj(red ? 'Davet reddedildi.' : 'Davet geri çekildi.'); }, function () { b.disabled = false; msMesaj('İşlem yapılamadı.', true); });
+        return;
+      }
+      if (b.hasAttribute('data-kaldir')) {
+        if (!b.classList.contains('onay')) { b.classList.add('onay'); b.textContent = 'Onayla'; setTimeout(function () { if (b.isConnected) { b.classList.remove('onay'); b.textContent = 'Kaldır'; } }, 3000); return; }
+        b.disabled = true; var bid = b.getAttribute('data-kaldir');
+        db.doc('baglanti/' + bid).delete().then(function () { prMesaj('Bağlantı kaldırıldı.'); }, function () { b.disabled = false; prMesaj('Kaldırılamadı.', true); });
+      }
+    }
+    ['ms-sonuc', 'ms-davetler', 'ms-liste', 'pr-baglar'].forEach(function (i) { el(i).addEventListener('click', tikla); });
+    function mesajlarCiz() {
+      var dv = gelen.map(function (x) { return satir(x.k, 'Bağlantı daveti', [['kt-onay', 'data-kabul', x.id, 'Kabul et'], ['gp-uye-sil', 'data-red', x.id, 'Reddet']]); })
+        .concat(giden.map(function (x) { return satir(x.h, 'Davetin bekliyor', [['gp-uye-sil', 'data-geri', x.id, 'Geri çek']]); }));
+      liste(el('ms-davetler'), null, dv); el('ms-davet-bos').hidden = dv.length > 0; el('ms-davet-n').textContent = gelen.length ? '· ' + gelen.length + ' yeni' : '';
+      var ul = el('ms-liste'); ul.textContent = '';
+      baglar.slice().sort(function (a, b) { return ((b.son && b.son.t) || b.t) - ((a.son && a.son.t) || a.t); }).forEach(function (b) {
+        var k = karsi(b), li = document.createElement('li'), bt = document.createElement('button'); bt.type = 'button'; bt.className = 'ms-row' + (okunmamis(b) ? ' yeni' : ''); bt.setAttribute('data-sohbet', b.id);
+        bt.innerHTML = '<span class="ky-av" aria-hidden="true"></span><span class="ms-txt"><span class="ms-ust"><b class="ms-ad"></b><time class="ms-z"></time></span><span class="ms-on"></span></span><span class="ms-nokta" aria-hidden="true"></span>';
+        bt.style.setProperty('--av', renk(k)); bt.querySelector('.ky-av').textContent = adlar[k] ? basHarf(ad(k)) : '';
+        bt.querySelector('.ms-ad').textContent = ad(k);
+        bt.querySelector('.ms-z').textContent = b.son ? kisaZaman(b.son.t) : '';
+        bt.querySelector('.ms-on').textContent = b.son ? (b.son.u === uid ? 'Sen: ' : '') + b.son.m : 'Bağlantı kuruldu. Bir mesaj yaz.';
+        bt.setAttribute('aria-label', ad(k) + (okunmamis(b) ? ', okunmamış mesaj' : ''));
+        li.appendChild(bt); ul.appendChild(li);
+      });
+      ul.hidden = !baglar.length; el('ms-bos').hidden = baglar.length > 0;
+      el('ms-bos').textContent = 'Henüz bağlantın yok. Yukarıdan bir kişiyi bul ve davet gönder.';
+      if (araEl.value.trim()) sonucCiz();
+    }
+    /* ---- Sohbet ---- */
+    var shK = null, shAbone = null, shMesajlar = [], shYukle = false;
+    function shKapat() { if (shAbone) { try { shAbone(); } catch (e) {} } shAbone = null; shK = null; shMesajlar = []; }
+    function shDurum(m, err) { var d = el('sh-durum'); d.textContent = m || ''; d.hidden = !m; d.classList.toggle('hata', !!err); }
+    function shAc(id) {
+      if (!db) return;
+      if (shK !== id) {
+        shKapat(); shK = id; shYukle = true; el('sh-metin').value = ''; shDurum('');
+        shAbone = db.collection('sohbet/' + id + '/m').orderBy('t', 'desc').limit(200).onSnapshot(function (q) {
+          if (shK !== id) return;
+          var o = []; q.docs.forEach(function (d) { var b = d.data() || {}; if (typeof b.u === 'string' && typeof b.m === 'string' && b.m && b.m.length <= 1000 && typeof b.t === 'number') o.push({ id: d.id, u: b.u, m: b.m, t: b.t }); });
+          shMesajlar = o.sort(function (a, b) { return a.t - b.t; }); shYukle = false; shCiz(true);
+        }, function () { if (shK === id) { shYukle = false; shDurum('Mesajlar yüklenemedi.', true); } });
+      }
+      nav('sohbet'); shCiz(true);
+    }
+    function shCiz(asagi) {
+      var b = baglar.filter(function (x) { return x.id === shK; })[0]; if (!b) return;
+      var k = karsi(b), av = el('sh-av'), v = el('v-sohbet'), altta = v.scrollHeight - v.scrollTop - v.clientHeight < 80;
+      av.style.setProperty('--av', renk(k)); av.textContent = adlar[k] ? basHarf(ad(k)) : '';
+      el('sh-ad').textContent = ad(k); el('sh-id').textContent = Hesap.numara(k) ? 'ID ' + Hesap.numara(k) : '';
+      var ol = el('sh-akis'); ol.textContent = ''; var onceGun = '';
+      shMesajlar.forEach(function (m) {
+        var g = gun(new Date(m.t));
+        if (g !== onceGun) { onceGun = g; var s = document.createElement('li'); s.className = 'sh-gun'; var d = new Date(m.t), bg = new Date(); s.textContent = g === gun(bg) ? 'Bugün' : g === gun(new Date(bg.getFullYear(), bg.getMonth(), bg.getDate() - 1)) ? 'Dün' : d.getDate() + ' ' + AY_AD[d.getMonth()] + ' ' + d.getFullYear(); ol.appendChild(s); }
+        var li = document.createElement('li'); li.className = 'sh-m' + (m.u === uid ? ' ben' : '');
+        li.innerHTML = '<p></p><time></time>'; li.querySelector('p').textContent = m.m; li.querySelector('time').textContent = saat(m.t);
+        ol.appendChild(li);
+      });
+      el('sh-bos').hidden = shYukle || shMesajlar.length > 0;
+      if (current === 'sohbet') {
+        var son = shMesajlar.length ? shMesajlar[shMesajlar.length - 1].t : 0; if (b.son && b.son.t > son) son = b.son.t;
+        okunduYaz(b.id, son);
+        if (asagi || altta) requestAnimationFrame(function () { v.scrollTop = v.scrollHeight; });
+      }
+      gonderGuncelle();
+    }
+    var shMetin = el('sh-metin'), shGonder = el('sh-gonder'), shBekle = false;
+    function gonderGuncelle() { shGonder.disabled = shBekle || !shMetin.value.trim() || !shK; }
+    function boyut() { shMetin.style.height = 'auto'; shMetin.style.height = Math.min(140, shMetin.scrollHeight + 2) + 'px'; }
+    shMetin.addEventListener('input', function () { boyut(); gonderGuncelle(); });
+    shMetin.addEventListener('keydown', function (e) { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!shGonder.disabled) el('sh-form').requestSubmit ? el('sh-form').requestSubmit() : shGonder.click(); } });
+    el('sh-form').addEventListener('submit', function (e) {
+      e.preventDefault(); var m = shMetin.value.trim().slice(0, 1000), id = shK, b = baglar.filter(function (x) { return x.id === id; })[0];
+      if (!m || !b || !db || shBekle) return;
+      shBekle = true; gonderGuncelle(); var t = Date.now();
+      db.collection('sohbet/' + id + '/m').doc().set({ u: uid, m: m, t: t }).then(function () {
+        shMetin.value = ''; boyut(); shDurum('');
+        return db.doc('baglanti/' + id).set({ u: b.u, t: b.t, son: { u: uid, m: m.replace(/\s+/g, ' ').slice(0, 140), t: t } }).catch(function () {});
+      }, function () { shDurum('Mesaj gönderilemedi. Bağlantı kaldırılmış olabilir.', true); }).then(function () { shBekle = false; gonderGuncelle(); try { shMetin.focus({ preventScroll: true }); } catch (x) {} });
+    });
+    /* ---- Profil ---- */
+    function prMesaj(m, err) { var d = el('pr-durum'); d.textContent = m || ''; d.hidden = !m; d.classList.toggle('hata', !!err); }
+    el('pr-hoca-duzenle').addEventListener('click', function () { el('go-hcprofil').click(); });
+    function profilCiz() {
+      var me = Hesap.uid(); if (!me) return;
+      var fb = window.__FB && window.__FB.kullanici ? window.__FB.kullanici() : null, n = (fb && fb.ad) || adlar[me] || '';
+      if (!n) adGetir([me]);
+      var av = el('pr-av'); av.style.setProperty('--av', renk(me)); av.textContent = n ? basHarf(n) : '';
+      el('pr-ad').textContent = n || 'Hesabım'; el('pr-rol').textContent = ROLLER[Hesap.rol()] || 'Profil';
+      el('pr-id').textContent = Hesap.numara() ? 'ID ' + Hesap.numara() : '';
+      el('pr-not').hidden = !MESAJ_ROL[Hesap.rol()];
+      var hc = Hesap.matematikciMi(); el('pr-hoca').hidden = !hc; if (hc) el('pr-hoca-s').textContent = el('hcprofil-s').textContent || 'Henüz seçilmedi';
+      var mes = acik; el('pr-bag-sec').hidden = !mes;
+      if (mes) {
+        liste(el('pr-baglar'), null, baglar.map(function (b) { var k = karsi(b); return satir(k, rolAdi(k), [['kt-onay', 'data-sohbet', b.id, 'Mesaj'], ['gp-uye-sil', 'data-kaldir', b.id, 'Kaldır']]); }));
+        el('pr-bag-n').textContent = baglar.length ? '· ' + baglar.length : ''; el('pr-bag-bos').hidden = baglar.length > 0;
+        var need = baglar.map(karsi).filter(function (x) { return !roller[x]; }); if (need.length) kisileriYukle();
+      }
+    }
+    /* ---- genel ---- */
+    function ciz() {
+      bagla(); evCiz(); mesajlarCiz(); profilCiz();
+      if (!acik && (current === 'mesajlar' || current === 'sohbet')) goRoot();
+    }
+    Hesap.dinle(ciz); ciz();
+    return {
+      goster: function (name) {
+        if (name === 'gruplar' && gpKap.parentNode !== gpSayfa) gpSayfa.appendChild(gpKap);
+        else if (name === 'top' && gpKap.parentNode !== tpBir) tpBir.appendChild(gpKap);
+        if (name === 'sohbet' && shK) shCiz(true);
+        if (name === 'profil') profilCiz();
+        if (name !== 'sohbet' && name !== 'profil' && name !== 'mesajlar' && shK && current !== 'sohbet') { /* sohbet aboneliği arka planda kalabilir */ }
       }
     };
   })();
