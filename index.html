@@ -102,6 +102,8 @@ body.on-home:not(.home-plain) .top { color: var(--on-glass); }
 #bg::before { transition: background-color .3s ease; }
 body.bg-perde #bg::before { background: color-mix(in srgb, var(--bg) 64%, transparent); -webkit-backdrop-filter: blur(5px) saturate(1.15); backdrop-filter: blur(5px) saturate(1.15); }
 body.bg-perde #bg::after { opacity: 0; }
+body.kl-perde #kl-bg::before { background: color-mix(in srgb, var(--bg) 64%, transparent); -webkit-backdrop-filter: blur(5px) saturate(1.15); backdrop-filter: blur(5px) saturate(1.15); }
+body.kl-perde #kl-bg::after { opacity: 0; }
 
 .view { height: 100%; overflow-y: auto; padding-bottom: 32px; }
 .view.enter { animation: slideIn .28s ease-out both; }
@@ -813,6 +815,13 @@ body.in-ayar .set-list, body.in-ayar .kl-yaz, body.in-ayar .bd-item, body.in-aya
 .gr-alan[hidden] { display: none; }
 .gr-alan input { height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); font: inherit; font-size: 16px; font-weight: 500; }
 .gr-alan input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.gr-sifre-k { position: relative; display: flex; }
+.gr-sifre-k input { flex: 1; min-width: 0; padding-right: 52px; }
+.gr-goz { position: absolute; right: 4px; top: 4px; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 10px; display: grid; place-items: center; background: none; color: var(--muted); cursor: pointer; }
+.gr-goz svg { width: 22px; height: 22px; }
+.gr-goz:focus-visible { outline: 2px solid var(--focus); outline-offset: 0; }
+.gr-goz .goz-kapa, .gr-goz[aria-pressed="true"] .goz-ac { display: none; }
+.gr-goz[aria-pressed="true"] .goz-kapa { display: block; }
 .gr-mesaj { margin: 0; font-size: 14px; font-weight: 600; color: #DC2626; }
 .gr-mesaj.ok { color: #15803D; }
 .gr-btn { height: 50px; border: 0; border-radius: 14px; background: var(--blue); color: #FFFFFF; font-family: inherit; font-size: 16.5px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 20px -12px var(--blue); }
@@ -1327,6 +1336,11 @@ body:not(.ev-mesaj) #go-mesajlar { display: none !important; }
 .ms-sec button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 .ms-sec-n { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; display: inline-grid; place-items: center; background: #DC2626; color: #FFFFFF; font-size: 11px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
 .ms-sec-n[hidden] { display: none; }
+.ms-sec-n.turuncu, .ab-rozet.turuncu { background: #EA580C; }
+.ab-rozet.turuncu { top: auto; bottom: 3px; }
+.gp-nokta { width: 10px; height: 10px; border-radius: 50%; flex: none; display: none; background: #EA580C; }
+.gp-yeni .gp-nokta { display: block; }
+.gp-yeni .pl-t { font-weight: 800; }
 .ms-panel { display: flex; flex-direction: column; gap: 18px; }
 .ms-panel[hidden] { display: none; }
 body:not(.ev-profil) #go-profil { display: none !important; }
@@ -1705,7 +1719,30 @@ body.wood-on .depo { background: var(--glass-card); }
   display: grid; grid-auto-flow: column; grid-auto-columns: 92px; gap: 10px; overflow-x: auto; overflow-y: hidden;
   overscroll-behavior-x: contain; scroll-snap-type: x proximity; margin-inline: -16px; padding: 5px 16px 8px; scroll-padding-inline: 16px; scrollbar-width: thin;
 }
-.bg-row > .bg-opt { scroll-snap-align: start; }
+.bg-row > .bg-kart { scroll-snap-align: start; }
+.bg-kart { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.bg-oy { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: auto; }
+.bg-oy-b { height: 28px; min-width: 0; display: inline-flex; align-items: center; justify-content: center; gap: 3px; padding: 0 3px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font-family: inherit; font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; cursor: pointer; transition: transform .12s ease; }
+.bg-oy-b svg { width: 14px; height: 14px; flex: none; }
+.bg-oy-b:active { transform: scale(.92); }
+.bg-oy-b:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.bg-oy-l[aria-pressed="true"] { color: var(--t2-ink); border-color: var(--t2-line); background: var(--t2); }
+.bg-oy-d[aria-pressed="true"] { color: var(--t3-ink); border-color: var(--t3-line); background: var(--t3); }
+.bp-oylar { display: flex; gap: 6px; flex: none; }
+.bp-oy { height: 48px; display: inline-flex; align-items: center; gap: 5px; padding: 0 12px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, .5); background: rgba(14, 16, 20, .45); color: #FFFFFF; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font-family: inherit; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; cursor: pointer; }
+.bp-oy svg { width: 19px; height: 19px; }
+.bp-oy-l[aria-pressed="true"] { background: #16A34A; border-color: #16A34A; }
+.bp-oy-d[aria-pressed="true"] { background: #EA580C; border-color: #EA580C; }
+.bp-oy:active { transform: scale(.95); }
+.bgprev-bottom { flex-wrap: wrap; row-gap: 12px; }
+.bgprev-bottom .bp-info { flex: 1 1 100%; }
+.bp-oylar { margin-right: auto; }
+.bp-kulup .bp-k-ad { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.th-hedef { display: flex; flex-direction: column; gap: 8px; }
+.th-hedef[hidden] { display: none; }
+.th-hedef-sec { margin-inline: 0; padding-inline: 0; }
+.th-hedef-sec button[aria-checked="true"] { border-color: transparent; background: #2563EB; color: #FFFFFF; }
+.th-hedef .set-note, .th-hedef .kl-durum { margin: 0; }
 .bg-row .bg-name { font-size: 11.5px; }
 .bg-empty { margin: 0; font-size: 13px; line-height: 1.4; color: var(--muted); padding: 10px 12px; border: 1px dashed var(--line); border-radius: 12px; }
 .fav-dot { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: rgba(14, 16, 20, .45); color: #FCB222; display: grid; place-items: center; }
@@ -2750,6 +2787,7 @@ button.ot:active { transform: scale(.97); }
   </div>
   <div class="bgprev-bottom">
     <div class="bp-info"><span class="bp-name" id="bgprev-name">Kemer</span><span class="bp-hint">Kullanmak istediğin bölümleri sağ üstten seç.</span></div>
+    <div class="bp-oylar"><button class="bp-oy bp-oy-l" id="bgprev-l" type="button" data-oy="1" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v11"/><path d="M15 5.9 14 10h5.8a2 2 0 0 1 1.9 2.5l-2.3 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L12 2a3.1 3.1 0 0 1 3 3.9z"/></svg><span>0</span></button><button class="bp-oy bp-oy-d" id="bgprev-d" type="button" data-oy="-1" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2"/><path d="M9 18.1 10 14H4.2a2 2 0 0 1-1.9-2.5l2.3-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.8a2 2 0 0 0-1.8 1.1L12 22a3.1 3.1 0 0 1-3-3.9z"/></svg><span>0</span></button></div>
     <button class="bp-fav" id="bgprev-fav" type="button" aria-pressed="false" aria-label="Favorilere ekle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></button>
     <button class="bp-done" id="bgprev-done" type="button">Tamam</button>
   </div>
@@ -3768,7 +3806,7 @@ button.ot:active { transform: scale(.97); }
   <section class="view" id="v-mesajlar" hidden>
     <div class="page">
       <div class="ph"><span class="eyebrow">Mesajlaşma</span><h2>Mesajlar</h2></div>
-      <div class="oy-sure ak-sec ms-sec" id="ms-sec" role="tablist" aria-label="Sohbetler ve gruplar"><button type="button" role="tab" id="ms-tab-sohbet" aria-selected="true" aria-controls="ms-p-sohbet" data-ms="sohbet">Sohbetler<span class="ms-sec-n" id="ms-sec-n" hidden></span></button><button type="button" role="tab" id="ms-tab-grup" aria-selected="false" aria-controls="ms-p-grup" data-ms="grup">Gruplar</button></div>
+      <div class="oy-sure ak-sec ms-sec" id="ms-sec" role="tablist" aria-label="Sohbetler ve gruplar"><button type="button" role="tab" id="ms-tab-sohbet" aria-selected="true" aria-controls="ms-p-sohbet" data-ms="sohbet">Sohbetler<span class="ms-sec-n" id="ms-sec-n" hidden></span></button><button type="button" role="tab" id="ms-tab-grup" aria-selected="false" aria-controls="ms-p-grup" data-ms="grup">Gruplar<span class="ms-sec-n turuncu" id="ms-grup-n" hidden></span></button></div>
       <div class="ms-panel" id="ms-p-sohbet" role="tabpanel" aria-labelledby="ms-tab-sohbet">
       <p class="set-note">Yalnızca bağlantılı olduğun kişilerle mesajlaşırsın. Birini bulup davet gönder; daveti kabul edince sohbet açılır.</p>
       <div class="ms-bul">
@@ -3960,6 +3998,12 @@ button.ot:active { transform: scale(.97); }
   <section class="view" id="v-tema" hidden>
     <div class="page">
       <div class="ph"><span class="eyebrow">Ayarlar</span><h2>Tema</h2></div>
+      <div class="th-hedef" id="th-hedef" hidden>
+        <span class="oy-l" id="th-hedef-l">Kimin için</span>
+        <div class="ka-kat th-hedef-sec" id="th-hedef-sec" role="radiogroup" aria-labelledby="th-hedef-l"></div>
+        <p class="set-note" id="th-hedef-not" hidden>Seçtiğin tema kulübün sayfasında ve kulüp üyelerinin e bölümünde görünür. Seçili temaya yeniden basarsan kulübün teması kaldırılır.</p>
+        <p class="kl-durum" id="th-durum" role="status" hidden></p>
+      </div>
       <div class="th-groups" role="radiogroup" aria-label="Tema">
         <section class="th-sec"><h3 class="bg-sec-h">Temel <small>4</small></h3>
         <div class="th-list">
@@ -4612,7 +4656,7 @@ button.ot:active { transform: scale(.97); }
 </main>
 <nav class="alt-bar topic-chip" id="alt-bar" aria-label="Bölümler">
   <button type="button" class="ab" id="go-ana" data-ab="ana" aria-label="Ana sayfa"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11L12 3.8l8.5 7.2"/><path d="M5.8 9.3V20h4.4v-5.6h3.6V20h4.4V9.3"/></svg></span></button>
-  <button type="button" class="ab" id="go-mesajlar" data-ab="mesaj" aria-label="Mesajlar"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8 8 0 0 1-11.6 7.2L3.5 20.5l1.3-4.6A8 8 0 1 1 20.5 12z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg></span><span class="ab-rozet" id="mesaj-rozet" hidden></span></button>
+  <button type="button" class="ab" id="go-mesajlar" data-ab="mesaj" aria-label="Mesajlar"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8 8 0 0 1-11.6 7.2L3.5 20.5l1.3-4.6A8 8 0 1 1 20.5 12z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg></span><span class="ab-rozet" id="mesaj-rozet" hidden></span><span class="ab-rozet turuncu" id="grup-rozet" hidden></span></button>
   <button type="button" class="ab" id="go-e" data-ab="e" aria-label="Kulüpler, köyler ve matematikçiler"><span class="ab-ic"><span class="e-sym" aria-hidden="true">e</span></span></button>
   <button type="button" class="ab" id="go-eglence" data-ab="oyun" aria-label="Oyunlar"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.6 6.8h8.8a5.2 5.2 0 0 1 5.1 4.2l.85 4.5a2.7 2.7 0 0 1-4.6 2.3l-2.3-2.4H8.55l-2.3 2.4a2.7 2.7 0 0 1-4.6-2.3l.85-4.5a5.2 5.2 0 0 1 5.1-4.2z"/><path d="M7.9 9.7v3.4M6.2 11.4h3.4"/><circle cx="15.6" cy="10.4" r="1.1" fill="currentColor" stroke="none"/><circle cx="17.6" cy="12.6" r="1.1" fill="currentColor" stroke="none"/></svg></span></button>
   <button type="button" class="ab" id="go-ayarlar" data-ab="ayar" aria-label="Ayarlar"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M9.75 4.64L10.02 1.79A10.4 10.4 0 0 1 13.98 1.79L14.25 4.64A7.7 7.7 0 0 1 15.61 5.20L17.82 3.38A10.4 10.4 0 0 1 20.62 6.18L18.80 8.39A7.7 7.7 0 0 1 19.36 9.75L22.21 10.02A10.4 10.4 0 0 1 22.21 13.98L19.36 14.25A7.7 7.7 0 0 1 18.80 15.61L20.62 17.82A10.4 10.4 0 0 1 17.82 20.62L15.61 18.80A7.7 7.7 0 0 1 14.25 19.36L13.98 22.21A10.4 10.4 0 0 1 10.02 22.21L9.75 19.36A7.7 7.7 0 0 1 8.39 18.80L6.18 20.62A10.4 10.4 0 0 1 3.38 17.82L5.20 15.61A7.7 7.7 0 0 1 4.64 14.25L1.79 13.98A10.4 10.4 0 0 1 1.79 10.02L4.64 9.75A7.7 7.7 0 0 1 5.20 8.39L3.38 6.18A10.4 10.4 0 0 1 6.18 3.38L8.39 5.20A7.7 7.7 0 0 1 9.75 4.64Z"/><circle cx="12" cy="12" r="3.6"/></svg></span></button>
@@ -4784,7 +4828,7 @@ button.ot:active { transform: scale(.97); }
       </div>
       <label class="gr-alan" id="gr-ad-k" hidden><span>Ad Soyad</span><input id="gr-ad" autocomplete="name" maxlength="60"></label>
       <label class="gr-alan"><span>E-posta</span><input id="gr-eposta" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false"></label>
-      <label class="gr-alan"><span>Şifre</span><input id="gr-sifre" type="password" autocomplete="current-password" minlength="6"></label>
+      <div class="gr-alan"><label for="gr-sifre">Şifre</label><span class="gr-sifre-k"><input id="gr-sifre" type="password" autocomplete="current-password" minlength="6"><button type="button" class="gr-goz" id="gr-goz" aria-label="Şifreyi göster" aria-pressed="false"><svg class="goz-ac" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="goz-kapa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.6 5.1A10.4 10.4 0 0 1 12 5c6.4 0 10 7 10 7a17.6 17.6 0 0 1-2.6 3.6M6.6 6.6C3.7 8.4 2 12 2 12s3.6 7 10 7a9.8 9.8 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></svg></button></span></div>
       <p class="gr-mesaj" id="gr-mesaj" role="alert" hidden></p>
       <button class="gr-btn" id="gr-btn" type="submit">Giriş yap</button>
       <button class="gr-link" id="gr-unuttum" type="button">Şifremi unuttum</button>
@@ -7123,6 +7167,15 @@ var BGX = (function () {
     soru: document.getElementById('v-soru')
   };
   var stack = [{ name: 'home' }];
+  /* Giriş ekranı: şifreyi göster / gizle */
+  (function () {
+    var b = document.getElementById('gr-goz'), i = document.getElementById('gr-sifre'); if (!b || !i) return;
+    b.addEventListener('click', function () {
+      var ac = i.type === 'password'; i.type = ac ? 'text' : 'password';
+      b.setAttribute('aria-pressed', ac ? 'true' : 'false'); b.setAttribute('aria-label', ac ? 'Şifreyi gizle' : 'Şifreyi göster');
+      try { i.focus({ preventScroll: true }); var n = i.value.length; i.setSelectionRange(n, n); } catch (e) {}
+    });
+  })();
   var BOLUM_KOK = { mesajlar: 'mesaj', top: 'e', eglence: 'oyun', ayarlar: 'ayar' };   /* alt çubuktaki bölümlerin kök sayfaları */
   /* Telefonun geri tuşu: her sayfa geçişi tarayıcı geçmişine bir kayıt ekler; geri tuşu (popstate) uygulamada bir önceki sayfaya döner.
      Açılır katmanlar (konu ve çocuk seçici, arka plan önizlemesi, kâğıt) da kendi kaydını ekler; geri tuşu önce onları kapatır.
@@ -7289,13 +7342,16 @@ var BGX = (function () {
   var bosSec = 'tanim';
   var THEME_NAME = { saydam: 'Saydam tema', tema2: 'Tema 2', cerceve: 'Çerçeve tema', pastel: 'Pastel tema', gece: 'Gece tema', defter: 'Defter tema', tahta: 'Kara tahta tema', neon: 'Neon tema', mono: 'Siyah-beyaz tema', yumusak: 'Yumuşak tema', galaksi: 'Galaksi tema', nebula: 'Nebula tema', gezegen: 'Gezegen tema', yildiz: 'Takımyıldız tema', karadelik: 'Kara delik tema', notrino: 'Nötrino tema', mars: 'Mars’ta koloni tema', supernova: 'Süpernova tema', kuyruklu: 'Kuyruklu yıldız tema', cilek: 'Çilek tema', bulut: 'Bulut tema', kalp: 'Kalp tema', gokkusagi: 'Gökkuşağı tema', kek: 'Kek tema', seker: 'Şeker tema', balon: 'Balon tema', pyildiz: 'Parıltı tema', makaron: 'Makaron tema', 'kurt-gece': 'Kurt · Gece', 'kurt-gunbatimi': 'Kurt · Gün batımı', 'kurt-orman': 'Kurt · Orman', 'kurt-buz': 'Kurt · Buz', 'kurt-ates': 'Kurt · Ateş', 'kurt-altin': 'Kurt · Altın', 'kurt-okyanus': 'Kurt · Okyanus', 'kurt-lavanta': 'Kurt · Lavanta', 'kurt-gumus': 'Kurt · Gümüş', 'ejderha-gece': 'Ejderha · Gece', 'ejderha-gunbatimi': 'Ejderha · Gün batımı', 'ejderha-orman': 'Ejderha · Orman', 'ejderha-buz': 'Ejderha · Buz', 'ejderha-ates': 'Ejderha · Ateş', 'ejderha-altin': 'Ejderha · Altın', 'ejderha-okyanus': 'Ejderha · Okyanus', 'ejderha-lavanta': 'Ejderha · Lavanta', 'ejderha-gumus': 'Ejderha · Gümüş', 'jaguar-gece': 'Jaguar · Gece', 'jaguar-gunbatimi': 'Jaguar · Gün batımı', 'jaguar-orman': 'Jaguar · Orman', 'jaguar-buz': 'Jaguar · Buz', 'jaguar-ates': 'Jaguar · Ateş', 'jaguar-altin': 'Jaguar · Altın', 'jaguar-okyanus': 'Jaguar · Okyanus', 'jaguar-lavanta': 'Jaguar · Lavanta', 'jaguar-gumus': 'Jaguar · Gümüş', 'kartal-gece': 'Kartal · Gece', 'kartal-gunbatimi': 'Kartal · Gün batımı', 'kartal-orman': 'Kartal · Orman', 'kartal-buz': 'Kartal · Buz', 'kartal-ates': 'Kartal · Ateş', 'kartal-altin': 'Kartal · Altın', 'kartal-okyanus': 'Kartal · Okyanus', 'kartal-lavanta': 'Kartal · Lavanta', 'kartal-gumus': 'Kartal · Gümüş', 'aslan-gece': 'Aslan · Gece', 'aslan-gunbatimi': 'Aslan · Gün batımı', 'aslan-orman': 'Aslan · Orman', 'aslan-buz': 'Aslan · Buz', 'aslan-ates': 'Aslan · Ateş', 'aslan-altin': 'Aslan · Altın', 'aslan-okyanus': 'Aslan · Okyanus', 'aslan-lavanta': 'Aslan · Lavanta', 'aslan-gumus': 'Aslan · Gümüş', 'kanarya-gece': 'Kanarya · Gece', 'kanarya-gunbatimi': 'Kanarya · Gün batımı', 'kanarya-orman': 'Kanarya · Orman', 'kanarya-buz': 'Kanarya · Buz', 'kanarya-ates': 'Kanarya · Ateş', 'kanarya-altin': 'Kanarya · Altın', 'kanarya-okyanus': 'Kanarya · Okyanus', 'kanarya-lavanta': 'Kanarya · Lavanta', 'kanarya-gumus': 'Kanarya · Gümüş', 'tavsan-gece': 'Tavşan · Gece', 'tavsan-gunbatimi': 'Tavşan · Gün batımı', 'tavsan-orman': 'Tavşan · Orman', 'tavsan-buz': 'Tavşan · Buz', 'tavsan-ates': 'Tavşan · Ateş', 'tavsan-altin': 'Tavşan · Altın', 'tavsan-okyanus': 'Tavşan · Okyanus', 'tavsan-lavanta': 'Tavşan · Lavanta', 'tavsan-gumus': 'Tavşan · Gümüş' };
   var THEME_CLASS = { saydam: 'theme-saydam', tema2: 'theme-2', cerceve: 'theme-cerceve', pastel: 'theme-pastel', gece: 'theme-gece', defter: 'theme-defter', tahta: 'theme-tahta', neon: 'theme-neon', mono: 'theme-mono', yumusak: 'theme-yumusak', galaksi: 'theme-galaksi', nebula: 'theme-nebula', gezegen: 'theme-gezegen', yildiz: 'theme-yildiz', karadelik: 'theme-karadelik', notrino: 'theme-notrino', mars: 'theme-mars', supernova: 'theme-supernova', kuyruklu: 'theme-kuyruklu', cilek: 'theme-cilek', bulut: 'theme-bulut', kalp: 'theme-kalp', gokkusagi: 'theme-gokkusagi', kek: 'theme-kek', seker: 'theme-seker', balon: 'theme-balon', pyildiz: 'theme-pyildiz', makaron: 'theme-makaron', 'kurt-gece': 'theme-hv an-kurt md-gece', 'kurt-gunbatimi': 'theme-hv an-kurt md-gunbatimi', 'kurt-orman': 'theme-hv an-kurt md-orman', 'kurt-buz': 'theme-hv an-kurt md-buz', 'kurt-ates': 'theme-hv an-kurt md-ates', 'kurt-altin': 'theme-hv an-kurt md-altin', 'kurt-okyanus': 'theme-hv an-kurt md-okyanus', 'kurt-lavanta': 'theme-hv an-kurt md-lavanta', 'kurt-gumus': 'theme-hv an-kurt md-gumus', 'ejderha-gece': 'theme-hv an-ejderha md-gece', 'ejderha-gunbatimi': 'theme-hv an-ejderha md-gunbatimi', 'ejderha-orman': 'theme-hv an-ejderha md-orman', 'ejderha-buz': 'theme-hv an-ejderha md-buz', 'ejderha-ates': 'theme-hv an-ejderha md-ates', 'ejderha-altin': 'theme-hv an-ejderha md-altin', 'ejderha-okyanus': 'theme-hv an-ejderha md-okyanus', 'ejderha-lavanta': 'theme-hv an-ejderha md-lavanta', 'ejderha-gumus': 'theme-hv an-ejderha md-gumus', 'jaguar-gece': 'theme-hv an-jaguar md-gece', 'jaguar-gunbatimi': 'theme-hv an-jaguar md-gunbatimi', 'jaguar-orman': 'theme-hv an-jaguar md-orman', 'jaguar-buz': 'theme-hv an-jaguar md-buz', 'jaguar-ates': 'theme-hv an-jaguar md-ates', 'jaguar-altin': 'theme-hv an-jaguar md-altin', 'jaguar-okyanus': 'theme-hv an-jaguar md-okyanus', 'jaguar-lavanta': 'theme-hv an-jaguar md-lavanta', 'jaguar-gumus': 'theme-hv an-jaguar md-gumus', 'kartal-gece': 'theme-hv an-kartal md-gece', 'kartal-gunbatimi': 'theme-hv an-kartal md-gunbatimi', 'kartal-orman': 'theme-hv an-kartal md-orman', 'kartal-buz': 'theme-hv an-kartal md-buz', 'kartal-ates': 'theme-hv an-kartal md-ates', 'kartal-altin': 'theme-hv an-kartal md-altin', 'kartal-okyanus': 'theme-hv an-kartal md-okyanus', 'kartal-lavanta': 'theme-hv an-kartal md-lavanta', 'kartal-gumus': 'theme-hv an-kartal md-gumus', 'aslan-gece': 'theme-hv an-aslan md-gece', 'aslan-gunbatimi': 'theme-hv an-aslan md-gunbatimi', 'aslan-orman': 'theme-hv an-aslan md-orman', 'aslan-buz': 'theme-hv an-aslan md-buz', 'aslan-ates': 'theme-hv an-aslan md-ates', 'aslan-altin': 'theme-hv an-aslan md-altin', 'aslan-okyanus': 'theme-hv an-aslan md-okyanus', 'aslan-lavanta': 'theme-hv an-aslan md-lavanta', 'aslan-gumus': 'theme-hv an-aslan md-gumus', 'kanarya-gece': 'theme-hv an-kanarya md-gece', 'kanarya-gunbatimi': 'theme-hv an-kanarya md-gunbatimi', 'kanarya-orman': 'theme-hv an-kanarya md-orman', 'kanarya-buz': 'theme-hv an-kanarya md-buz', 'kanarya-ates': 'theme-hv an-kanarya md-ates', 'kanarya-altin': 'theme-hv an-kanarya md-altin', 'kanarya-okyanus': 'theme-hv an-kanarya md-okyanus', 'kanarya-lavanta': 'theme-hv an-kanarya md-lavanta', 'kanarya-gumus': 'theme-hv an-kanarya md-gumus', 'tavsan-gece': 'theme-hv an-tavsan md-gece', 'tavsan-gunbatimi': 'theme-hv an-tavsan md-gunbatimi', 'tavsan-orman': 'theme-hv an-tavsan md-orman', 'tavsan-buz': 'theme-hv an-tavsan md-buz', 'tavsan-ates': 'theme-hv an-tavsan md-ates', 'tavsan-altin': 'theme-hv an-tavsan md-altin', 'tavsan-okyanus': 'theme-hv an-tavsan md-okyanus', 'tavsan-lavanta': 'theme-hv an-tavsan md-lavanta', 'tavsan-gumus': 'theme-hv an-tavsan md-gumus' };
+  /* Kulübün teması (kulübün başkanı ya da sosyal medya sorumlusu seçer): kulübün sayfasında ve üyelerinin e bölümünde kişinin kendi temasının yerine geçer */
+  var temaKulup = '';
+  function kulupTemasi(tm) { tm = tm && THEMES.indexOf(tm) >= 0 ? tm : ''; if (tm === temaKulup) return; temaKulup = tm; applyTheme(); }
   function applyTheme() {
-    var tm = (typeof prefs !== 'undefined' && prefs.theme) || 'saydam';
+    var kendi = (typeof prefs !== 'undefined' && prefs.theme) || 'saydam', tm = (typeof temaKulup === 'string' && temaKulup) || kendi;
     var onC = {}; (THEME_CLASS[tm] || '').split(' ').forEach(function (c) { if (c) onC[c] = 1; });
     Object.keys(THEME_CLASS).forEach(function (k) { THEME_CLASS[k].split(' ').forEach(function (c) { if (c && !onC[c]) document.body.classList.remove(c); }); });
     Object.keys(onC).forEach(function (c) { document.body.classList.add(c); });
-    var s = document.getElementById('tema-s'); if (s) s.textContent = THEME_NAME[tm];
-    document.querySelectorAll('#v-tema .th-opt').forEach(function (b) { var on = b.getAttribute('data-tm') === tm; b.setAttribute('aria-checked', on ? 'true' : 'false'); var cd = b.closest('.th-card'); if (cd) cd.classList.toggle('on', on); });
+    var s = document.getElementById('tema-s'); if (s) s.textContent = THEME_NAME[kendi];
+    document.querySelectorAll('#v-tema .th-opt').forEach(function (b) { var on = b.getAttribute('data-tm') === kendi; b.setAttribute('aria-checked', on ? 'true' : 'false'); var cd = b.closest('.th-card'); if (cd) cd.classList.toggle('on', on); });
   }
   function applyFonts() {
     var groups = { tanim: ['v-tanim'], ornek: ['v-ornek', 'v-liste', 'v-soru', 'paper'] };
@@ -7336,7 +7392,7 @@ var BGX = (function () {
   var PREF_KEY = 'matematik-cepte-ayarlar-v1';
   var SEC_KEY = { tanim: 'bgTanim', ornek: 'bgOrnek', fayda: 'bgFayda', ana: 'bgAna' };
   var FONTS = ['modern', 'klasik', 'el', 'yuvarlak', 'daktilo'], THEMES = ['saydam', 'tema2', 'cerceve', 'pastel', 'gece', 'defter', 'tahta', 'neon', 'mono', 'yumusak', 'galaksi', 'nebula', 'gezegen', 'yildiz', 'karadelik', 'notrino', 'mars', 'supernova', 'kuyruklu', 'cilek', 'bulut', 'kalp', 'gokkusagi', 'kek', 'seker', 'balon', 'pyildiz', 'makaron', 'kurt-gece', 'kurt-gunbatimi', 'kurt-orman', 'kurt-buz', 'kurt-ates', 'kurt-altin', 'kurt-okyanus', 'kurt-lavanta', 'kurt-gumus', 'ejderha-gece', 'ejderha-gunbatimi', 'ejderha-orman', 'ejderha-buz', 'ejderha-ates', 'ejderha-altin', 'ejderha-okyanus', 'ejderha-lavanta', 'ejderha-gumus', 'jaguar-gece', 'jaguar-gunbatimi', 'jaguar-orman', 'jaguar-buz', 'jaguar-ates', 'jaguar-altin', 'jaguar-okyanus', 'jaguar-lavanta', 'jaguar-gumus', 'kartal-gece', 'kartal-gunbatimi', 'kartal-orman', 'kartal-buz', 'kartal-ates', 'kartal-altin', 'kartal-okyanus', 'kartal-lavanta', 'kartal-gumus', 'aslan-gece', 'aslan-gunbatimi', 'aslan-orman', 'aslan-buz', 'aslan-ates', 'aslan-altin', 'aslan-okyanus', 'aslan-lavanta', 'aslan-gumus', 'kanarya-gece', 'kanarya-gunbatimi', 'kanarya-orman', 'kanarya-buz', 'kanarya-ates', 'kanarya-altin', 'kanarya-okyanus', 'kanarya-lavanta', 'kanarya-gumus', 'tavsan-gece', 'tavsan-gunbatimi', 'tavsan-orman', 'tavsan-buz', 'tavsan-ates', 'tavsan-altin', 'tavsan-okyanus', 'tavsan-lavanta', 'tavsan-gumus'];
-  var prefs = { theme: 'saydam', bgTanim: 'cm1', bgOrnek: 'tb5', bgFayda: 'mp5', bgAna: 'rg2', fontTanim: 'modern', fontOrnek: 'modern', recent: { ana: [], ders: [] }, favs: { ana: [], ders: [] }, themeVotes: {}, themeFavs: [], rndLevel: 0 };
+  var prefs = { theme: 'saydam', bgTanim: 'cm1', bgOrnek: 'tb5', bgFayda: 'mp5', bgAna: 'rg2', fontTanim: 'modern', fontOrnek: 'modern', recent: { ana: [], ders: [] }, favs: { ana: [], ders: [] }, themeVotes: {}, themeFavs: [], bgVotes: {}, rndLevel: 0 };
   function parseBg(v) { var m = /^([a-z]+)(\d+)$/.exec(String(v)); return m ? [m[1], parseInt(m[2], 10)] : null; }
   function validFor(sec, v) {
     v = String(v); if (v === 'sade') return true;
@@ -7361,6 +7417,7 @@ var BGX = (function () {
     if (FONTS.indexOf(o.fontOrnek) >= 0) prefs.fontOrnek = o.fontOrnek;
     if (THEMES.indexOf(o.theme) >= 0) prefs.theme = o.theme;
     if (o.themeVotes && typeof o.themeVotes === 'object') { var tv = {}; Object.keys(o.themeVotes).forEach(function (k) { var v = o.themeVotes[k]; if (THEMES.indexOf(k) >= 0 && (v === 1 || v === -1)) tv[k] = v; }); prefs.themeVotes = tv; }
+    if (o.bgVotes && typeof o.bgVotes === 'object') { var bv = {}; Object.keys(o.bgVotes).forEach(function (k) { var v = o.bgVotes[k]; if ((validFor('ana', k) || validFor('tanim', k)) && (v === 1 || v === -1)) bv[k] = v; }); prefs.bgVotes = bv; }
     if (Array.isArray(o.themeFavs)) prefs.themeFavs = o.themeFavs.filter(function (k, i, a) { return THEMES.indexOf(k) >= 0 && a.indexOf(k) === i; });
     if (o.recent) { prefs.recent.ana = cleanList(o.recent.ana, 'ana', 5); prefs.recent.ders = cleanList(o.recent.ders, 'ders', 5); }
     if (o.favs) { prefs.favs.ana = cleanList(o.favs.ana, 'ana', 300); prefs.favs.ders = cleanList(o.favs.ders, 'ders', 300); }
@@ -7477,18 +7534,20 @@ var BGX = (function () {
   };
   BGX.cats.forEach(function (cat) { POOL_GROUPS[cat.pool].push({ h: cat.name, ids: idRange(cat.key, cat.items.length) }); });
   var FAV_DOT = '<span class="fav-dot" hidden><svg viewBox="0 0 24 24" stroke="none" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span>';
-  function optHtml(id, pool) {
-    return '<button class="bg-opt" type="button" data-bg="' + id + '" data-pool="' + pool + '" aria-haspopup="dialog"><span class="bg-img' + (id === 'sade' ? ' sade"><span></span>' : '">') + '</span>' + FAV_DOT + '<span class="bg-name">' + bgName(id) + '</span><span class="bg-uses" hidden></span></button>';
+  var BG_UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v11"/><path d="M15 5.9 14 10h5.8a2 2 0 0 1 1.9 2.5l-2.3 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L12 2a3.1 3.1 0 0 1 3 3.9z"/></svg>', BG_DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2"/><path d="M9 18.1 10 14H4.2a2 2 0 0 1-1.9-2.5l2.3-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.8a2 2 0 0 0-1.8 1.1L12 22a3.1 3.1 0 0 1-3-3.9z"/></svg>';
+  function optHtml(id, pool, i) {
+    return '<div class="bg-kart" data-bg="' + id + '" data-i="' + (i || 0) + '"><button class="bg-opt" type="button" data-bg="' + id + '" data-pool="' + pool + '" aria-haspopup="dialog"><span class="bg-img' + (id === 'sade' ? ' sade"><span></span>' : '">') + '</span>' + FAV_DOT + '<span class="bg-name">' + bgName(id) + '</span><span class="bg-uses" hidden></span></button>' +
+      '<div class="bg-oy"><button type="button" class="bg-oy-b bg-oy-l" data-oy="1" aria-pressed="false">' + BG_UP + '<span>0</span></button><button type="button" class="bg-oy-b bg-oy-d" data-oy="-1" aria-pressed="false">' + BG_DOWN + '<span>0</span></button></div></div>';
   }
-  function secHtml(title, ids, pool) {
-    return '<section class="bg-sec"><h3 class="bg-sec-h">' + title + ' <small>' + ids.length + '</small></h3><div class="bg-row">' + ids.map(function (id) { return optHtml(id, pool); }).join('') + '</div></section>';
+  function secHtml(title, ids, pool, si) {
+    return '<section class="bg-sec"' + (si != null ? ' data-si="' + si + '"' : '') + '><h3 class="bg-sec-h">' + title + ' <small>' + ids.length + '</small></h3><div class="bg-row">' + ids.map(function (id, i) { return optHtml(id, pool, i); }).join('') + '</div></section>';
   }
   (function buildPools() {
     Object.keys(POOL_GROUPS).forEach(function (pool) {
       document.getElementById('pool-' + pool).innerHTML =
         '<p class="set-note">Bir resme dokun. Önizlemede nerede kullanılacağını seç, yıldızla favorilere ekle.</p>' +
         '<div class="bg-group" id="dyn-' + pool + '"></div>' +
-        POOL_GROUPS[pool].map(function (g) { return secHtml(g.h, g.ids, pool); }).join('');
+        POOL_GROUPS[pool].map(function (g, si) { return secHtml(g.h, g.ids, pool, si); }).join('');
     });
   })();
   function renderDyn(pool) {
@@ -7516,12 +7575,61 @@ var BGX = (function () {
     document.querySelectorAll('#v-ozel .bg-opt').forEach(function (b) {
       var id = b.getAttribute('data-bg'), pool = b.getAttribute('data-pool');
       var uses = POOL_SECS[pool].filter(function (s) { return bgOf(s) === id; }).map(function (s) { return SEC_NAME[s]; });
+      if (pool === 'ana') yonetilenKulupler().forEach(function (k) { if (Hesap.gorunum(k).arka === id) uses.push(KULUP_INFO[k].ad); });
       var u = b.querySelector('.bg-uses'); u.textContent = uses.join(' · '); u.hidden = !uses.length;
       b.classList.toggle('used', uses.length > 0);
       b.querySelector('.fav-dot').hidden = prefs.favs[pool].indexOf(id) < 0;
       if (thumbs[id]) { var img = b.querySelector('.bg-img'); if (!img.style.backgroundImage) setThumb(img, id); }
     });
+    oyCiz();
     observeThumbs();
+  }
+  /* Arka plan oyları: herkesin beğenisi ve beğenmemesi toplanır (tema oylarıyla aynı kişisel belgede); net puanı yüksek olan
+     arka planlar kendi satırında başa, satırlar da toplam puanlarına göre yukarı çıkar */
+  var bgOthers = {};
+  function bgSay(id) { var c = bgOthers[id] || { l: 0, d: 0 }, v = prefs.bgVotes[id] || 0; return { l: c.l + (v === 1 ? 1 : 0), d: c.d + (v === -1 ? 1 : 0) }; }
+  function oyCiz() {
+    document.querySelectorAll('#v-ozel .bg-kart').forEach(function (k) {
+      var id = k.getAttribute('data-bg'), c = bgSay(id), v = prefs.bgVotes[id] || 0, n = bgName(id);
+      var l = k.querySelector('.bg-oy-l'), d = k.querySelector('.bg-oy-d');
+      l.setAttribute('aria-pressed', v === 1 ? 'true' : 'false'); l.lastChild.textContent = c.l; l.setAttribute('aria-label', n + ' beğen, ' + c.l + ' beğeni');
+      d.setAttribute('aria-pressed', v === -1 ? 'true' : 'false'); d.lastChild.textContent = c.d; d.setAttribute('aria-label', n + ' beğenme, ' + c.d + ' beğenmeme');
+    });
+    bpOyCiz();
+  }
+  function bgSirala(anim) {
+    ['ana', 'ders'].forEach(function (pool) {
+      var kap = document.getElementById('pool-' + pool), secs = Array.prototype.slice.call(kap.querySelectorAll(':scope > .bg-sec[data-si]'));
+      var once = {}, onceK = {};
+      if (anim && !reduce) secs.forEach(function (s) { once[s.getAttribute('data-si')] = s.getBoundingClientRect().top; s.querySelectorAll('.bg-kart').forEach(function (k) { onceK[s.getAttribute('data-si') + '/' + k.getAttribute('data-bg')] = k.getBoundingClientRect().left; }); });
+      var puan = secs.map(function (s) {
+        var row = s.querySelector('.bg-row'), ks = Array.prototype.slice.call(row.children), net = 0, lk = 0;
+        ks.sort(function (a, b) {
+          var ca = bgSay(a.getAttribute('data-bg')), cb = bgSay(b.getAttribute('data-bg'));
+          return ((cb.l - cb.d) - (ca.l - ca.d)) || (cb.l - ca.l) || (+a.getAttribute('data-i') - +b.getAttribute('data-i'));
+        }).forEach(function (k) { row.appendChild(k); var c = bgSay(k.getAttribute('data-bg')); net += c.l - c.d; lk += c.l; });
+        return { s: s, net: net, lk: lk, i: +s.getAttribute('data-si') };
+      });
+      puan.sort(function (a, b) { return (b.net - a.net) || (b.lk - a.lk) || (a.i - b.i); }).forEach(function (x) { kap.appendChild(x.s); });
+      if (anim && !reduce) secs.forEach(function (s) {
+        var si = s.getAttribute('data-si'), dy = once[si] - s.getBoundingClientRect().top;
+        if (Math.abs(dy) > 1) { s.style.transition = 'none'; s.style.transform = 'translateY(' + dy + 'px)'; void s.offsetWidth; s.style.transition = 'transform .32s ease'; s.style.transform = ''; }
+        s.querySelectorAll('.bg-kart').forEach(function (k) {
+          var b = onceK[si + '/' + k.getAttribute('data-bg')]; if (b == null) return; var dx = b - k.getBoundingClientRect().left;
+          if (Math.abs(dx) > 1) { k.style.transition = 'none'; k.style.transform = 'translateX(' + dx + 'px)'; void k.offsetWidth; k.style.transition = 'transform .32s ease'; k.style.transform = ''; }
+        });
+      });
+    });
+  }
+  function bgOyla(id, want) {
+    var cur = prefs.bgVotes[id] || 0;
+    if (cur === want) delete prefs.bgVotes[id]; else prefs.bgVotes[id] = want;
+    savePrefs(); oyCiz(); bgSirala(true);
+    if (typeof TemaUI !== 'undefined' && TemaUI) TemaUI.oyYaz();
+  }
+  function bgOylariGetir() {
+    if (typeof TemaUI === 'undefined' || !TemaUI) return;
+    TemaUI.oyGetir().then(function (ok) { if (ok && current === 'ozel') { oyCiz(); bgSirala(false); } });
   }
   var TABS = ['ana', 'ders', 'yazi'];
   TABS.forEach(function (k, i) {
@@ -7553,8 +7661,19 @@ var BGX = (function () {
 
   /* Önizleme: sağ üstten bölüm seçimi, seçim hemen uygulanır */
   var bgPrev = document.getElementById('bgprev'), bgPrevCv = document.getElementById('bgprev-cv'), prevId = null, prevPool = 'ana', prevTrigger = null, prevJob = null;
+  /* başkanı ya da sosyal medya sorumlusu olunan kulüpler: arka planı kulübün sayfası ve üyelerinin e bölümü için de seçilebilir */
+  function yonetilenKulupler() { return typeof Hesap !== 'undefined' && Hesap.durum() === 'hazir' ? Object.keys(KULUP_INFO).filter(function (k) { return Hesap.paylasabilirMi(k); }) : []; }
+  var BP_TIK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
   function renderPreviewToggles() {
-    bgPrev.querySelectorAll('.bp-tg').forEach(function (b) {
+    var kap = bgPrev.querySelector('.bp-toggles'), ks = prevPool === 'ana' && prevId && prevId !== 'sade' ? yonetilenKulupler() : [];
+    kap.querySelectorAll('.bp-kulup').forEach(function (b) { b.remove(); });
+    ks.forEach(function (k) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'bp-tg bp-kulup'; b.setAttribute('role', 'checkbox'); b.setAttribute('data-kulup', k);
+      b.setAttribute('aria-checked', Hesap.gorunum(k).arka === prevId ? 'true' : 'false');
+      b.innerHTML = '<span class="bp-box">' + BP_TIK + '</span><span class="bp-k-ad"></span>'; b.querySelector('.bp-k-ad').textContent = 'Kulüp: ' + KULUP_INFO[k].ad;
+      kap.appendChild(b);
+    });
+    bgPrev.querySelectorAll('.bp-tg[data-target]').forEach(function (b) {
       var s = b.getAttribute('data-target');
       b.hidden = POOL_SECS[prevPool].indexOf(s) < 0;
       b.setAttribute('aria-checked', bgOf(s) === prevId ? 'true' : 'false');
@@ -7563,11 +7682,11 @@ var BGX = (function () {
   function openPreview(id, pool, trigger) {
     katmanAc('onizleme', closePreview);
     prevId = id; prevPool = pool; prevTrigger = trigger || null;
-    bgPrev.querySelector('.bp-hint').textContent = pool === 'ana' ? 'Oyunlar dışındaki bütün sayfalarda kullanmak için sağ üstten seç.' : 'Kullanmak istediğin bölümleri sağ üstten seç.';
+    bgPrev.querySelector('.bp-hint').textContent = pool !== 'ana' ? 'Kullanmak istediğin bölümleri sağ üstten seç.' : yonetilenKulupler().length && id !== 'sade' ? 'Genel: oyunlar dışındaki bütün sayfalar. Kulüp: kulübün sayfası ve üyelerinin e bölümü.' : 'Oyunlar dışındaki bütün sayfalarda kullanmak için sağ üstten seç.';
     document.getElementById('bgprev-name').textContent = bgName(id);
     bgPrev.classList.add('plain-prev');
     bgPrev.hidden = false;
-    renderPreviewToggles(); renderFav();
+    renderPreviewToggles(); renderFav(); bpOyCiz();
     try { bgPrev.querySelector('.bp-tg:not([hidden])').focus({ preventScroll: true }); } catch (e) {}
     clearTimeout(prevJob);
     if (id !== 'sade') prevJob = setTimeout(function () {
@@ -7602,10 +7721,25 @@ var BGX = (function () {
     if (i >= 0) l.splice(i, 1); else l.unshift(prevId);
     savePrefs(); renderFav();
   });
+  function bpOyCiz() {
+    if (!prevId) return;
+    var c = bgSay(prevId), v = prefs.bgVotes[prevId] || 0, l = document.getElementById('bgprev-l'), d = document.getElementById('bgprev-d');
+    l.setAttribute('aria-pressed', v === 1 ? 'true' : 'false'); l.lastChild.textContent = c.l; l.setAttribute('aria-label', 'Beğen, ' + c.l + ' beğeni');
+    d.setAttribute('aria-pressed', v === -1 ? 'true' : 'false'); d.lastChild.textContent = c.d; d.setAttribute('aria-label', 'Beğenme, ' + c.d + ' beğenmeme');
+  }
+  bgPrev.querySelector('.bp-toggles').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-kulup]'); if (!b || !prevId) return;
+    var k = b.getAttribute('data-kulup'), yeni = Hesap.gorunum(k).arka === prevId ? '' : prevId, hint = bgPrev.querySelector('.bp-hint');
+    Hesap.gorunumYaz(k, { arka: yeni }).then(function () { hint.textContent = yeni ? KULUP_INFO[k].ad + ' için seçildi.' : KULUP_INFO[k].ad + ' için kaldırıldı.'; renderPreviewToggles(); }, function () { hint.textContent = 'Kaydedilemedi. Yetkin olmayabilir.'; renderPreviewToggles(); });
+    renderPreviewToggles();
+  });
+  ['bgprev-l', 'bgprev-d'].forEach(function (id) { document.getElementById(id).addEventListener('click', function () { if (prevId) bgOyla(prevId, +this.getAttribute('data-oy')); }); });
   document.getElementById('bgprev-close').addEventListener('click', closePreview);
   document.getElementById('bgprev-done').addEventListener('click', closePreview);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !bgPrev.hidden) closePreview(); });
   document.getElementById('v-ozel').addEventListener('click', function (e) {
+    var o = e.target.closest('.bg-oy-b');
+    if (o) { var k = o.closest('.bg-kart'), id = k.getAttribute('data-bg'), sel = '[data-oy="' + o.getAttribute('data-oy') + '"]', dyn = !!o.closest('[id^="dyn-"]'); bgOyla(id, +o.getAttribute('data-oy')); if (!dyn) { var f = k.querySelector(sel); if (f) try { f.focus({ preventScroll: true }); } catch (x) {} } return; }
     var b = e.target.closest('.bg-opt'); if (b) openPreview(b.getAttribute('data-bg'), b.getAttribute('data-pool'), b);
   });
 
@@ -7634,7 +7768,7 @@ var BGX = (function () {
     if (name === 'liste' && prev === 'soru') renderList(listKind);
     if (name === 'ornek') renderCounts();
     else if (lvlMenu && !lvlMenu.hidden) setLvlMenu(false);
-    if (name === 'ozel') renderOzel();
+    if (name === 'ozel') { renderOzel(); bgSirala(false); bgOylariGetir(); }
     if (name === 'kulup' && typeof Kulup !== 'undefined') { Kulup.render(); if (typeof Oylama !== 'undefined' && Oylama) Oylama.tazele(); if (typeof TalepForm !== 'undefined' && TalepForm) TalepForm.tazele(); }
     if (name === 'top' && tabThumb) tabThumb(true);
     if (name === 'veri') VT.refresh();
@@ -7649,6 +7783,7 @@ var BGX = (function () {
     if (typeof Kulup !== 'undefined' && Kulup) Kulup.arka();
     if (typeof Aile !== 'undefined' && Aile) Aile.goster(name);
     if (typeof Mesaj !== 'undefined' && Mesaj) Mesaj.goster(name);
+    if (typeof Grup !== 'undefined' && Grup && Grup.goster) Grup.goster(name);
     if (typeof Durum !== 'undefined' && Durum) Durum.goster(name);
     if (name === 'home' && typeof Ana !== 'undefined' && Ana) Ana.ciz();
   }
@@ -8586,14 +8721,16 @@ var BGX = (function () {
     if (current === kok && stack.length <= 2) { if (katman) { katman.kapat(); return; } var v = views[kok]; if (v && v.scrollTop > 0) { try { v.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); } catch (e) { v.scrollTop = 0; } } return; }
     if (katman) { var k = katman; katman = null; k.kapat(); }
     var yap = function () {
-      if (kok === 'home') stack = [{ name: 'home' }]; else stack = [{ name: 'home' }, { name: kok }];
+      var kk = kok === 'top' && typeof Kulup !== 'undefined' && Kulup ? Kulup.benim() : null;
+      if (kok === 'home') stack = [{ name: 'home' }];
+      else if (kk) { Kulup.ac(kk); stack = [{ name: 'home' }, { name: 'top' }, { name: 'kulup' }]; }
+      else stack = [{ name: 'home' }, { name: kok }];
       if (GECMIS) {
-        var i = gecmisSirasi(), h = kok === 'home' ? 0 : 1;
+        var i = gecmisSirasi(), h = stack.length - 1;
         if (i > h) { gecmisYoksay++; history.go(h - i); }
-        else if (i < h) gecmisYaz({ mc: 1 });
-        else if (h === 1) gecmisYaz({ mc: 1 }, true);
+        else { for (var j = i + 1; j <= h; j++) gecmisYaz({ mc: j }); if (i === h && h > 0) gecmisYaz({ mc: h }, true); }
       }
-      show(kok);
+      show(kk ? 'kulup' : kok);
     };
     if (bk === hedef) { yap(); return; }
     var ab = function (x) { return document.querySelector('#alt-bar [data-ab="' + x + '"]'); };
@@ -9639,7 +9776,7 @@ var BGX = (function () {
               var o = {};
               q.docs.forEach(function (d) {
                 var b = d.data() || {}; if (!KULUP_RE.test(d.id)) return;
-                o[d.id] = { foto: typeof b.foto === 'string' && b.foto.length <= 120000 && FOTO_RE.test(b.foto) ? b.foto : '', arka: typeof b.arka === 'string' && b.arka !== 'sade' && validFor('ana', b.arka) ? b.arka : '' };
+                o[d.id] = { foto: typeof b.foto === 'string' && b.foto.length <= 120000 && FOTO_RE.test(b.foto) ? b.foto : '', arka: typeof b.arka === 'string' && b.arka !== 'sade' && validFor('ana', b.arka) ? b.arka : '', tema: typeof b.tema === 'string' && THEMES.indexOf(b.tema) >= 0 ? b.tema : '' };
               });
               gorunum = o; bildir();
             }, function () {});
@@ -9730,11 +9867,13 @@ var BGX = (function () {
       },
       grupUyeleri: grupUyeleri,
       yonetimGrubundaMi: function (k) { return !!uid && !!KULUP_INFO[k] && grupUyeleri(k).indexOf(uid) >= 0; },
-      gorunum: function (k) { return gorunum[k] || { foto: '', arka: '' }; },
+      gorunum: function (k) { return gorunum[k] || { foto: '', arka: '', tema: '' }; },
+      /* verilmeyen alanlar (foto, arka, tema) olduğu gibi kalır */
       gorunumYaz: function (k, g) {
         if (!db || !uid || !KULUP_RE.test(k)) return Promise.reject();
-        var once = gorunum[k], y = { foto: g.foto || '', arka: g.arka || '' }; gorunum[k] = y; bildir();
-        return db.doc('kulup_gorunum/' + k).set({ foto: y.foto, arka: y.arka, u: uid, t: Date.now() }).catch(function (e) { gorunum[k] = once; bildir(); throw e; });
+        var once = gorunum[k], e0 = once || { foto: '', arka: '', tema: '' };
+        var y = { foto: 'foto' in g ? g.foto || '' : e0.foto, arka: 'arka' in g ? g.arka || '' : e0.arka, tema: 'tema' in g ? g.tema || '' : e0.tema || '' }; gorunum[k] = y; bildir();
+        return db.doc('kulup_gorunum/' + k).set({ foto: y.foto, arka: y.arka, tema: y.tema, u: uid, t: Date.now() }).catch(function (e) { gorunum[k] = once; bildir(); throw e; });
       },
       gorurMu: function (k) { return !db || uyeMi(k) || hocaMi(k); },
       /* Üye ekleme ve katılma taleplerini onaylama yalnızca başkan, başkan yardımcısı ve sosyal medya sorumlusunda */
@@ -10648,9 +10787,24 @@ var BGX = (function () {
     });
     /* Kulüp sayfasının arka planı: sayfa açıkken ekranın arkasına çizilir */
     var klBg = document.getElementById('kl-bg'), klBgCv = klBg.querySelector('canvas'), klBgKey = '', klBgRz = null;
+    /* Üyesi olunan kulüp: e bölümüne girince doğrudan onun sayfası açılır; birden çok kulüpte en son açılan */
+    var LK_KULUBUM = 'matematik-cepte-kulubum-v1';
+    function benimKulup() {
+      if (Hesap.durum() !== 'hazir' || !Hesap.uid()) return null;
+      var ks = Object.keys(KULUP_INFO).filter(function (k) { return Hesap.uyeMi(k); }); if (!ks.length) return null;
+      var son = null; try { son = localStorage.getItem(LK_KULUBUM + ':' + Hesap.uid()); } catch (e) {}
+      return son && ks.indexOf(son) >= 0 ? son : ks[0];
+    }
+    /* Görünüm: kulüp sayfasında o kulübün, e bölümünün öteki sayfalarında üyesi olunan kulübün arka planı ve teması */
+    function eKulup() {
+      if (current === 'kulup') return KULUP_INFO[cur] ? cur : null;
+      if (E_VIEWS[current] && stack.length > 1 && stack[1].name === 'top') return benimKulup();
+      return null;
+    }
     function arkaUygula() {
-      var id = current === 'kulup' && KULUP_INFO[cur] ? Hesap.gorunum(cur).arka : '', on = !!id;
-      document.body.classList.toggle('kl-bgli', on); document.body.classList.toggle('kl-bg-koyu', on && isDarkBg(id));
+      var k = eKulup(), g = k ? Hesap.gorunum(k) : null, id = g ? g.arka : '', on = !!id, sayfa = current === 'kulup';
+      kulupTemasi(g ? g.tema : '');
+      document.body.classList.toggle('kl-bgli', on && sayfa); document.body.classList.toggle('kl-bg-koyu', on && sayfa && isDarkBg(id)); document.body.classList.toggle('kl-perde', on && !sayfa);
       klBg.hidden = !on; if (!on) return;
       var W = window.innerWidth, H = window.innerHeight, key = id + '@' + W + 'x' + H;
       if (key === klBgKey) return;
@@ -10898,6 +11052,7 @@ var BGX = (function () {
     function open(k) {
       cur = k;
       if (!KULUP_INFO[k]) return;
+      if (Hesap.uyeMi(k)) try { localStorage.setItem(LK_KULUBUM + ':' + Hesap.uid(), k); } catch (e) {}
       vEl.style.setProperty('--av', kulupRenk(k));
       kulupAvKoy(avEl, k); adEl.textContent = KULUP_INFO[k].ad; adEl.classList.toggle('uzun', KULUP_INFO[k].ad.length > 18);
       ykAc(false); sekmeSec('paylasim'); kyMesaj(''); renderYon(k); kuSecKapat(); kuMesaj(''); ktMesaj(''); uyeCiz(k); Oylama.open(k); TalepForm.open(k);
@@ -10951,7 +11106,7 @@ var BGX = (function () {
     })();
     heroBack.kulup = function (run) { heroTransition(true, heroPairs(document.querySelector('#tp-kulup [data-kulup="' + cur + '"]'), avEl, adEl, true), run); };
     heroBack.kulup.dest = 'top';
-    return { render: function () { if (started) render(); requestAnimationFrame(kenar); }, go: function (k) { open(k); nav('kulup'); }, arka: arkaUygula, cur: function () { return KULUP_INFO[cur] ? cur : null; } };
+    return { render: function () { if (started) render(); requestAnimationFrame(kenar); }, go: function (k) { open(k); nav('kulup'); }, ac: open, benim: benimKulup, arka: arkaUygula, cur: function () { return KULUP_INFO[cur] ? cur : null; } };
   })();
   /* Matematikçiler: Kurum bazlı (kurum → hocalar) ve Bireysel; her kişinin kendi sayfası */
   Kisi = (function () {
@@ -11125,7 +11280,24 @@ var BGX = (function () {
     function el(id) { return document.getElementById(id); }
     var olusturBtn = el('gp-olustur'), form = el('gp-form'), yeniAd = el('gp-yeni-ad'), kaydet = el('gp-kaydet'), fDurum = el('gp-form-durum');
     var listeEl = el('gp-liste'), bos = el('gp-bos'), vEl = el('v-grup');
-    var db = null, uid = null, gruplar = {}, cur = null, mesajlar = [], unsubM = null, renk = '#2563EB', adlar = {}, kisiler = [];
+    var db = null, uid = null, gruplar = {}, cur = null, mesajlar = [], unsubM = null, renk = '#2563EB', adlar = {}, kisiler = [], son = {}, sonAbone = {};
+    /* okunmamış grup mesajı: grubun son mesajı başkasından ve okunma zamanından yeni (okunma zamanları sohbetlerinkiyle aynı belgede, anahtar "g:<grup>") */
+    function okundu(id) { return typeof Mesaj !== 'undefined' && Mesaj ? Mesaj.okundu('g:' + id) : 0; }
+    function yeniMi(id) { var s = son[id]; return !!s && s.u !== uid && s.t > okundu(id); }
+    function sonBagla(ids) {
+      var v = {};
+      ids.slice(0, 40).forEach(function (id) {
+        v[id] = 1; if (sonAbone[id]) return;
+        sonAbone[id] = db.collection(mesajYolu(id)).orderBy('t', 'desc').limit(1).onSnapshot(function (q) {
+          var d = q.docs[0], b = d ? d.data() || {} : null;
+          son[id] = b && typeof b.u === 'string' && typeof b.t === 'number' ? { u: b.u, t: b.t } : null;
+          if (cur === id && current === 'grup' && son[id]) okunduYap(id, son[id].t);
+          listeCiz();
+        }, function () { son[id] = null; });
+      });
+      Object.keys(sonAbone).forEach(function (id) { if (!v[id]) { try { sonAbone[id](); } catch (e) {} delete sonAbone[id]; delete son[id]; } });
+    }
+    function okunduYap(id, t2) { if (typeof Mesaj !== 'undefined' && Mesaj) Mesaj.okunduYaz('g:' + id, t2); }
     var CHEV = '<svg class="mr-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
     var TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M9 7V4.5h6V7"/><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v5M14 11v5"/></svg>';
     function gecerli(b) { return b && typeof b.ad === 'string' && b.ad.trim() && b.ad.length <= 60 && typeof b.olusturan === 'string' && Array.isArray(b.uyeler); }
@@ -11151,11 +11323,13 @@ var BGX = (function () {
       olusturBtn.hidden = !(db && uid && hoca());
       var kids = db && uid ? Object.keys(KULUP_INFO).filter(function (k) { return Hesap.yonetimGrubundaMi(k); }).sort(function (a, b) { return KULUP_INFO[a].ad.localeCompare(KULUP_INFO[b].ad, 'tr'); }).map(function (k) { return KG + k; }) : [];
       var ids = kids.concat(Object.keys(gruplar).sort(function (a, b) { return (gruplar[b].t || 0) - (gruplar[a].t || 0); }));
+      if (db && uid) sonBagla(ids);
       listeEl.textContent = '';
       ids.forEach(function (id) {
         var g = bilgi(id), li = document.createElement('li'); if (!g) return;
-        li.innerHTML = '<button class="pl-row pl-btn" type="button"><span class="pl-av" aria-hidden="true"></span><span class="pl-txt"><span class="pl-t"></span><span class="pl-s"></span></span>' + CHEV + '</button>';
-        var b = li.firstChild; b.setAttribute('data-grup', id);
+        var yeni = yeniMi(id);
+        li.innerHTML = '<button class="pl-row pl-btn' + (yeni ? ' gp-yeni' : '') + '" type="button"><span class="pl-av" aria-hidden="true"></span><span class="pl-txt"><span class="pl-t"></span><span class="pl-s"></span></span><span class="gp-nokta" aria-hidden="true"></span>' + CHEV + '</button>';
+        var b = li.firstChild; b.setAttribute('data-grup', id); if (yeni) b.setAttribute('aria-label', g.ad + ', yeni mesaj var');
         var av = b.querySelector('.pl-av'); if (g.kulup) kulupAvKoy(av, g.kulup); else av.textContent = basHarf(g.ad); av.style.setProperty('--av', g.renk);
         b.querySelector('.pl-t').textContent = g.ad; b.querySelector('.pl-s').textContent = g.kulup ? 'Kulüp yönetim grubu · ' + g.uyeler.length + ' üye' : g.uyeler.length + ' üye' + (g.olusturan === uid ? ' · Senin grubun' : '');
         listeEl.appendChild(li);
@@ -11163,6 +11337,7 @@ var BGX = (function () {
       listeEl.hidden = !ids.length; bos.hidden = !!ids.length;
       el('gp-bos-t').textContent = !db ? 'Gruplar için giriş yapman gerekiyor.' : hoca() ? 'Henüz grubun yok. "Grup oluştur" ile bir grup kurup kişileri ekleyebilirsin.' : 'Henüz bir grubun yok. Hocan seni bir gruba eklediğinde burada görünür.';
       if (cur && !vEl.hidden) { if (bilgi(cur)) sayfaCiz(); else goBack(); }
+      if (typeof Mesaj !== 'undefined' && Mesaj) Mesaj.rozet();
     }
     /* Grup oluşturma */
     function formAc(on) { form.hidden = !on; olusturBtn.setAttribute('aria-expanded', on ? 'true' : 'false'); olusturBtn.querySelector('span').textContent = on ? 'Kapat' : 'Grup oluştur'; if (on) { yeniAd.value = ''; kaydet.disabled = true; fDurum.hidden = true; try { yeniAd.focus(); } catch (e) {} } }
@@ -11220,7 +11395,8 @@ var BGX = (function () {
       sayfaCiz(); akisCiz();
       unsubM = db.collection(mesajYolu(id)).orderBy('t', 'desc').limit(200).onSnapshot(function (q) {
         var o = []; q.docs.forEach(function (d) { var b = d.data() || {}; if (typeof b.m === 'string' && b.m && b.m.length <= 500 && typeof b.u === 'string' && typeof b.t === 'number') o.push({ id: d.id, u: b.u, m: b.m, t: b.t }); });
-        mesajlar = o; var need = o.map(function (m) { return m.u; }).filter(function (u) { return !adlar[u]; });
+        mesajlar = o; if (o.length && cur === id && current === 'grup') okunduYap(id, o[0].t);
+        var need = o.map(function (m) { return m.u; }).filter(function (u) { return !adlar[u]; });
         if (need.length) Hesap.adlar(need).then(function (ps) { need.forEach(function (u) { adlar[u] = (ps[u] && ps[u].name) || 'Bir üye'; }); akisCiz(); }); else akisCiz();
       }, function () { if (cur === id && kulupGrubu(id)) mesaj('Mesajlar şu an yüklenemiyor. Başkan ya da sosyal medya sorumlusu uygulamayı açınca grup hazır olur.', true); });
     }
@@ -11271,7 +11447,12 @@ var BGX = (function () {
       }, function () { listeCiz(); });
     });
     Hesap.dinle(listeCiz);
-    return { kulupAc: function (k) { if (!db || !uid || !Hesap.yonetimGrubundaMi(k)) return; ac(KG + k); nav('grup'); } };
+    return {
+      kulupAc: function (k) { if (!db || !uid || !Hesap.yonetimGrubundaMi(k)) return; ac(KG + k); nav('grup'); },
+      okunmamis: function () { return Object.keys(sonAbone).filter(function (id) { return bilgi(id) && yeniMi(id); }).length; },
+      tazele: listeCiz,
+      goster: function (name) { if (name === 'grup' && cur && mesajlar.length) okunduYap(cur, mesajlar[0].t); }
+    };
   })();
   /* Aile: çocuk ve veli hesapları.
      Çocuk, Ayarlar > Veli ekle kısmında velinin ID'siyle istek gönderir (veli_istek/<çocuk>_<veli>); veli onaylayınca bağ kurulur (veli_bag/<çocuk>_<veli>).
@@ -11613,14 +11794,14 @@ var BGX = (function () {
       abone.push(db.doc('data/users/' + uid + '/sohbet/okundu').onSnapshot(function (s) {
         var d = s.exists ? s.data() || {} : {}; var o = {}; if (d.s && typeof d.s === 'object') Object.keys(d.s).forEach(function (k) { if (typeof d.s[k] === 'number') o[k] = d.s[k]; });
         Object.keys(okundu).forEach(function (k) { if ((okundu[k] || 0) > (o[k] || 0)) o[k] = okundu[k]; });
-        okundu = o; okY = true; ciz();
+        okundu = o; okY = true; ciz(); if (typeof Grup !== 'undefined' && Grup) Grup.tazele();
       }, function () { okY = true; }));
     }
     function okunmamis(b) { return !!b.son && b.son.u !== uid && b.son.t > (okundu[b.id] || 0); }
     var okT = null;
     function okunduYaz(id, t) {
       if (!db || !uid || !t || (okundu[id] || 0) >= t) return;
-      okundu[id] = t; ciz();
+      okundu[id] = t; ciz(); if (id.indexOf('g:') === 0 && typeof Grup !== 'undefined' && Grup) Grup.tazele();
       clearTimeout(okT); okT = setTimeout(function () { if (db && uid) db.doc('data/users/' + uid + '/sohbet/okundu').set({ s: okundu, t: Date.now() }).catch(function () {}); }, 600);
     }
     /* ---- ana ekran ---- */
@@ -11633,7 +11814,9 @@ var BGX = (function () {
       var n = baglar.filter(okunmamis).length + gelen.length, rz = el('mesaj-rozet');
       rz.hidden = !n || !mes; rz.textContent = n > 99 ? '99+' : String(n || '');
       var tn = el('ms-sec-n'); tn.hidden = !n || !mes; tn.textContent = n > 99 ? '99+' : String(n || '');
-      el('go-mesajlar').setAttribute('aria-label', 'Mesajlar' + (n ? ', ' + n + ' yeni' : ''));
+      var gn = mes && typeof Grup !== 'undefined' && Grup ? Grup.okunmamis() : 0, gz = el('grup-rozet'), gt = el('ms-grup-n');
+      gz.hidden = gt.hidden = !gn; gz.textContent = gt.textContent = gn > 99 ? '99+' : String(gn || '');
+      el('go-mesajlar').setAttribute('aria-label', 'Mesajlar' + (n ? ', ' + n + ' yeni' : '') + (gn ? ', gruplarda ' + gn + ' yeni' : ''));
     }
     el('go-mesajlar').addEventListener('click', function () { if (current !== 'mesajlar') msMesaj(''); bolumeGec('mesajlar'); });
     el('go-profil').addEventListener('click', function () { prMesaj(''); nav('profil'); });
@@ -11819,6 +12002,9 @@ var BGX = (function () {
     Hesap.dinle(ciz); ciz();
     return {
       renk: renk,
+      okundu: function (k) { return okundu[k] || 0; },
+      okunduYaz: okunduYaz,
+      rozet: function () { evCiz(); },
       bagliKisiler: function () { return baglar.slice().sort(function (a, b) { return ((b.son && b.son.t) || b.t) - ((a.son && a.son.t) || a.t); }).map(karsi); },
       goster: function (name) {
         if (name === 'sohbet' && shK) shCiz(true);
@@ -12810,17 +12996,20 @@ var BGX = (function () {
       return link().then(function () {
         if (!db) return false;
         return db.collection('tema_oylari').limit(1000).get().then(function (q) {
-          var o = {};
+          var o = {}, ob = {};
           q.docs.forEach(function (d) {
             if (d.id === uid) return;
-            var b = d.data() || {}, v = b.v;
-            if (!v || typeof v !== 'object') return;
-            Object.keys(v).forEach(function (k) {
+            var b = d.data() || {}, v = b.v, a = b.a;
+            if (v && typeof v === 'object') Object.keys(v).forEach(function (k) {
               if (!META[k] || (v[k] !== 1 && v[k] !== -1)) return;
               var c = o[k] || (o[k] = { l: 0, d: 0 }); if (v[k] === 1) c.l++; else c.d++;
             });
+            if (a && typeof a === 'object') Object.keys(a).forEach(function (k) {
+              if ((a[k] !== 1 && a[k] !== -1) || !(validFor('ana', k) || validFor('tanim', k))) return;
+              var c = ob[k] || (ob[k] = { l: 0, d: 0 }); if (a[k] === 1) c.l++; else c.d++;
+            });
           });
-          others = o; return true;
+          others = o; bgOthers = ob; return true;
         }, function () { return false; });
       });
     }
@@ -12829,7 +13018,7 @@ var BGX = (function () {
       writeT = setTimeout(function () {
         link().then(function () {
           if (!db) return;
-          var body = { v: JSON.parse(JSON.stringify(prefs.themeVotes)), t: Date.now() };
+          var body = { v: JSON.parse(JSON.stringify(prefs.themeVotes)), a: JSON.parse(JSON.stringify(prefs.bgVotes)), t: Date.now() };
           writing = writing.then(function () { return db.doc('tema_oylari/' + uid).set(body); }).catch(function () {});
         });
       }, 500);
@@ -12848,8 +13037,22 @@ var BGX = (function () {
         return a.i - b.i;
       }).map(function (x) { return x.k; });
     }
+    /* Kimin için: kişinin kendisi ya da başkanı / sosyal medya sorumlusu olduğu kulüpler */
+    var hedef = '', hedefEl = el('th-hedef'), hedefSec = el('th-hedef-sec');
+    function el(id) { return document.getElementById(id); }
+    function yonetilen() { return Hesap.durum() === 'hazir' ? Object.keys(KULUP_INFO).filter(function (k) { return Hesap.paylasabilirMi(k); }) : []; }
+    function secili() { return hedef ? Hesap.gorunum(hedef).tema : prefs.theme; }
+    function hedefMesaj(m, err) { var d = el('th-durum'); d.textContent = m || ''; d.hidden = !m; d.classList.toggle('hata', !!err); }
+    function hedefCiz() {
+      var ks = yonetilen(); if (hedef && ks.indexOf(hedef) < 0) hedef = '';
+      hedefEl.hidden = !ks.length; el('th-hedef-not').hidden = !hedef;
+      if (!ks.length) return;
+      hedefSec.innerHTML = '<button type="button" role="radio" data-hedef="" aria-checked="' + (!hedef) + '">Kendim</button>' + ks.map(function (k) { return '<button type="button" role="radio" data-hedef="' + k + '" aria-checked="' + (hedef === k) + '"></button>'; }).join('');
+      ks.forEach(function (k) { hedefSec.querySelector('[data-hedef="' + k + '"]').textContent = 'Kulüp: ' + KULUP_INFO[k].ad; });
+    }
+    hedefSec.addEventListener('click', function (e) { var b = e.target.closest('[data-hedef]'); if (!b) return; hedef = b.getAttribute('data-hedef'); hedefMesaj(''); hedefCiz(); render(false); toSelected(); });
     function card(k) {
-      var m = META[k], v = prefs.themeVotes[k] || 0, fav = prefs.themeFavs.indexOf(k) >= 0, c = counts(k), on = k === prefs.theme;
+      var m = META[k], v = prefs.themeVotes[k] || 0, fav = prefs.themeFavs.indexOf(k) >= 0, c = counts(k), on = k === secili();
       return '<div class="th-card' + (on ? ' on' : '') + '" data-tm="' + k + '">' +
         '<button class="' + m.cls + '" type="button" role="radio" aria-checked="' + on + '" data-tm="' + k + '">' + m.inner + '</button>' +
         '<div class="th-acts">' +
@@ -12921,13 +13124,19 @@ var BGX = (function () {
         var f = root.querySelector(focusSel); if (f) try { f.focus({ preventScroll: true }); } catch (x) {}
         return;
       }
-      if (o) { prefs.theme = o.getAttribute('data-tm'); savePrefs(); applyTheme(); }
+      if (o && hedef) {
+        var hk = hedef, tm = o.getAttribute('data-tm'), yeni = Hesap.gorunum(hk).tema === tm ? '' : tm;
+        Hesap.gorunumYaz(hk, { tema: yeni }).then(function () { hedefMesaj(yeni ? KULUP_INFO[hk].ad + ' için ' + META[tm].name + ' seçildi.' : 'Kulübün teması kaldırıldı; üyeler kendi temalarını görür.'); render(false); }, function () { hedefMesaj('Kaydedilemedi. Yetkin olmayabilir.', true); render(false); });
+        render(false); return;
+      }
+      if (o) { prefs.theme = o.getAttribute('data-tm'); savePrefs(); applyTheme(); render(false); }
     });
     function open() {
+      hedefCiz(); hedefMesaj('');
       render(false); toSelected();
       fetchVotes().then(function (changed) { if (changed && current === 'tema') render(true); });
     }
-    return { open: open, render: render };
+    return { open: open, render: render, oyGetir: fetchVotes, oyYaz: pushVotes };
   })();
   back.addEventListener('click', goBack);
   splash.addEventListener('click', finish);
