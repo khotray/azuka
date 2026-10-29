@@ -985,6 +985,122 @@ body.home-plain .eg-ico svg { filter: none; }
 .h24-cozum { margin: 0 auto; width: 100%; max-width: 340px; padding: 10px 14px; border-radius: 12px; border: 1px dashed var(--eg); text-align: center; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .h24-cozum[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) { .eg-ico svg, .h24-tas, .h24-op { transition: none; } .h24-tas.yeni, .h24-tahta.kazandi .h24-tas, .h24-tahta.olmadi .h24-tas { animation: none; } }
+/* İşlem Baba (6–8 yaş): ada, bölge haritası, bölüm ekranı */
+.ib-r { display: block; overflow: visible; }
+.ib-sayi { display: inline-flex; align-items: flex-end; }
+.ib-sayi .ib-r + .ib-r { margin-left: -14%; }
+.eg-ic.ib-ic { display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #FFF, #E7F8EC); box-shadow: 0 10px 18px -10px #2B8A3E; }
+.eg-ic.ib-ic .ib-r { width: 30px; height: 36px; }
+.eg-ic.ib-ic .ib-r + .ib-r { margin-left: -9px; }
+.ib-yas { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 700; vertical-align: 2px; color: #FFFFFF; background: #2B8A3E; }
+.ib-turlar { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+.ib-turlar button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+.ib-turlar button svg { width: 14px; height: 14px; }
+.ib-turlar button:disabled { opacity: .55; cursor: default; }
+.ib-ada { position: relative; width: 100%; max-width: 420px; margin: 0 auto; aspect-ratio: 360 / 460; border-radius: 26px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 22px 40px -26px rgba(0, 0, 0, .55); }
+.ib-ada .ib-ada-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ib-bolge-btn { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 0 6%; border: 0; background: none; font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ib-bolge-btn:focus-visible { outline: 3px solid #FFFFFF; outline-offset: -6px; border-radius: 22px; }
+.ib-bolge-btn[data-b="top"] { left: 2%; top: 4%; width: 48%; height: 47%; }
+.ib-bolge-btn[data-b="cik"] { right: 2%; top: 4%; width: 48%; height: 47%; }
+.ib-bolge-btn[data-b="carp"] { right: 2%; bottom: 3%; width: 48%; height: 46%; }
+.ib-bolge-btn[data-b="bol"] { left: 2%; bottom: 3%; width: 48%; height: 46%; }
+.ib-etiket { display: flex; flex-direction: column; align-items: center; gap: 1px; max-width: 96%; padding: 5px 11px 6px; border-radius: 14px; background: #FFFFFF; color: #1F2937; box-shadow: 0 4px 0 var(--ib-k, #B7791F), 0 10px 18px -10px rgba(0, 0, 0, .5); transition: transform .15s ease; }
+.ib-bolge-btn:active .ib-etiket { transform: translateY(3px); box-shadow: 0 1px 0 var(--ib-k, #B7791F); }
+.ib-etiket b { font-size: 13.5px; line-height: 1.15; text-align: center; color: var(--ib-k, #B7791F); }
+.ib-etiket small { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; color: #4B5563; }
+.ib-etiket small svg { width: 13px; height: 13px; }
+.ib-bolge-btn.kilitli { cursor: default; }
+.ib-bolge-btn.kilitli::before { content: ""; position: absolute; inset: 3% 3% 0; border-radius: 20px; background: rgba(40, 44, 52, .38); }
+.ib-bolge-btn.kilitli .ib-etiket { position: relative; box-shadow: 0 4px 0 #6B7280; }
+.ib-bolge-btn.kilitli .ib-etiket b { color: #6B7280; }
+.ib-bolge-btn.siradaki .ib-etiket { animation: ibNabiz 1.6s ease-in-out infinite; }
+@keyframes ibNabiz { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+.ib-bilgi { margin: 0; font-size: 14px; color: var(--muted); text-align: center; }
+.ib-bolge-bas { display: flex; align-items: center; gap: 12px; }
+.ib-bolge-bas .ph { flex: 1; min-width: 0; }
+.ib-bolge-bas .eyebrow { color: var(--ib-k); }
+.ib-sayac { flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; font-weight: 800; font-size: 15px; color: #FFFFFF; background: var(--ib-k); box-shadow: 0 3px 0 color-mix(in srgb, var(--ib-k) 70%, #000); }
+.ib-sayac svg { width: 16px; height: 16px; }
+.ib-harita { position: relative; width: 100%; max-width: 420px; margin: 0 auto; aspect-ratio: 360 / 560; border-radius: 26px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 22px 40px -26px rgba(0, 0, 0, .55); }
+.ib-harita > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ib-dugum { position: absolute; width: 13%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 0; padding: 0; display: grid; place-items: center; font-family: inherit; font-size: clamp(15px, 4.6vw, 20px); font-weight: 800; cursor: pointer; color: #FFFFFF; background: var(--ib-k); box-shadow: 0 4px 0 color-mix(in srgb, var(--ib-k) 65%, #000), 0 8px 14px -6px rgba(0, 0, 0, .45); -webkit-tap-highlight-color: transparent; }
+.ib-dugum:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
+.ib-dugum:active { transform: translate(-50%, calc(-50% + 3px)); box-shadow: 0 1px 0 color-mix(in srgb, var(--ib-k) 65%, #000); }
+.ib-dugum.simdiki { background: #FFFFFF; color: var(--ib-k); box-shadow: 0 0 0 4px var(--ib-k), 0 4px 0 4px color-mix(in srgb, var(--ib-k) 65%, #000); animation: ibNabiz2 1.4s ease-in-out infinite; }
+@keyframes ibNabiz2 { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.08); } }
+.ib-dugum.kilitli { background: #CED4DA; color: #868E96; box-shadow: 0 4px 0 #ADB5BD; cursor: default; }
+.ib-yildizlar { position: absolute; left: 50%; bottom: -34%; transform: translateX(-50%); display: flex; gap: 1px; }
+.ib-yildizlar svg { width: 15px; height: 15px; }
+.ib-cocuk-kap { position: absolute; width: 12%; aspect-ratio: 44 / 64; transform: translate(-50%, -96%); pointer-events: none; z-index: 2; }
+.ib-cocuk { width: 100%; height: 100%; display: block; overflow: visible; }
+.ib-cocuk-kap.ters .ib-cocuk { transform: scaleX(-1); }
+.ib-cocuk .ib-c-bacak { transform-box: fill-box; transform-origin: 50% 0; }
+.ib-cocuk-kap.yuruyor .ib-c-sol { animation: ibAdim .24s ease-in-out infinite alternate; }
+.ib-cocuk-kap.yuruyor .ib-c-sag { animation: ibAdim .24s ease-in-out infinite alternate-reverse; }
+.ib-cocuk-kap.yuruyor .ib-c-ust { animation: ibSek .24s ease-in-out infinite alternate; }
+.ib-cocuk-kap.sevinc .ib-c-ust { animation: ibSevinc .5s ease-in-out 3; }
+@keyframes ibAdim { from { transform: rotate(24deg); } to { transform: rotate(-24deg); } }
+@keyframes ibSek { from { transform: translateY(0); } to { transform: translateY(-2px); } }
+@keyframes ibSevinc { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+.ib-harita-not { position: absolute; left: 50%; bottom: 3%; transform: translateX(-50%); width: max-content; max-width: 88%; padding: 8px 14px; border-radius: 14px; background: #FFFFFF; color: #1F2937; font-weight: 800; font-size: 15px; text-align: center; box-shadow: 0 4px 0 var(--ib-k), 0 10px 20px -10px rgba(0, 0, 0, .5); z-index: 3; animation: ibGel .35s cubic-bezier(.2, .9, .3, 1.3) both; }
+.ib-harita-not[hidden] { display: none; }
+@keyframes ibGel { from { transform: translate(-50%, 10px) scale(.8); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+/* Bölüm ekranı */
+.ib-oyun { gap: 16px; }
+.ib-ust { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ib-rozet { padding: 5px 12px; border-radius: 999px; font-size: 13.5px; font-weight: 800; color: #FFFFFF; background: var(--ib-k); }
+.ib-ust span:not(.ib-rozet) { font-size: 14px; font-weight: 700; color: var(--muted); }
+.ib-ilerleme { display: flex; gap: 8px; justify-content: center; }
+.ib-ilerleme span { width: 34px; height: 10px; border-radius: 999px; background: var(--line); transition: background-color .2s ease; }
+.ib-ilerleme span.tamam { background: var(--ib-k); }
+.ib-ilerleme span.simdi { background: color-mix(in srgb, var(--ib-k) 40%, var(--line)); }
+.ib-soru { position: relative; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 132px; padding: 18px 10px; border-radius: 26px; background: linear-gradient(180deg, color-mix(in srgb, var(--ib-a) 70%, #FFFFFF), color-mix(in srgb, var(--ib-a) 35%, #FFFFFF)); border: 3px solid #FFFFFF; box-shadow: 0 6px 0 color-mix(in srgb, var(--ib-k) 55%, transparent), 0 18px 30px -20px rgba(0, 0, 0, .5); }
+.ib-soru .ib-r { width: clamp(46px, 15vw, 66px); height: auto; aspect-ratio: 100 / 120; }
+.ib-soru.uzun .ib-r { width: clamp(32px, 10vw, 48px); }
+.ib-isaret { flex: none; width: clamp(34px, 10vw, 44px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; font-size: clamp(24px, 7vw, 32px); font-weight: 900; line-height: 1; color: #FFFFFF; background: var(--ib-k); box-shadow: 0 3px 0 color-mix(in srgb, var(--ib-k) 60%, #000); }
+.ib-esit { flex: none; font-size: clamp(28px, 8vw, 38px); font-weight: 900; color: #374151; }
+.ib-bos { flex: none; min-width: clamp(58px, 18vw, 82px); aspect-ratio: 100 / 120; border-radius: 18px; display: grid; place-items: center; font-size: clamp(32px, 10vw, 46px); font-weight: 900; color: var(--ib-k); background: #FFFFFF; border: 3px dashed var(--ib-k); }
+.ib-bos.dolu { min-width: 0; aspect-ratio: auto; border: 0; background: none; animation: ibZipla .5s cubic-bezier(.2, .9, .3, 1.4) both; }
+.ib-soru.mutlu .ib-sayi { animation: ibZipla .5s cubic-bezier(.2, .9, .3, 1.4) both; }
+.ib-soru.mutlu .ib-sayi:nth-of-type(2) { animation-delay: .08s; }
+.ib-soru.titre { animation: ibTitre .4s ease both; }
+@keyframes ibZipla { 0% { transform: translateY(0) scale(1); } 40% { transform: translateY(-14px) scale(1.06); } 100% { transform: none; } }
+@keyframes ibTitre { 0%, 100% { transform: none; } 20% { transform: rotate(-2deg); } 60% { transform: rotate(2deg); } }
+.ib-mesaj { margin: 0; min-height: 28px; text-align: center; font-size: 22px; font-weight: 900; color: var(--ib-k); }
+.ib-mesaj.yanlis { color: #E03131; font-size: 19px; }
+.ib-secenekler { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ib-secenek { position: relative; display: grid; place-items: center; min-height: 104px; padding: 10px 6px; border-radius: 22px; border: 3px solid #FFFFFF; background: #FFFFFF; cursor: pointer; font-family: inherit; box-shadow: 0 6px 0 #D0D7DE, 0 14px 22px -16px rgba(0, 0, 0, .5); transition: transform .12s ease, box-shadow .12s ease; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.ib-secenek .ib-r { width: clamp(40px, 12.5vw, 56px); height: auto; aspect-ratio: 100 / 120; }
+.ib-secenek.iki .ib-r { width: clamp(30px, 9.6vw, 46px); }
+.ib-secenek.uzun .ib-r { width: clamp(22px, 7vw, 36px); }
+.ib-secenek:active { transform: translateY(4px); box-shadow: 0 2px 0 #D0D7DE; }
+.ib-secenek:focus-visible { outline: 3px solid var(--ib-k); outline-offset: 2px; }
+.ib-secenek.dogru { border-color: #2F9E44; background: #EBFBEE; box-shadow: 0 6px 0 #2F9E44; }
+.ib-secenek.yanlis { border-color: #E03131; background: #FFF5F5; box-shadow: 0 6px 0 #E03131; animation: ibSalla .4s ease; opacity: .7; }
+.ib-secenek:disabled { cursor: default; }
+@keyframes ibSalla { 0%, 100% { transform: none; } 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }
+.ib-sonuc { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 22px 16px; border-radius: 26px; background: #FFFFFF; color: #1F2937; text-align: center; box-shadow: 0 6px 0 var(--ib-k), 0 24px 40px -24px rgba(0, 0, 0, .55); animation: ibGel2 .4s cubic-bezier(.2, .9, .3, 1.3) both; }
+.ib-sonuc[hidden] { display: none; }
+@keyframes ibGel2 { from { transform: scale(.85); opacity: 0; } to { transform: none; opacity: 1; } }
+.ib-sonuc h3 { margin: 0; font-size: 26px; font-weight: 900; color: var(--ib-k); }
+.ib-sonuc p { margin: 0; font-size: 15px; color: #4B5563; }
+.ib-sonuc-y { display: flex; gap: 6px; }
+.ib-sonuc-y svg { width: 54px; height: 54px; }
+.ib-sonuc-y svg:nth-child(2) { transform: translateY(-10px); }
+.ib-sonuc-y svg.dolu { animation: ibYildiz .5s cubic-bezier(.2, .9, .3, 1.5) both; }
+.ib-sonuc-y svg.dolu:nth-child(2) { animation-delay: .15s; }
+.ib-sonuc-y svg.dolu:nth-child(3) { animation-delay: .3s; }
+@keyframes ibYildiz { from { transform: scale(0) rotate(-40deg); } to { transform: none; } }
+.ib-sonuc-y svg.dolu:nth-child(2) { animation-name: ibYildiz2; }
+@keyframes ibYildiz2 { from { transform: translateY(-10px) scale(0) rotate(-40deg); } to { transform: translateY(-10px); } }
+.ib-sonuc-btn { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
+.ib-btn { flex: 1 1 140px; height: 54px; border: 0; border-radius: 16px; font-family: inherit; font-size: 17px; font-weight: 800; cursor: pointer; color: #FFFFFF; background: var(--ib-k); box-shadow: 0 5px 0 color-mix(in srgb, var(--ib-k) 60%, #000); }
+.ib-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 color-mix(in srgb, var(--ib-k) 60%, #000); }
+.ib-btn.ikincil { color: var(--ib-k); background: #FFFFFF; box-shadow: 0 5px 0 #D0D7DE, inset 0 0 0 2px var(--ib-k); }
+@media (prefers-reduced-motion: reduce) {
+  .ib-bolge-btn.siradaki .ib-etiket, .ib-dugum.simdiki, .ib-soru.mutlu .ib-sayi, .ib-bos.dolu, .ib-soru.titre, .ib-secenek.yanlis, .ib-sonuc, .ib-sonuc-y svg.dolu, .ib-harita-not, .ib-cocuk-kap .ib-c-ust, .ib-cocuk-kap .ib-c-bacak { animation: none !important; }
+}
 /* Kulüp sayfası: kapak başlığı, başkan düğmesi, yönetim paneli, sekmeler, sabitlenmiş mesaj */
 #v-kulup .kl-head { position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; column-gap: 16px; row-gap: 14px; padding: 30px 18px 16px; }
 #v-kulup .kl-head > .kl-av { align-self: start; }
@@ -2948,6 +3064,11 @@ button.ot:active { transform: scale(.97); }
         <span class="eg-txt"><span class="eg-ad">Hedef Asal</span><span class="eg-s" id="eg-h24-s">Dört sayıyla 30–80 arası bir asala ulaş</span></span>
         <span class="eg-oyna" aria-hidden="true">Oyna</span>
       </button>
+      <button class="eg-oyun" type="button" id="go-islembaba">
+        <span class="eg-ic ib-ic" id="eg-ib-ic" aria-hidden="true"></span>
+        <span class="eg-txt"><span class="eg-ad">İşlem Baba<span class="ib-yas">6–8 yaş</span></span><span class="eg-s" id="eg-ib-s">Toplama, çıkartma, çarpma, bölme adası</span></span>
+        <span class="eg-oyna" aria-hidden="true">Oyna</span>
+      </button>
       <section class="kl-sec" aria-labelledby="eg-st-h">
         <h3 class="kl-bas" id="eg-st-h">Strateji oyunları</h3>
         <ul class="kl-kart eg-liste">
@@ -2998,7 +3119,47 @@ button.ot:active { transform: scale(.97); }
     </div>
   </section>
 
-  <section class="view" id="v-kurumlar" hidden>
+  <section class="view" id="v-ib-ada" hidden>
+    <div class="page">
+      <div class="ph"><span class="eyebrow">Eğlence · 6–8 yaş</span><h2>İşlem Baba</h2></div>
+      <div class="oy-sure ib-turlar" id="ib-turlar" role="radiogroup" aria-label="Tur">
+        <button type="button" role="radio" aria-checked="true" data-tur="kolay"><span>1. tur · Kolay</span></button>
+        <button type="button" role="radio" aria-checked="false" data-tur="orta"><span>2. tur · Orta</span></button>
+        <button type="button" role="radio" aria-checked="false" data-tur="zor"><span>3. tur · Zor</span></button>
+      </div>
+      <div class="ib-ada" id="ib-ada"></div>
+      <p class="ib-bilgi" id="ib-bilgi">Bölgeler sırayla açılır. Bir bölgenin 10 bölümünü bitirince sıradaki bölge açılır.</p>
+    </div>
+  </section>
+
+  <section class="view" id="v-ib-bolge" hidden>
+    <div class="page">
+      <div class="ib-bolge-bas">
+        <div class="ph"><span class="eyebrow" id="ibb-tur">1. tur · Kolay</span><h2 id="ibb-ad">Toplama Kralı</h2></div>
+        <span class="ib-sayac" id="ibb-sayac"></span>
+      </div>
+      <div class="ib-harita" id="ibb-harita"></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-ib-oyun" hidden>
+    <div class="page ib-oyun">
+      <div class="ib-ust"><span class="ib-rozet" id="ibo-bolge">Toplama Kralı</span><span id="ibo-bolum">Bölüm 1</span><span id="ibo-tur">Kolay</span></div>
+      <div class="ib-ilerleme" id="ibo-ilerleme" aria-hidden="true"></div>
+      <div class="ib-soru" id="ibo-soru" role="group" aria-live="polite"></div>
+      <p class="ib-mesaj" id="ibo-mesaj" role="status"></p>
+      <div class="ib-secenekler" id="ibo-secenekler" role="group" aria-label="Seçenekler"></div>
+      <div class="ib-sonuc" id="ibo-sonuc" hidden>
+        <div class="ib-sonuc-y" id="ibo-yildiz"></div>
+        <h3 id="ibo-sonuc-bas">Bölüm bitti!</h3>
+        <p id="ibo-sonuc-alt"></p>
+        <div class="ib-sonuc-btn"><button class="ib-btn ikincil" type="button" id="ibo-tekrar">Tekrar oyna</button><button class="ib-btn" type="button" id="ibo-harita">Haritaya dön</button></div>
+      </div>
+    </div>
+  </section>
+
+  
+<section class="view" id="v-kurumlar" hidden>
     <div class="page">
       <div class="ph"><span class="eyebrow">Matematikçiler</span><h2>Kurum bazlı</h2></div>
       <ul class="plist" id="kurum-liste"></ul>
@@ -6383,6 +6544,9 @@ var BGX = (function () {
     kullanicilar: document.getElementById('v-kullanicilar'),
     eglence: document.getElementById('v-eglence'),
     hedef24: document.getElementById('v-hedef24'),
+    'ib-ada': document.getElementById('v-ib-ada'),
+    'ib-bolge': document.getElementById('v-ib-bolge'),
+    'ib-oyun': document.getElementById('v-ib-oyun'),
     liste: document.getElementById('v-liste'),
     soru: document.getElementById('v-soru')
   };
@@ -6836,7 +7000,7 @@ var BGX = (function () {
     document.body.classList.toggle('in-e', inE);
     var eBtn = document.getElementById('go-e'); if (eBtn) { eBtn.setAttribute('aria-label', inE ? 'Kulüpler, köyler ve matematikçilerden çık' : 'Kulüpler, köyler ve matematikçiler'); eBtn.setAttribute('aria-pressed', inE ? 'true' : 'false'); }
     document.body.classList.toggle('in-ayar', inAyar);
-    document.body.classList.toggle('in-oyun', name === 'eglence' || name === 'hedef24');
+    document.body.classList.toggle('in-oyun', name === 'eglence' || name === 'hedef24' || name === 'ib-ada' || name === 'ib-bolge' || name === 'ib-oyun');
     var gearBtn = document.getElementById('go-ayarlar'); if (gearBtn) { gearBtn.setAttribute('aria-label', inAyar ? 'Ayarlardan çık' : 'Ayarlar'); gearBtn.setAttribute('aria-pressed', inAyar ? 'true' : 'false'); }
     if (menu) bg.start(); else bg.stop();
     if (name === 'liste' && prev === 'soru') renderList(listKind);
@@ -6847,6 +7011,9 @@ var BGX = (function () {
     if (name === 'top' && tabThumb) tabThumb(true);
     if (name === 'veri') VT.refresh();
     if (name === 'eglence' && typeof Hedef24 !== 'undefined' && Hedef24) Hedef24.ozet();
+    if (name === 'eglence' && typeof IslemBaba !== 'undefined' && IslemBaba) IslemBaba.ozet();
+    if (name === 'ib-ada' && typeof IslemBaba !== 'undefined' && IslemBaba) IslemBaba.adaGoster();
+    if (name === 'ib-bolge' && typeof IslemBaba !== 'undefined' && IslemBaba) IslemBaba.bolgeGoster();
     if (name === 'tema') TemaUI.open();
     current = name;
     applyWood();
@@ -7996,6 +8163,321 @@ var BGX = (function () {
     porsukGecis(false, function () { Hedef24.ozet(); nav('eglence'); });
   });
   document.getElementById('go-hedef24').addEventListener('click', function () { Hedef24.ac(); nav('hedef24'); });
+  /* İşlem Baba (6–8 yaş): adada dört bölge, her bölgede 10 bölüm, üç tur (Kolay, Orta, Zor).
+     Bütün çizimler (rakam karakterleri, ada, çocuk) bu uygulama için özgün olarak hazırlanmıştır. */
+/* İşlem Baba: sevimli rakamlar (özgün çizim). Her rakam kalın yuvarlak çizgi + koyu kontur + desen kaplaması + yüz */
+  var IB_RAKAM = (function () {
+    var R = {
+      0: { d: 'M50 16C28 16 22 40 22 60S28 104 50 104 78 80 78 60 72 16 50 16Z', y: [50, 16], c: '#FF6B6B', k: '#C92A2A' },
+      1: { d: 'M32 34L54 18V104', y: [54, 50], c: '#FF922B', k: '#C2410C' },
+      2: { d: 'M26 38C26 12 74 10 74 38C74 58 42 74 26 104H76', y: [50, 15], c: '#FCC419', k: '#B7791F' },
+      3: { d: 'M28 26C44 10 72 14 72 36C72 52 58 58 46 58C62 58 76 66 76 82C76 104 44 112 26 96', y: [52, 16], c: '#51CF66', k: '#2B8A3E' },
+      4: { d: 'M62 104V18L22 76H80', y: [62, 44], c: '#20C997', k: '#087F5B' },
+      5: { d: 'M72 18H34L30 52C46 44 76 46 76 74C76 104 42 110 26 94', y: [53, 18], c: '#339AF0', k: '#1864AB' },
+      6: { d: 'M68 18C42 16 24 40 24 68C24 92 36 104 52 104C68 104 78 92 78 78C78 62 66 52 52 52C38 52 26 60 24 70', y: [25, 62], c: '#5C7CFA', k: '#364FC7' },
+      7: { d: 'M24 18H76L42 104', y: [50, 18], c: '#9775FA', k: '#5F3DC4' },
+      8: { d: 'M50 58C34 58 26 48 26 38C26 24 38 16 50 16S74 24 74 38C74 48 66 58 50 58ZM50 58C32 58 22 70 22 82C22 96 36 104 50 104S78 96 78 82C78 70 68 58 50 58Z', y: [50, 16], c: '#F06595', k: '#A61E4D' },
+      9: { d: 'M32 102C58 104 76 80 76 52C76 28 64 16 48 16C32 16 22 28 22 42C22 58 34 68 48 68C62 68 74 60 76 50', y: [48, 16], c: '#94D82D', k: '#5C940D' }
+    };
+    /* Kaplamalar: her rakamın kendi deseni */
+    var D = {
+      0: '<circle cx="3" cy="3" r="2" fill="#fff" fill-opacity=".45"/><circle cx="9" cy="9" r="2" fill="#fff" fill-opacity=".45"/>',
+      1: '<path d="M-3 3L3 -3M0 12L12 0M9 15L15 9" stroke="#fff" stroke-opacity=".42" stroke-width="2.6"/>',
+      2: '<path d="M6 2.2l1.1 2.7 2.7 1.1-2.7 1.1L6 9.8 4.9 7.1 2.2 6l2.7-1.1z" fill="#fff" fill-opacity=".55"/>',
+      3: '<path d="M0 4C2 2 4 2 6 4S10 6 12 4M0 10C2 8 4 8 6 10S10 12 12 10" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1.6"/>',
+      4: '<rect width="6" height="6" fill="#fff" fill-opacity=".28"/><rect x="6" y="6" width="6" height="6" fill="#fff" fill-opacity=".28"/>',
+      5: '<circle cx="6" cy="6" r="3" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.4"/><circle cx="0" cy="0" r="1.6" fill="#fff" fill-opacity=".45"/><circle cx="12" cy="12" r="1.6" fill="#fff" fill-opacity=".45"/>',
+      6: '<path d="M0 8L3 4 6 8 9 4 12 8" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.6"/>',
+      7: '<path d="M6 9.5C3 7.5 2 6 2 4.6 2 3.4 3 2.6 4 2.6 5 2.6 5.6 3.2 6 3.9 6.4 3.2 7 2.6 8 2.6 9 2.6 10 3.4 10 4.6 10 6 9 7.5 6 9.5Z" fill="#fff" fill-opacity=".5"/>',
+      8: '<path d="M0 6A3 3 0 0 1 6 6A3 3 0 0 1 12 6M-3 12A3 3 0 0 1 3 12A3 3 0 0 1 9 12A3 3 0 0 1 15 12" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.5"/>',
+      9: '<path d="M3 2l2 3H1zM9 7l2 3H7z" fill="#fff" fill-opacity=".55"/>'
+    };
+    function defs() {
+      var s = '';
+      for (var i = 0; i < 10; i++) s += '<pattern id="ib-p' + i + '" patternUnits="userSpaceOnUse" width="12" height="12"><rect width="12" height="12" fill="' + R[i].c + '"/>' + D[i] + '</pattern>';
+      s += '<pattern id="ib-tugla" patternUnits="userSpaceOnUse" width="16" height="10"><rect width="16" height="10" fill="#E8590C"/><path d="M0 0.5H16M0 5.5H16M4 0.5V5.5M12 5.5V10" stroke="#FFD8C2" stroke-width="1.1"/></pattern>';
+      return '<svg class="ib-defs" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden"><defs>' + s + '</defs></svg>';
+    }
+    function yuz(x, y, uzgun) {
+      var m = uzgun ? 'M' + (x - 5) + ' ' + (y + 10) + 'Q' + x + ' ' + (y + 5.5) + ' ' + (x + 5) + ' ' + (y + 10) : 'M' + (x - 5.5) + ' ' + (y + 6) + 'Q' + x + ' ' + (y + 11) + ' ' + (x + 5.5) + ' ' + (y + 6);
+      return '<g class="ib-yuz" transform="translate(' + x + ' ' + y + ') scale(1.32) translate(' + (-x) + ' ' + (-y) + ')">' +
+        '<ellipse cx="' + (x - 11) + '" cy="' + (y + 6) + '" rx="3.4" ry="2.4" fill="#FF8FAB" fill-opacity=".75"/><ellipse cx="' + (x + 11) + '" cy="' + (y + 6) + '" rx="3.4" ry="2.4" fill="#FF8FAB" fill-opacity=".75"/>' +
+        '<g class="ib-goz"><circle cx="' + (x - 6) + '" cy="' + (y - 2) + '" r="5" fill="#fff"/><circle cx="' + (x + 6) + '" cy="' + (y - 2) + '" r="5" fill="#fff"/>' +
+        '<circle cx="' + (x - 5.4) + '" cy="' + (y - 1.2) + '" r="2.9" fill="#1F1F2E"/><circle cx="' + (x + 6.6) + '" cy="' + (y - 1.2) + '" r="2.9" fill="#1F1F2E"/>' +
+        '<circle cx="' + (x - 4.4) + '" cy="' + (y - 2.4) + '" r="1" fill="#fff"/><circle cx="' + (x + 7.6) + '" cy="' + (y - 2.4) + '" r="1" fill="#fff"/></g>' +
+        '<path d="' + m + '" fill="none" stroke="#1F1F2E" stroke-width="2.3" stroke-linecap="round"/></g>';
+    }
+    function svg(d, uzgun) {
+      var r = R[d];
+      return '<svg class="ib-r ib-r' + d + '" viewBox="0 0 100 120" aria-hidden="true" focusable="false">' +
+        '<path d="' + r.d + '" fill="none" stroke="' + r.k + '" stroke-width="31" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<path d="' + r.d + '" fill="none" stroke="url(#ib-p' + d + ')" stroke-width="23" stroke-linecap="round" stroke-linejoin="round"/>' +
+        yuz(r.y[0], r.y[1], uzgun) + '</svg>';
+    }
+    /* Sayıyı (ör. 47) yan yana rakam karakterleriyle yazar */
+    function sayi(n, uzgun) { return '<span class="ib-sayi" role="img" aria-label="' + n + '">' + String(n).split('').map(function (c) { return svg(+c, uzgun); }).join('') + '</span>'; }
+    return { defs: defs, svg: svg, sayi: sayi, renk: function (d) { return R[d].c; } };
+  })();
+  var IslemBaba = (function () {
+    function el(id) { return document.getElementById(id); }
+    var LK = 'matematik-cepte-islembaba-v1', SORU_SAYI = 5;
+    var TURLAR = ['kolay', 'orta', 'zor'], TUR_AD = { kolay: 'Kolay', orta: 'Orta', zor: 'Zor' }, TUR_NO = { kolay: 1, orta: 2, zor: 3 };
+    var BOLGE = [
+      { id: 'top', ad: 'Toplama Kralı', op: '+', k: '#D97706', a: '#FFE58F', bg: ['#FFF3BF', '#FFE58F'] },
+      { id: 'cik', ad: 'Çıkartma Şelalesi', op: '−', k: '#1971C2', a: '#A5D8FF', bg: ['#E7F5FF', '#A5D8FF'] },
+      { id: 'carp', ad: 'Çarpma Duvarı', op: '×', k: '#D9480F', a: '#FFC9A8', bg: ['#FFF4E6', '#FFC9A8'] },
+      { id: 'bol', ad: 'Bölme Vadisi', op: '÷', k: '#6741D9', a: '#D0BFFF', bg: ['#F3F0FF', '#D0BFFF'] }
+    ];
+    var ADA = '<svg class="ib-ada-svg" viewBox="0 0 360 460" aria-hidden="true" focusable="false"> <defs> <linearGradient id="ib-deniz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FDCFF"/><stop offset="1" stop-color="#3BB4F2"/></linearGradient> <clipPath id="ib-ada-kes"><path d="M46 118C34 62 118 30 182 40C252 30 336 62 328 140C348 206 342 296 322 356C300 428 206 440 172 430C100 442 32 410 32 330C12 262 54 190 46 118Z"/></clipPath> </defs> <rect width="360" height="460" fill="url(#ib-deniz)"/> <g fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2.2" stroke-linecap="round"> <path d="M14 30q8-6 16 0t16 0"/><path d="M300 22q8-6 16 0t16 0"/><path d="M8 420q8-6 16 0t16 0"/><path d="M300 440q8-6 16 0t16 0"/><path d="M330 250q6-5 12 0t12 0"/><path d="M4 230q6-5 12 0t12 0"/> </g> <path d="M46 118C34 62 118 30 182 40C252 30 336 62 328 140C348 206 342 296 322 356C300 428 206 440 172 430C100 442 32 410 32 330C12 262 54 190 46 118Z" fill="#F6DFA4" stroke="#F6DFA4" stroke-width="22" stroke-linejoin="round"/> <g clip-path="url(#ib-ada-kes)"> <rect class="ib-zemin ib-z-top" x="0" y="0" width="180" height="236" fill="#FFE58F"/> <rect class="ib-zemin ib-z-cik" x="180" y="0" width="180" height="236" fill="#A5D8FF"/> <rect class="ib-zemin ib-z-carp" x="180" y="236" width="180" height="224" fill="#FFC9A8"/> <rect class="ib-zemin ib-z-bol" x="0" y="236" width="180" height="224" fill="#D0BFFF"/> <path d="M180 0C170 60 192 120 180 180S170 300 182 460M0 236C60 226 120 248 180 236S300 226 360 240" fill="none" stroke="#F3E2B5" stroke-width="16"/> <path d="M180 0C170 60 192 120 180 180S170 300 182 460M0 236C60 226 120 248 180 236S300 226 360 240" fill="none" stroke="#fff" stroke-width="2.4" stroke-dasharray="7 8" stroke-opacity=".8"/> <g transform="translate(62 82)"> <rect x="6" y="34" width="68" height="46" rx="3" fill="#F2C94C" stroke="#B7791F" stroke-width="2.5"/> <path d="M0 34h16v-30h-4v6h-4v-6h-4v6H0zM64 34h16V4h-4v6h-4V4h-4v6h-4z" fill="#F2C94C" stroke="#B7791F" stroke-width="2.5" stroke-linejoin="round"/> <path d="M30 80V60a10 10 0 0 1 20 0v20z" fill="#8B5E34"/> <path d="M40 34V8" stroke="#8B5E34" stroke-width="2.5"/><path d="M40 8l18 6-18 6z" fill="#F03E3E"/> <path d="M24 46h-8M20 42v8M64 46h-8M60 42v8" stroke="#B7791F" stroke-width="2.6" stroke-linecap="round"/> <path d="M26 -2l6 8 8-10 8 10 6-8v12H26z" fill="#FCC419" stroke="#B7791F" stroke-width="2" stroke-linejoin="round" transform="translate(0 -14)"/> </g> <g transform="translate(212 58)"> <path d="M0 96C4 50 14 20 40 10C62 2 88 12 100 40C108 60 108 84 104 96Z" fill="#7C8FA6" stroke="#556479" stroke-width="2.5"/> <path d="M40 30C46 26 56 26 62 30V100H40Z" fill="#E7F5FF"/> <path d="M45 34V98M51 32V98M57 34V98" stroke="#74C0FC" stroke-width="2.4" stroke-linecap="round"/> <ellipse cx="51" cy="104" rx="38" ry="10" fill="#4DABF7" stroke="#1C7ED6" stroke-width="2"/> <path d="M36 102q5-4 10 0M58 104q5-4 10 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/> <path d="M82 70h12" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/> </g> <g transform="translate(210 286)"> <rect x="0" y="0" width="104" height="58" rx="4" fill="url(#ib-tugla)" stroke="#A33B0A" stroke-width="2.5"/> <path d="M0 0h12v-8h12v8h12v-8h12v8h12v-8h12v8h12v-8h12v8h8" fill="#E8590C" stroke="#A33B0A" stroke-width="2.5" stroke-linejoin="round"/> <circle cx="52" cy="29" r="14" fill="#FFF4E6" stroke="#A33B0A" stroke-width="2.2"/> <path d="M46 23l12 12M58 23L46 35" stroke="#E8590C" stroke-width="3.4" stroke-linecap="round"/> </g> <g transform="translate(40 292)"> <path d="M0 74C14 30 34 14 52 20C62 24 66 40 70 56C76 36 90 20 110 26C124 32 128 56 128 74Z" fill="#9775FA" stroke="#5F3DC4" stroke-width="2.5" stroke-linejoin="round"/> <path d="M44 28C48 22 56 22 58 30Z M96 32C100 26 108 26 112 34Z" fill="#fff" fill-opacity=".85"/> <path d="M70 58C66 66 62 70 60 76" stroke="#E9D8A6" stroke-width="6" stroke-linecap="round" fill="none"/> <circle cx="98" cy="58" r="13" fill="#F3F0FF" stroke="#5F3DC4" stroke-width="2.2"/> <path d="M91 58h14" stroke="#7048E8" stroke-width="3" stroke-linecap="round"/><circle cx="98" cy="52" r="2.1" fill="#7048E8"/><circle cx="98" cy="64" r="2.1" fill="#7048E8"/> </g> <g> <g transform="translate(140 168)"><rect x="-2.5" y="0" width="5" height="12" fill="#8B5E34"/><circle cy="-4" r="11" fill="#40C057"/><circle cx="-5" cy="-8" r="4" fill="#69DB7C"/></g> <g transform="translate(300 196)"><rect x="-2.5" y="0" width="5" height="12" fill="#8B5E34"/><circle cy="-4" r="11" fill="#40C057"/><circle cx="-5" cy="-8" r="4" fill="#69DB7C"/></g> <g transform="translate(250 390)"><rect x="-2.5" y="0" width="5" height="12" fill="#8B5E34"/><circle cy="-4" r="11" fill="#40C057"/><circle cx="-5" cy="-8" r="4" fill="#69DB7C"/></g> <g transform="translate(110 398)"><rect x="-2.5" y="0" width="5" height="12" fill="#8B5E34"/><circle cy="-4" r="11" fill="#40C057"/><circle cx="-5" cy="-8" r="4" fill="#69DB7C"/></g> <g transform="translate(70 196)"><rect x="-2.5" y="0" width="5" height="12" fill="#8B5E34"/><circle cy="-4" r="11" fill="#40C057"/><circle cx="-5" cy="-8" r="4" fill="#69DB7C"/></g> </g> <g transform="translate(180 236)"> <circle r="24" fill="#F3E2B5" stroke="#E0C58A" stroke-width="2"/> <path d="M-14 2L0 -12 14 2V14H-14Z" fill="#fff" stroke="#8B5E34" stroke-width="2" stroke-linejoin="round"/> <path d="M-17 4L0 -14 17 4" fill="none" stroke="#E03131" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/> <rect x="-4" y="4" width="8" height="10" fill="#8B5E34"/> </g> </g> </svg>';
+    var SIMGE = {"top": "<g> <rect x=\"6\" y=\"34\" width=\"68\" height=\"46\" rx=\"3\" fill=\"#F2C94C\" stroke=\"#B7791F\" stroke-width=\"2.5\"/> <path d=\"M0 34h16v-30h-4v6h-4v-6h-4v6H0zM64 34h16V4h-4v6h-4V4h-4v6h-4z\" fill=\"#F2C94C\" stroke=\"#B7791F\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/> <path d=\"M30 80V60a10 10 0 0 1 20 0v20z\" fill=\"#8B5E34\"/> <path d=\"M40 34V8\" stroke=\"#8B5E34\" stroke-width=\"2.5\"/><path d=\"M40 8l18 6-18 6z\" fill=\"#F03E3E\"/> <path d=\"M24 46h-8M20 42v8M64 46h-8M60 42v8\" stroke=\"#B7791F\" stroke-width=\"2.6\" stroke-linecap=\"round\"/> <path d=\"M26 -2l6 8 8-10 8 10 6-8v12H26z\" fill=\"#FCC419\" stroke=\"#B7791F\" stroke-width=\"2\" stroke-linejoin=\"round\" transform=\"translate(0 -14)\"/> </g>", "cik": "<g> <path d=\"M0 96C4 50 14 20 40 10C62 2 88 12 100 40C108 60 108 84 104 96Z\" fill=\"#7C8FA6\" stroke=\"#556479\" stroke-width=\"2.5\"/> <path d=\"M40 30C46 26 56 26 62 30V100H40Z\" fill=\"#E7F5FF\"/> <path d=\"M45 34V98M51 32V98M57 34V98\" stroke=\"#74C0FC\" stroke-width=\"2.4\" stroke-linecap=\"round\"/> <ellipse cx=\"51\" cy=\"104\" rx=\"38\" ry=\"10\" fill=\"#4DABF7\" stroke=\"#1C7ED6\" stroke-width=\"2\"/> <path d=\"M36 102q5-4 10 0M58 104q5-4 10 0\" stroke=\"#fff\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/> <path d=\"M82 70h12\" stroke=\"#fff\" stroke-width=\"3.2\" stroke-linecap=\"round\"/> </g>", "carp": "<g> <rect x=\"0\" y=\"0\" width=\"104\" height=\"58\" rx=\"4\" fill=\"url(#ib-tugla)\" stroke=\"#A33B0A\" stroke-width=\"2.5\"/> <path d=\"M0 0h12v-8h12v8h12v-8h12v8h12v-8h12v8h12v-8h12v8h8\" fill=\"#E8590C\" stroke=\"#A33B0A\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/> <circle cx=\"52\" cy=\"29\" r=\"14\" fill=\"#FFF4E6\" stroke=\"#A33B0A\" stroke-width=\"2.2\"/> <path d=\"M46 23l12 12M58 23L46 35\" stroke=\"#E8590C\" stroke-width=\"3.4\" stroke-linecap=\"round\"/> </g>", "bol": "<g> <path d=\"M0 74C14 30 34 14 52 20C62 24 66 40 70 56C76 36 90 20 110 26C124 32 128 56 128 74Z\" fill=\"#9775FA\" stroke=\"#5F3DC4\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/> <path d=\"M44 28C48 22 56 22 58 30Z M96 32C100 26 108 26 112 34Z\" fill=\"#fff\" fill-opacity=\".85\"/> <path d=\"M70 58C66 66 62 70 60 76\" stroke=\"#E9D8A6\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\"/> <circle cx=\"98\" cy=\"58\" r=\"13\" fill=\"#F3F0FF\" stroke=\"#5F3DC4\" stroke-width=\"2.2\"/> <path d=\"M91 58h14\" stroke=\"#7048E8\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"98\" cy=\"52\" r=\"2.1\" fill=\"#7048E8\"/><circle cx=\"98\" cy=\"64\" r=\"2.1\" fill=\"#7048E8\"/> </g>"};
+    var SIMGE_KUTU = { top: [80, 96, -16], cik: [104, 114, 0], carp: [104, 66, -8], bol: [128, 76, 0] };
+    var COCUK = '<svg class="ib-cocuk" viewBox="0 0 44 64" aria-hidden="true" focusable="false"><ellipse cx="22" cy="62" rx="12" ry="2.6" fill="rgba(0,0,0,.2)"/><g class="ib-c-bacak ib-c-sol"><rect x="14" y="44" width="6.5" height="13" rx="3" fill="#FFD3B0"/><path d="M11.5 56H21v4.5h-8a2.3 2.3 0 0 1-1.5-4.5z" fill="#364FC7"/></g><g class="ib-c-bacak ib-c-sag"><rect x="23.5" y="44" width="6.5" height="13" rx="3" fill="#FFD3B0"/><path d="M23 56h9.5a2.3 2.3 0 0 1-1.5 4.5h-8z" fill="#364FC7"/></g><g class="ib-c-ust"><rect x="26" y="25" width="10" height="14" rx="3" fill="#FCC419" stroke="#E67700" stroke-width="1.2"/><rect x="12" y="38" width="20" height="9" rx="3.5" fill="#4263EB"/><path d="M11 30a11 9 0 0 1 22 0v11H11z" fill="#FF6B6B"/><path d="M17 28.5l5 3 5-3" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="6.5" y="28" width="6" height="12" rx="3" fill="#FFD3B0" transform="rotate(14 9.5 28)"/><rect x="31.5" y="28" width="6" height="12" rx="3" fill="#FFD3B0" transform="rotate(-14 34.5 28)"/><circle cx="22" cy="15.5" r="11" fill="#FFD3B0"/><path d="M11 15C10.5 7 16 3 22.5 3S34 7 33.5 14C30 10.5 25 9.6 20.5 10.4 16.5 11 13.5 12.6 11 15Z" fill="#7A4A1E"/><path d="M21 3.5c1-2.4 4-2.8 5.4-1" fill="none" stroke="#7A4A1E" stroke-width="2.2" stroke-linecap="round"/><circle cx="17.6" cy="16.6" r="1.9" fill="#1F1F2E"/><circle cx="26.4" cy="16.6" r="1.9" fill="#1F1F2E"/><circle cx="18.2" cy="16" r=".6" fill="#FFFFFF"/><circle cx="27" cy="16" r=".6" fill="#FFFFFF"/><path d="M19 20.5q3 2.8 6 0" fill="none" stroke="#1F1F2E" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="14.8" cy="20" rx="2.2" ry="1.5" fill="#FF8FAB" fill-opacity=".7"/><ellipse cx="29.2" cy="20" rx="2.2" ry="1.5" fill="#FF8FAB" fill-opacity=".7"/></g></svg>';
+    var KILIT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+    function yildiz(dolu, b) { return '<svg viewBox="0 0 24 24" class="' + (dolu ? 'dolu' : 'bos') + '" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z" fill="' + (dolu ? '#FCC419' : '#E9ECEF') + '" stroke="' + (dolu ? '#E67700' : '#ADB5BD') + '" stroke-width="' + (b || 1.4) + '" stroke-linejoin="round"/></svg>'; }
+    var NOKTA = [[90, 505], [200, 515], [290, 455], [210, 395], [100, 370], [95, 290], [205, 265], [285, 205], [205, 150], [105, 115], [252, 66]];
+    /* ---- kayıt ---- */
+    function bosKayit() { var o = { tur: 'kolay', p: {}, y: {} }; TURLAR.forEach(function (t) { o.p[t] = {}; o.y[t] = {}; BOLGE.forEach(function (b) { o.p[t][b.id] = 0; o.y[t][b.id] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; }); }); return o; }
+    function yukle() {
+      var o = bosKayit();
+      try {
+        var x = JSON.parse(localStorage.getItem(LK) || 'null');
+        if (x && x.p && x.y) {
+          if (TURLAR.indexOf(x.tur) >= 0) o.tur = x.tur;
+          TURLAR.forEach(function (t) { BOLGE.forEach(function (b) {
+            var p = x.p[t] && x.p[t][b.id]; if (typeof p === 'number' && p >= 0 && p <= 10) o.p[t][b.id] = p | 0;
+            var y = x.y[t] && x.y[t][b.id]; if (Array.isArray(y) && y.length === 10) o.y[t][b.id] = y.map(function (v) { return Math.max(0, Math.min(3, v | 0)); });
+          }); });
+        }
+      } catch (e) {}
+      return o;
+    }
+    var d = yukle();
+    function kaydet() { try { localStorage.setItem(LK, JSON.stringify(d)); } catch (e) {} }
+    function turAcik(t) { var i = TURLAR.indexOf(t); if (i <= 0) return true; var o = TURLAR[i - 1]; return BOLGE.every(function (b) { return d.p[o][b.id] >= 10; }); }
+    function bolgeAcik(t, bi) { return turAcik(t) && (bi === 0 || d.p[t][BOLGE[bi - 1].id] >= 10); }
+    function yildizToplam(t, b) { return d.y[t][b].reduce(function (a, v) { return a + v; }, 0); }
+    /* ---- ada ---- */
+    var adaKap = el('ib-ada'), turlarEl = el('ib-turlar');
+    function adaCiz() {
+      if (!adaKap.firstChild) {
+        adaKap.innerHTML = ADA + BOLGE.map(function (b) { return '<button class="ib-bolge-btn" type="button" data-b="' + b.id + '" style="--ib-k: ' + b.k + '"><span class="ib-etiket"><b></b><small></small></span></button>'; }).join('');
+      }
+      var t = d.tur, siradaki = -1;
+      BOLGE.forEach(function (b, i) { if (siradaki < 0 && bolgeAcik(t, i) && d.p[t][b.id] < 10) siradaki = i; });
+      BOLGE.forEach(function (b, i) {
+        var btn = adaKap.querySelector('[data-b="' + b.id + '"]'), acik = bolgeAcik(t, i), p = d.p[t][b.id];
+        btn.classList.toggle('kilitli', !acik); btn.classList.toggle('siradaki', i === siradaki);
+        btn.querySelector('b').textContent = b.ad;
+        var sm = btn.querySelector('small');
+        sm.innerHTML = acik ? (p >= 10 ? yildiz(true) + ' Tamamlandı · ' + yildizToplam(t, b.id) + '/30' : p + '/10 bölüm') : KILIT + ' Kilitli';
+        btn.setAttribute('aria-label', b.ad + ', ' + (acik ? p + ' / 10 bölüm' : 'kilitli'));
+        btn.setAttribute('aria-disabled', acik ? 'false' : 'true');
+      });
+      Array.prototype.forEach.call(turlarEl.querySelectorAll('[data-tur]'), function (x) {
+        var tt = x.getAttribute('data-tur'), ac = turAcik(tt);
+        x.setAttribute('aria-checked', tt === t ? 'true' : 'false'); x.disabled = !ac;
+        x.innerHTML = (ac ? '' : KILIT) + '<span>' + TUR_NO[tt] + '. tur · ' + TUR_AD[tt] + '</span>';
+      });
+      var ilk = BOLGE.filter(function (b, i) { return !bolgeAcik(t, i); })[0];
+      el('ib-bilgi').textContent = siradaki < 0 && !ilk ? (t === 'zor' ? 'Bütün adayı üç kez dolaştın. Harikasın!' : 'Bu turu bitirdin! Sıradaki tur açıldı.') : 'Bölgeler sırayla açılır. Bir bölgenin 10 bölümünü bitirince sıradaki bölge açılır.';
+    }
+    adaKap.addEventListener('click', function (e) {
+      var b = e.target.closest('.ib-bolge-btn'); if (!b) return;
+      var bi = BOLGE.map(function (x) { return x.id; }).indexOf(b.getAttribute('data-b'));
+      if (!bolgeAcik(d.tur, bi)) { el('ib-bilgi').textContent = 'Önce ' + BOLGE[bi - 1].ad + ' bölgesini bitirmelisin.'; return; }
+      bolge = bi; yuru = null; nav('ib-bolge');
+    });
+    turlarEl.addEventListener('click', function (e) { var b = e.target.closest('[data-tur]'); if (!b || b.disabled) return; d.tur = b.getAttribute('data-tur'); kaydet(); adaCiz(); });
+    /* ---- bölge haritası ---- */
+    var bolge = 0, yuru = null, haritaKap = el('ibb-harita'), segler = [], cocukEl = null, notEl = null, yurTimer = null;
+    function yol() {
+      var P = NOKTA, s = [];
+      for (var i = 0; i < P.length - 1; i++) {
+        var p0 = P[Math.max(0, i - 1)], p1 = P[i], p2 = P[i + 1], p3 = P[Math.min(P.length - 1, i + 2)];
+        var c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+        s.push('M' + p1[0] + ' ' + p1[1] + 'C' + c1[0].toFixed(1) + ' ' + c1[1].toFixed(1) + ' ' + c2[0].toFixed(1) + ' ' + c2[1].toFixed(1) + ' ' + p2[0] + ' ' + p2[1]);
+      }
+      return s;
+    }
+    function susler(b) {
+      var agac = function (x, y, s) { return '<g transform="translate(' + x + ' ' + y + ') scale(' + (s || 1) + ')"><rect x="-3" y="0" width="6" height="14" fill="#8B5E34"/><circle cy="-5" r="13" fill="#40C057"/><circle cx="-5" cy="-10" r="5" fill="#69DB7C"/></g>'; };
+      var cicek = function (x, y, c) { return '<g transform="translate(' + x + ' ' + y + ')"><circle r="3" cx="-4" fill="' + c + '"/><circle r="3" cx="4" fill="' + c + '"/><circle r="3" cy="-4" fill="' + c + '"/><circle r="3" cy="4" fill="' + c + '"/><circle r="2.4" fill="#FCC419"/></g>'; };
+      var mini = {
+        top: function (x, y) { return '<path transform="translate(' + x + ' ' + y + ')" d="M-12 6V-6l6 6 6-10 6 10 6-6V6z" fill="#FCC419" stroke="#B7791F" stroke-width="2" stroke-linejoin="round"/>'; },
+        cik: function (x, y) { return '<path transform="translate(' + x + ' ' + y + ')" d="M0-12C5-4 8 0 8 4A8 8 0 0 1-8 4C-8 0-5-4 0-12Z" fill="#74C0FC" stroke="#1971C2" stroke-width="2"/>'; },
+        carp: function (x, y) { return '<g transform="translate(' + x + ' ' + y + ')"><rect x="-14" y="-8" width="28" height="16" rx="2" fill="url(#ib-tugla)" stroke="#A33B0A" stroke-width="1.8"/></g>'; },
+        bol: function (x, y) { return '<path transform="translate(' + x + ' ' + y + ')" d="M-18 8C-12-6-4-10 2-6 6-12 14-10 18 8Z" fill="#9775FA" stroke="#5F3DC4" stroke-width="2" stroke-linejoin="round"/>'; }
+      }[b.id];
+      return agac(30, 440) + agac(330, 350, .9) + agac(28, 220, .85) + agac(320, 110, .8) + agac(150, 60, .7) +
+        cicek(150, 470, '#FF8FAB') + cicek(320, 520, '#FFFFFF') + cicek(40, 300, '#FFFFFF') + cicek(250, 330, '#FF8FAB') + cicek(150, 205, '#FFFFFF') +
+        mini(300, 290) + mini(45, 150) + mini(330, 470) + mini(160, 330) + mini(40, 540);
+    }
+    function haritaKur(b) {
+      var S = yol(), kutu = SIMGE_KUTU[b.id], sk = 0.82, tx = NOKTA[10][0] - kutu[0] * sk / 2, ty = NOKTA[10][1] - (kutu[1] * sk) / 2 - kutu[2] * sk - 8;
+      var svg = '<svg viewBox="0 0 360 560" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="ibb-zemin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + b.bg[1] + '"/><stop offset="1" stop-color="' + b.bg[0] + '"/></linearGradient></defs>' +
+        '<rect width="360" height="560" fill="url(#ibb-zemin)"/>' + susler(b) +
+        '<path d="' + S.join(' ') + '" fill="none" stroke="#E7D3A2" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<path d="' + S.join(' ') + '" fill="none" stroke="#FFF3D6" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<path d="' + S.join(' ') + '" fill="none" stroke="' + b.k + '" stroke-opacity=".45" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>' +
+        S.map(function (s, i) { return '<path class="ibb-seg" data-i="' + i + '" d="' + s + '" fill="none" stroke="none"/>'; }).join('') +
+        '<g transform="translate(' + tx.toFixed(1) + ' ' + ty.toFixed(1) + ') scale(' + sk + ')">' + SIMGE[b.id] + '</g></svg>';
+      var h = svg;
+      for (var i = 0; i < 10; i++) h += '<button class="ib-dugum" type="button" data-n="' + (i + 1) + '" style="left:' + (NOKTA[i][0] / 3.6) + '%;top:' + (NOKTA[i][1] / 5.6) + '%"><span>' + (i + 1) + '</span><span class="ib-yildizlar"></span></button>';
+      h += '<div class="ib-cocuk-kap" id="ibb-cocuk">' + COCUK + '</div><p class="ib-harita-not" id="ibb-not" hidden></p>';
+      haritaKap.innerHTML = h;
+      segler = Array.prototype.slice.call(haritaKap.querySelectorAll('.ibb-seg'));
+      cocukEl = el('ibb-cocuk'); notEl = el('ibb-not');
+    }
+    function cocukKoy(x, y) { cocukEl.style.left = (x / 3.6) + '%'; cocukEl.style.top = (y / 5.6) + '%'; }
+    function bolgeCiz() {
+      var b = BOLGE[bolge], t = d.tur, p = d.p[t][b.id];
+      var v = el('v-ib-bolge'); v.style.setProperty('--ib-k', b.k); v.style.setProperty('--ib-a', b.a);
+      el('ibb-tur').textContent = TUR_NO[t] + '. tur · ' + TUR_AD[t]; el('ibb-ad').textContent = b.ad;
+      el('ibb-sayac').innerHTML = yildiz(true, 2) + yildizToplam(t, b.id) + '/30';
+      haritaKur(b);
+      Array.prototype.forEach.call(haritaKap.querySelectorAll('.ib-dugum'), function (n) {
+        var k = +n.getAttribute('data-n'), y = d.y[t][b.id][k - 1], acik = k <= p + 1;
+        n.classList.toggle('kilitli', !acik); n.classList.toggle('simdiki', k === p + 1);
+        n.disabled = !acik;
+        n.setAttribute('aria-label', 'Bölüm ' + k + (k <= p ? ', ' + y + ' yıldız' : acik ? ', sıradaki' : ', kilitli'));
+        n.querySelector('.ib-yildizlar').innerHTML = k <= p ? yildiz(y >= 1) + yildiz(y >= 2) + yildiz(y >= 3) : '';
+      });
+      var yer = yuru ? yuru.from : Math.min(p, 10);
+      cocukKoy(NOKTA[yer][0], NOKTA[yer][1]); cocukEl.classList.remove('ters', 'yuruyor', 'sevinc');
+      if (yuru) { var w = yuru; yuru = null; clearTimeout(yurTimer); yurTimer = setTimeout(function () { yuruAnim(w.from, w.to); }, 350); }
+    }
+    function yuruAnim(from, to) {
+      var seg = segler[from]; if (!seg || !cocukEl) return;
+      var L = seg.getTotalLength(), t0 = null, sure = reduce ? 0 : 1300, onceX = NOKTA[from][0];
+      cocukEl.classList.add('yuruyor');
+      function adim(ts) {
+        if (!cocukEl.isConnected) return;
+        if (t0 === null) t0 = ts;
+        var k = sure ? Math.min(1, (ts - t0) / sure) : 1, e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        var pt = seg.getPointAtLength(L * e);
+        cocukEl.classList.toggle('ters', pt.x < onceX - .2); onceX = pt.x;
+        cocukKoy(pt.x, pt.y);
+        if (k < 1) requestAnimationFrame(adim);
+        else {
+          cocukEl.classList.remove('yuruyor', 'ters'); cocukEl.classList.add('sevinc');
+          if (to === 10) {
+            var sonraki = BOLGE[bolge + 1];
+            notEl.textContent = BOLGE[bolge].ad + ' tamamlandı!' + (sonraki ? ' ' + sonraki.ad + ' açıldı.' : turAcik(TURLAR[TURLAR.indexOf(d.tur) + 1] || 'x') ? ' Yeni tur açıldı!' : '');
+            notEl.hidden = false;
+          }
+        }
+      }
+      requestAnimationFrame(adim);
+    }
+    haritaKap.addEventListener('click', function (e) {
+      var n = e.target.closest('.ib-dugum'); if (!n || n.disabled) return;
+      bolumBasla(bolge, +n.getAttribute('data-n')); nav('ib-oyun');
+    });
+    /* ---- soru üretimi ---- */
+    function rnd(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+    function soruUret(op, tur, k) {
+      var a, b, c;
+      if (op === '+') {
+        if (tur === 'kolay') { c = rnd(2, 4 + Math.ceil(k * .6)); a = rnd(1, c - 1); }
+        else if (tur === 'orta') { c = rnd(8, 10 + k); a = rnd(2, c - 2); }
+        else { c = rnd(25, Math.min(99, 38 + 6 * k)); a = rnd(10, c - 6); }
+        b = c - a;
+      } else if (op === '−') {
+        if (tur === 'kolay') { a = rnd(2, 4 + Math.ceil(k * .6)); b = rnd(1, a); }
+        else if (tur === 'orta') { a = rnd(8, 10 + k); b = rnd(2, a - 1); }
+        else { a = rnd(25, Math.min(99, 38 + 6 * k)); b = rnd(6, a - 5); }
+        c = a - b;
+      } else if (op === '×') {
+        if (tur === 'kolay') { a = rnd(1, Math.min(5, 2 + Math.ceil(k / 3))); b = rnd(1, 5); }
+        else if (tur === 'orta') { a = rnd(2, Math.min(9, 3 + Math.ceil(k / 2))); b = rnd(2, 10); }
+        else { a = rnd(3, 10); b = rnd(3, 10); }
+        c = a * b;
+      } else {
+        if (tur === 'kolay') { b = rnd(1, Math.min(5, 2 + Math.ceil(k / 3))); c = rnd(1, 5); }
+        else if (tur === 'orta') { b = rnd(2, Math.min(9, 3 + Math.ceil(k / 2))); c = rnd(2, 10); }
+        else { b = rnd(3, 10); c = rnd(3, 10); }
+        a = b * c;
+      }
+      return { a: a, b: b, c: c, op: op };
+    }
+    function secenekUret(s, tur) {
+      var adaylar = [s.c + 1, s.c - 1, s.c + 2, s.c - 2];
+      if (s.op === '×' || s.op === '÷') adaylar.push(s.c + s.b, s.c - s.b, s.op === '×' ? s.a + s.b : s.a - s.b);
+      if (tur === 'zor') adaylar.push(s.c + 10, s.c - 10);
+      adaylar = adaylar.filter(function (x, i, a) { return x >= 0 && x !== s.c && a.indexOf(x) === i; }).sort(function () { return Math.random() - .5; });
+      var o = [s.c, adaylar[0], adaylar[1]];
+      return o.sort(function () { return Math.random() - .5; });
+    }
+    /* ---- bölüm ---- */
+    var oyun = null, OVGU = ['Harika!', 'Süper!', 'Aferin!', 'Çok iyi!', 'Bravo!'];
+    function bolumBasla(bi, k) {
+      var b = BOLGE[bi], sor = [], anahtar = {};
+      for (var g = 0; sor.length < SORU_SAYI && g < 200; g++) { var s = soruUret(b.op, d.tur, k), an = s.a + s.op + s.b; if (anahtar[an]) continue; anahtar[an] = 1; sor.push(s); }
+      oyun = { bi: bi, tur: d.tur, k: k, sor: sor, i: 0, hata: 0, kilit: false, bitti: false };
+      var v = el('v-ib-oyun'); v.style.setProperty('--ib-k', b.k); v.style.setProperty('--ib-a', b.a);
+      el('ibo-bolge').textContent = b.ad; el('ibo-bolum').textContent = 'Bölüm ' + k; el('ibo-tur').textContent = TUR_AD[d.tur];
+      el('ibo-sonuc').hidden = true; el('ibo-soru').hidden = false; el('ibo-secenekler').hidden = false; el('ibo-mesaj').hidden = false;
+      soruCiz();
+    }
+    function ilerlemeCiz() {
+      var h = ''; for (var i = 0; i < SORU_SAYI; i++) h += '<span class="' + (i < oyun.i ? 'tamam' : i === oyun.i ? 'simdi' : '') + '"></span>';
+      el('ibo-ilerleme').innerHTML = h;
+    }
+    function soruCiz() {
+      var s = oyun.sor[oyun.i], soru = el('ibo-soru');
+      var uzun = (String(s.a) + String(s.b) + String(s.c)).length > 5;
+      soru.className = 'ib-soru' + (uzun ? ' uzun' : '');
+      soru.innerHTML = IB_RAKAM.sayi(s.a) + '<span class="ib-isaret" aria-label="' + ({ '+': 'artı', '−': 'eksi', '×': 'çarpı', '÷': 'bölü' })[s.op] + '">' + s.op + '</span>' + IB_RAKAM.sayi(s.b) + '<span class="ib-esit" aria-hidden="true">=</span><span class="ib-bos" id="ibo-bos" aria-label="kaç?">?</span>';
+      el('ibo-secenekler').innerHTML = secenekUret(s, oyun.tur).map(function (x) { return '<button class="ib-secenek' + (String(x).length > 2 ? ' uzun' : String(x).length > 1 ? ' iki' : '') + '" type="button" data-v="' + x + '" aria-label="' + x + '">' + IB_RAKAM.sayi(x) + '</button>'; }).join('');
+      el('ibo-mesaj').textContent = ''; el('ibo-mesaj').className = 'ib-mesaj';
+      oyun.kilit = false; ilerlemeCiz();
+    }
+    el('ibo-secenekler').addEventListener('click', function (e) {
+      var btn = e.target.closest('.ib-secenek'); if (!btn || btn.disabled || !oyun || oyun.kilit) return;
+      var s = oyun.sor[oyun.i], v = +btn.getAttribute('data-v'), soru = el('ibo-soru'), m = el('ibo-mesaj');
+      if (v === s.c) {
+        oyun.kilit = true; btn.classList.add('dogru');
+        Array.prototype.forEach.call(el('ibo-secenekler').querySelectorAll('.ib-secenek'), function (x) { x.disabled = true; });
+        var bos = el('ibo-bos'); bos.className = 'ib-bos dolu'; bos.innerHTML = IB_RAKAM.sayi(s.c); bos.removeAttribute('aria-label');
+        soru.classList.remove('titre'); soru.classList.add('mutlu');
+        m.className = 'ib-mesaj'; m.textContent = OVGU[Math.floor(Math.random() * OVGU.length)];
+        setTimeout(function () { if (!oyun) return; oyun.i++; if (oyun.i >= SORU_SAYI) bitir(); else soruCiz(); }, reduce ? 600 : 1150);
+      } else {
+        oyun.hata++; btn.classList.add('yanlis'); btn.disabled = true;
+        soru.classList.remove('titre'); void soru.offsetWidth; soru.classList.add('titre');
+        m.className = 'ib-mesaj yanlis'; m.textContent = 'Bir daha dene!';
+      }
+    });
+    function bitir() {
+      var b = BOLGE[oyun.bi], t = oyun.tur, k = oyun.k, y = oyun.hata === 0 ? 3 : oyun.hata <= 2 ? 2 : 1, yeni = d.p[t][b.id] < k;
+      d.y[t][b.id][k - 1] = Math.max(d.y[t][b.id][k - 1], y);
+      if (yeni) { d.p[t][b.id] = k; yuru = { from: k - 1, to: k }; } else yuru = null;
+      kaydet(); oyun.bitti = true;
+      el('ibo-soru').hidden = true; el('ibo-secenekler').hidden = true; el('ibo-mesaj').hidden = true;
+      el('ibo-ilerleme').innerHTML = new Array(SORU_SAYI + 1).join('<span class="tamam"></span>');
+      el('ibo-yildiz').innerHTML = yildiz(y >= 1, 1.2) + yildiz(y >= 2, 1.2) + yildiz(y >= 3, 1.2);
+      el('ibo-sonuc-bas').textContent = y === 3 ? 'Mükemmel!' : y === 2 ? 'Çok güzel!' : 'Bölüm bitti!';
+      el('ibo-sonuc-alt').textContent = k < 10 ? (yeni ? 'Haritada bir sonraki bölüme yürüyelim.' : 'Haritaya dönebilir ya da tekrar oynayabilirsin.') : b.ad + ' bölgesinin son bölümünü bitirdin!';
+      el('ibo-sonuc').hidden = false;
+      try { el('ibo-harita').focus({ preventScroll: true }); } catch (e) {}
+    }
+    el('ibo-tekrar').addEventListener('click', function () { if (oyun) { var w = yuru; bolumBasla(oyun.bi, oyun.k); yuru = w; } });
+    el('ibo-harita').addEventListener('click', function () { goBack(); });
+    /* ---- giriş ---- */
+    document.body.insertAdjacentHTML('afterbegin', IB_RAKAM.defs());
+    var egIc = el('eg-ib-ic'); if (egIc) egIc.innerHTML = IB_RAKAM.svg(1) + IB_RAKAM.svg(2);
+    return {
+      adaGoster: function () { adaCiz(); },
+      bolgeGoster: function () { bolgeCiz(); },
+      oyunGoster: function () { if (oyun && oyun.bitti) {} },
+      ozet: function () {
+        var t = d.tur, top = 0; BOLGE.forEach(function (b) { top += d.p[t][b.id]; });
+        var s = el('eg-ib-s'); if (s) s.textContent = top ? TUR_NO[t] + '. tur · ' + top + '/40 bölüm' : 'Toplama, çıkartma, çarpma, bölme adası';
+      }
+    };
+  })();
+  document.getElementById('go-islembaba').addEventListener('click', function () { nav('ib-ada'); });
+
 
   /* Matematikçiler */
   document.getElementById('go-mat').addEventListener('click', function () { secTransition(false, 'mat', 'mat', function () { nav('mat'); }); });
