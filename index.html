@@ -985,7 +985,7 @@ body.home-plain .eg-ico svg { filter: none; }
 .h24-cozum { margin: 0 auto; width: 100%; max-width: 340px; padding: 10px 14px; border-radius: 12px; border: 1px dashed var(--eg); text-align: center; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .h24-cozum[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) { .eg-ico svg, .h24-tas, .h24-op { transition: none; } .h24-tas.yeni, .h24-tahta.kazandi .h24-tas, .h24-tahta.olmadi .h24-tas { animation: none; } }
-/* İşlem Baba (6–8 yaş): ada, bölge haritası, bölüm ekranı */
+/* İşlem Baba (6–10 yaş): ada, bölge haritası, bölüm ekranı */
 .ib-r { display: block; overflow: visible; }
 .ib-sayi { display: inline-flex; align-items: flex-end; }
 .ib-sayi .ib-r + .ib-r { margin-left: -14%; }
@@ -3193,7 +3193,7 @@ button.ot:active { transform: scale(.97); }
       </button>
       <button class="eg-oyun" type="button" id="go-islembaba">
         <span class="eg-ic ib-ic" id="eg-ib-ic" aria-hidden="true"></span>
-        <span class="eg-txt"><span class="eg-ad">İşlem Baba<span class="ib-yas">6–8 yaş</span></span><span class="eg-s" id="eg-ib-s">Toplama, çıkartma, çarpma, bölme adası</span></span>
+        <span class="eg-txt"><span class="eg-ad">İşlem Baba<span class="ib-yas">6–10 yaş</span></span><span class="eg-s" id="eg-ib-s">Toplama, çıkartma, çarpma, bölme adası</span></span>
         <span class="eg-oyna" aria-hidden="true">Oyna</span>
       </button>
       <section class="kl-sec" aria-labelledby="eg-st-h">
@@ -3249,7 +3249,7 @@ button.ot:active { transform: scale(.97); }
   <section class="view" id="v-ib-harita" hidden>
     <div class="page ibm-sayfa">
       <div class="ibm-hud">
-        <div class="ibm-hud-ust"><div class="ph"><span class="eyebrow">Eğlence · 6–8 yaş</span><h2>İşlem Baba</h2></div><span class="ibm-sayaclar"><span class="ibm-hsay" id="ibm-hsay" aria-label="Kurtarılan hayvanlar"></span><span class="ibm-yildiz" id="ibm-yildiz" aria-label="Toplam yıldız"></span></span></div>
+        <div class="ibm-hud-ust"><div class="ph"><span class="eyebrow">Eğlence · 6–10 yaş</span><h2>İşlem Baba</h2></div><span class="ibm-sayaclar"><span class="ibm-hsay" id="ibm-hsay" aria-label="Kurtarılan hayvanlar"></span><span class="ibm-yildiz" id="ibm-yildiz" aria-label="Toplam yıldız"></span></span></div>
         <div class="ibm-il" id="ibm-il" role="group"><div class="ibm-il-ust"><span class="ibm-il-ad" id="ibm-il-ad"></span><span class="ibm-il-say" id="ibm-il-say"></span></div><div class="ibm-il-bar" id="ibm-il-bar" aria-hidden="true"></div></div>
       </div>
       <div class="ibm-harita" id="ibm-harita"></div>
@@ -8281,7 +8281,7 @@ var BGX = (function () {
     porsukGecis(false, function () { Hedef24.ozet(); nav('eglence'); });
   });
   document.getElementById('go-hedef24').addEventListener('click', function () { Hedef24.ac(); nav('hedef24'); });
-  /* İşlem Baba (6–8 yaş): adada dört bölge, her bölgede 10 bölüm, üç tur (Kolay, Orta, Zor).
+  /* İşlem Baba (6–10 yaş): adada dört bölge, her bölgede 10 bölüm, üç tur (Kolay, Orta, Zor).
      Bütün çizimler (rakam karakterleri, ada, çocuk) bu uygulama için özgün olarak hazırlanmıştır. */
 /* İşlem Baba: sevimli rakamlar (özgün çizim). Her rakam kalın yuvarlak çizgi + koyu kontur + desen kaplaması + yüz */
   var IB_RAKAM = (function () {
