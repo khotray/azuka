@@ -1323,7 +1323,12 @@ body.dr-acik { overflow: hidden; }
 .dr-foto-sec { border: 1px solid var(--line); }
 /* Ana ekran: konular yalnızca geliştiricide (Akış | Konular); Mesajlar, Gruplar, Profil alt çubukta */
 body:not(.ev-konu) #topic-chip, body:not(.ev-konu) #konu-pick, body:not(.ev-konu) #go-tanim, body:not(.ev-konu) #go-ornek, body:not(.ev-konu) #go-fayda, body:not(.ev-konu) #go-mat { display: none !important; }
-body:not(.ev-mesaj) #go-mesajlar, body:not(.ev-mesaj) #go-gruplar { display: none !important; }
+body:not(.ev-mesaj) #go-mesajlar { display: none !important; }
+.ms-sec button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.ms-sec-n { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; display: inline-grid; place-items: center; background: #DC2626; color: #FFFFFF; font-size: 11px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.ms-sec-n[hidden] { display: none; }
+.ms-panel { display: flex; flex-direction: column; gap: 18px; }
+.ms-panel[hidden] { display: none; }
 body:not(.ev-profil) #go-profil { display: none !important; }
 body.ev-bekle #sec-menu, body.ev-bekle #topic-chip { visibility: hidden; }
 /* Alt çubuk: Ana sayfa, Mesajlar, Gruplar, e, Oyunlar, Profil, Ayarlar; bulunulan bölümün ikonu etkin görünür */
@@ -3655,6 +3660,11 @@ button.ot:active { transform: scale(.97); }
           <span class="set-ic" style="--sc: #2563EB"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5v-.5a6 6 0 0 1 6-6h3a6 6 0 0 1 6 6v.5"/></svg></span>
           <span class="set-txt"><span class="set-t" id="hs-ad">Hesabım</span><span class="set-s" id="hs-alt"></span></span>
         </div>
+        <button class="set-row" type="button" id="go-profil">
+          <span class="set-ic" style="--sc: #0D9488"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="3"/><circle cx="9" cy="11" r="2.6"/><path d="M5.5 17c.6-1.9 2-3 3.5-3s2.9 1.1 3.5 3M15 9.5h3.5M15 13h3.5"/></svg></span>
+          <span class="set-txt"><span class="set-t">Profilim</span><span class="set-s">ID ve bağlantılar</span></span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
         <button class="set-row" type="button" id="go-hcprofil" hidden>
           <span class="set-ic" style="--sc: #7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/><path d="M22 9v6"/></svg></span>
           <span class="set-txt"><span class="set-t">Matematikçi profilim</span><span class="set-s" id="hcprofil-s">Üniversite ya da bireysel</span></span>
@@ -3755,9 +3765,25 @@ button.ot:active { transform: scale(.97); }
     </div>
   </section>
 
-  <section class="view" id="v-gruplar" hidden>
+  <section class="view" id="v-mesajlar" hidden>
     <div class="page">
-      <div class="ph"><span class="eyebrow">Mesajlaşma</span><h2>Gruplar</h2></div>
+      <div class="ph"><span class="eyebrow">Mesajlaşma</span><h2>Mesajlar</h2></div>
+      <div class="oy-sure ak-sec ms-sec" id="ms-sec" role="tablist" aria-label="Sohbetler ve gruplar"><button type="button" role="tab" id="ms-tab-sohbet" aria-selected="true" aria-controls="ms-p-sohbet" data-ms="sohbet">Sohbetler<span class="ms-sec-n" id="ms-sec-n" hidden></span></button><button type="button" role="tab" id="ms-tab-grup" aria-selected="false" aria-controls="ms-p-grup" data-ms="grup">Gruplar</button></div>
+      <div class="ms-panel" id="ms-p-sohbet" role="tabpanel" aria-labelledby="ms-tab-sohbet">
+      <p class="set-note">Yalnızca bağlantılı olduğun kişilerle mesajlaşırsın. Birini bulup davet gönder; daveti kabul edince sohbet açılır.</p>
+      <div class="ms-bul">
+        <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="ms-ara" type="search" placeholder="Ad ya da ID ile kişi bul" aria-label="Ad ya da ID ile kişi bul" autocomplete="off"></label>
+        <ul class="kl-kart kl-yon aile-liste" id="ms-sonuc" hidden></ul>
+      </div>
+      <p class="kl-durum" id="ms-durum" role="status" hidden></p>
+      <h3 class="kl-bas" id="ms-davet-bas">Davetler <small id="ms-davet-n"></small></h3>
+      <ul class="kl-kart kl-yon aile-liste" id="ms-davetler" hidden></ul>
+      <p class="empty" id="ms-davet-bos">Bekleyen davet yok.</p>
+      <h3 class="kl-bas">Sohbetler</h3>
+      <ul class="kl-kart kl-yon ms-liste" id="ms-liste" hidden></ul>
+      <p class="empty" id="ms-bos">Henüz bağlantın yok.</p>
+      </div>
+      <div class="ms-panel" id="ms-p-grup" role="tabpanel" aria-labelledby="ms-tab-grup" hidden>
         <div class="gp-kap" id="gp-kap">
         <button class="kl-olustur" type="button" id="gp-olustur" aria-expanded="false" aria-controls="gp-form" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Grup oluştur</span></button>
         <form class="oy-form" id="gp-form" hidden novalidate>
@@ -3772,24 +3798,7 @@ button.ot:active { transform: scale(.97); }
         <ul class="plist" id="gp-liste" hidden></ul>
         <div class="e-bos" id="gp-bos"><span class="e-bos-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="7.5" r="3.5"/><path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.2a3.5 3.5 0 0 1 0 6.6"/></svg></span><p id="gp-bos-t">Henüz bir grubun yok. Hocan seni bir gruba eklediğinde burada görünür.</p></div>
         </div>
-    </div>
-  </section>
-
-  <section class="view" id="v-mesajlar" hidden>
-    <div class="page">
-      <div class="ph"><span class="eyebrow">Mesajlar</span><h2>Gelen mesajlar</h2></div>
-      <p class="set-note">Yalnızca bağlantılı olduğun kişilerle mesajlaşırsın. Birini bulup davet gönder; daveti kabul edince sohbet açılır.</p>
-      <div class="ms-bul">
-        <label class="ml-ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></svg><input id="ms-ara" type="search" placeholder="Ad ya da ID ile kişi bul" aria-label="Ad ya da ID ile kişi bul" autocomplete="off"></label>
-        <ul class="kl-kart kl-yon aile-liste" id="ms-sonuc" hidden></ul>
       </div>
-      <p class="kl-durum" id="ms-durum" role="status" hidden></p>
-      <h3 class="kl-bas" id="ms-davet-bas">Davetler <small id="ms-davet-n"></small></h3>
-      <ul class="kl-kart kl-yon aile-liste" id="ms-davetler" hidden></ul>
-      <p class="empty" id="ms-davet-bos">Bekleyen davet yok.</p>
-      <h3 class="kl-bas">Sohbetler</h3>
-      <ul class="kl-kart kl-yon ms-liste" id="ms-liste" hidden></ul>
-      <p class="empty" id="ms-bos">Henüz bağlantın yok.</p>
     </div>
   </section>
 
@@ -4604,10 +4613,8 @@ button.ot:active { transform: scale(.97); }
 <nav class="alt-bar topic-chip" id="alt-bar" aria-label="Bölümler">
   <button type="button" class="ab" id="go-ana" data-ab="ana" aria-label="Ana sayfa"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11L12 3.8l8.5 7.2"/><path d="M5.8 9.3V20h4.4v-5.6h3.6V20h4.4V9.3"/></svg></span></button>
   <button type="button" class="ab" id="go-mesajlar" data-ab="mesaj" aria-label="Mesajlar"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8 8 0 0 1-11.6 7.2L3.5 20.5l1.3-4.6A8 8 0 1 1 20.5 12z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg></span><span class="ab-rozet" id="mesaj-rozet" hidden></span></button>
-  <button type="button" class="ab" id="go-gruplar" data-ab="grup" aria-label="Gruplar"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="7.5" r="3.5"/><path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.2a3.5 3.5 0 0 1 0 6.6"/></svg></span></button>
   <button type="button" class="ab" id="go-e" data-ab="e" aria-label="Kulüpler, köyler ve matematikçiler"><span class="ab-ic"><span class="e-sym" aria-hidden="true">e</span></span></button>
   <button type="button" class="ab" id="go-eglence" data-ab="oyun" aria-label="Oyunlar"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.6 6.8h8.8a5.2 5.2 0 0 1 5.1 4.2l.85 4.5a2.7 2.7 0 0 1-4.6 2.3l-2.3-2.4H8.55l-2.3 2.4a2.7 2.7 0 0 1-4.6-2.3l.85-4.5a5.2 5.2 0 0 1 5.1-4.2z"/><path d="M7.9 9.7v3.4M6.2 11.4h3.4"/><circle cx="15.6" cy="10.4" r="1.1" fill="currentColor" stroke="none"/><circle cx="17.6" cy="12.6" r="1.1" fill="currentColor" stroke="none"/></svg></span></button>
-  <button type="button" class="ab" id="go-profil" data-ab="profil" aria-label="Profil"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5v-.5a6 6 0 0 1 6-6h3a6 6 0 0 1 6 6v.5"/></svg></span></button>
   <button type="button" class="ab" id="go-ayarlar" data-ab="ayar" aria-label="Ayarlar"><span class="ab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M9.75 4.64L10.02 1.79A10.4 10.4 0 0 1 13.98 1.79L14.25 4.64A7.7 7.7 0 0 1 15.61 5.20L17.82 3.38A10.4 10.4 0 0 1 20.62 6.18L18.80 8.39A7.7 7.7 0 0 1 19.36 9.75L22.21 10.02A10.4 10.4 0 0 1 22.21 13.98L19.36 14.25A7.7 7.7 0 0 1 18.80 15.61L20.62 17.82A10.4 10.4 0 0 1 17.82 20.62L15.61 18.80A7.7 7.7 0 0 1 14.25 19.36L13.98 22.21A10.4 10.4 0 0 1 10.02 22.21L9.75 19.36A7.7 7.7 0 0 1 8.39 18.80L6.18 20.62A10.4 10.4 0 0 1 3.38 17.82L5.20 15.61A7.7 7.7 0 0 1 4.64 14.25L1.79 13.98A10.4 10.4 0 0 1 1.79 10.02L4.64 9.75A7.7 7.7 0 0 1 5.20 8.39L3.38 6.18A10.4 10.4 0 0 1 6.18 3.38L8.39 5.20A7.7 7.7 0 0 1 9.75 4.64Z"/><circle cx="12" cy="12" r="3.6"/></svg></span></button>
 </nav>
 
@@ -7103,7 +7110,6 @@ var BGX = (function () {
     tesekkur: document.getElementById('v-tesekkur'),
     kullanicilar: document.getElementById('v-kullanicilar'),
     veliekle: document.getElementById('v-veliekle'),
-    gruplar: document.getElementById('v-gruplar'),
     mesajlar: document.getElementById('v-mesajlar'),
     sohbet: document.getElementById('v-sohbet'),
     profil: document.getElementById('v-profil'),
@@ -7117,7 +7123,7 @@ var BGX = (function () {
     soru: document.getElementById('v-soru')
   };
   var stack = [{ name: 'home' }];
-  var BOLUM_KOK = { mesajlar: 'mesaj', gruplar: 'grup', top: 'e', eglence: 'oyun', profil: 'profil', ayarlar: 'ayar' };   /* alt çubuktaki bölümlerin kök sayfaları */
+  var BOLUM_KOK = { mesajlar: 'mesaj', top: 'e', eglence: 'oyun', ayarlar: 'ayar' };   /* alt çubuktaki bölümlerin kök sayfaları */
   /* Telefonun geri tuşu: her sayfa geçişi tarayıcı geçmişine bir kayıt ekler; geri tuşu (popstate) uygulamada bir önceki sayfaya döner.
      Açılır katmanlar (konu ve çocuk seçici, arka plan önizlemesi, kâğıt) da kendi kaydını ekler; geri tuşu önce onları kapatır.
      Ana ekranda geri tuşu uygulamadan çıkar. claude.ai içinde (çerçevede) geçmişe dokunulmaz. Android uygulaması window.__androidBack'i çağırır. */
@@ -11626,11 +11632,19 @@ var BGX = (function () {
       if (!konu && !konuPick.hidden) setPicker(false);
       var n = baglar.filter(okunmamis).length + gelen.length, rz = el('mesaj-rozet');
       rz.hidden = !n || !mes; rz.textContent = n > 99 ? '99+' : String(n || '');
+      var tn = el('ms-sec-n'); tn.hidden = !n || !mes; tn.textContent = n > 99 ? '99+' : String(n || '');
       el('go-mesajlar').setAttribute('aria-label', 'Mesajlar' + (n ? ', ' + n + ' yeni' : ''));
     }
     el('go-mesajlar').addEventListener('click', function () { if (current !== 'mesajlar') msMesaj(''); bolumeGec('mesajlar'); });
-    el('go-gruplar').addEventListener('click', function () { bolumeGec('gruplar'); });
-    el('go-profil').addEventListener('click', function () { if (current !== 'profil') prMesaj(''); bolumeGec('profil'); });
+    el('go-profil').addEventListener('click', function () { prMesaj(''); nav('profil'); });
+    /* Mesajlar sayfası: Sohbetler ve Gruplar sekmeleri */
+    var msTab = 'sohbet', msSec = el('ms-sec');
+    function msTabCiz() {
+      Array.prototype.forEach.call(msSec.querySelectorAll('[data-ms]'), function (b) { var on = b.getAttribute('data-ms') === msTab; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; });
+      el('ms-p-sohbet').hidden = msTab !== 'sohbet'; el('ms-p-grup').hidden = msTab !== 'grup';
+    }
+    msSec.addEventListener('click', function (e) { var b = e.target.closest('[data-ms]'); if (!b || b.getAttribute('data-ms') === msTab) return; msTab = b.getAttribute('data-ms'); msTabCiz(); var p = el(msTab === 'grup' ? 'ms-p-grup' : 'ms-p-sohbet'); p.classList.remove('swap-in'); void p.offsetWidth; p.classList.add('swap-in'); });
+    msSec.addEventListener('keydown', function (e) { if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return; e.preventDefault(); msTab = msTab === 'sohbet' ? 'grup' : 'sohbet'; msTabCiz(); try { el(msTab === 'grup' ? 'ms-tab-grup' : 'ms-tab-sohbet').focus(); } catch (x) {} });
     /* ---- satırlar ---- */
     function satir(id, rolAd, butonlar, alt) {
       var li = document.createElement('li'), row = document.createElement('div'); row.className = 'ky-row';
