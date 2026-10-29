@@ -3153,7 +3153,7 @@ button.ot:active { transform: scale(.97); }
         <div class="ib-sonuc-y" id="ibo-yildiz"></div>
         <h3 id="ibo-sonuc-bas">Bölüm bitti!</h3>
         <p id="ibo-sonuc-alt"></p>
-        <div class="ib-sonuc-btn"><button class="ib-btn ikincil" type="button" id="ibo-tekrar">Tekrar oyna</button><button class="ib-btn" type="button" id="ibo-harita">Haritaya dön</button></div>
+        <div class="ib-sonuc-btn"><button class="ib-btn" type="button" id="ibo-harita">Hareket et</button></div>
       </div>
     </div>
   </section>
@@ -8457,11 +8457,11 @@ var BGX = (function () {
       el('ibo-ilerleme').innerHTML = new Array(SORU_SAYI + 1).join('<span class="tamam"></span>');
       el('ibo-yildiz').innerHTML = yildiz(y >= 1, 1.2) + yildiz(y >= 2, 1.2) + yildiz(y >= 3, 1.2);
       el('ibo-sonuc-bas').textContent = y === 3 ? 'Mükemmel!' : y === 2 ? 'Çok güzel!' : 'Bölüm bitti!';
-      el('ibo-sonuc-alt').textContent = k < 10 ? (yeni ? 'Haritada bir sonraki bölüme yürüyelim.' : 'Haritaya dönebilir ya da tekrar oynayabilirsin.') : b.ad + ' bölgesinin son bölümünü bitirdin!';
+      el('ibo-sonuc-alt').textContent = !yeni ? 'Bu bölümü daha önce geçmiştin.' : k < 10 ? 'Haritada bir sonraki bölüme yürüyelim.' : b.ad + ' bölgesinin son bölümünü bitirdin!';
+      el('ibo-harita').textContent = yeni ? 'Hareket et' : 'Haritaya dön';
       el('ibo-sonuc').hidden = false;
       try { el('ibo-harita').focus({ preventScroll: true }); } catch (e) {}
     }
-    el('ibo-tekrar').addEventListener('click', function () { if (oyun) { var w = yuru; bolumBasla(oyun.bi, oyun.k); yuru = w; } });
     el('ibo-harita').addEventListener('click', function () { goBack(); });
     /* ---- giriş ---- */
     document.body.insertAdjacentHTML('afterbegin', IB_RAKAM.defs());
