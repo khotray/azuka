@@ -993,10 +993,6 @@ body.home-plain .eg-ico svg { filter: none; }
 .eg-ic.ib-ic .ib-r { width: 30px; height: 36px; }
 .eg-ic.ib-ic .ib-r + .ib-r { margin-left: -9px; }
 .ib-yas { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 700; vertical-align: 2px; color: #FFFFFF; background: #2B8A3E; }
-.ib-turlar { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
-.ib-turlar button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
-.ib-turlar button svg { width: 14px; height: 14px; }
-.ib-turlar button:disabled { opacity: .55; cursor: default; }
 .ib-ada { position: relative; width: 100%; max-width: 420px; margin: 0 auto; aspect-ratio: 360 / 460; border-radius: 26px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 22px 40px -26px rgba(0, 0, 0, .55); }
 .ib-ada .ib-ada-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .ib-bolge-btn { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 0 6%; border: 0; background: none; font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -1178,7 +1174,7 @@ body.home-plain .eg-ico svg { filter: none; }
 .ibm-hud-ust .ph h2 { font-size: 26px; }
 .ibm-yildiz { flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; border-radius: 999px; font-weight: 800; font-size: 15px; font-variant-numeric: tabular-nums; color: #7A4B00; background: linear-gradient(180deg, #FFF3BF, #FFE066); box-shadow: 0 3px 0 #E8B100, 0 8px 14px -8px rgba(0, 0, 0, .4); }
 .ibm-yildiz svg { width: 20px; height: 20px; }
-.ibm-harita { position: relative; width: 100%; max-width: 480px; margin: 0 auto; aspect-ratio: 360 / 3740; border-radius: 30px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 26px 50px -30px rgba(0, 0, 0, .6); }
+.ibm-harita { position: relative; width: 100%; max-width: 480px; margin: 0 auto; aspect-ratio: 360 / 10640; border-radius: 30px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 26px 50px -30px rgba(0, 0, 0, .6); }
 .ibm-harita > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .ibm-d { position: absolute; width: 56px; height: 56px; transform: translate(-50%, -50%); padding: 0; border: 3px solid #FFFFFF; border-radius: 50%; display: grid; place-items: center; font-family: inherit; font-size: 21px; font-weight: 900; color: #FFFFFF; text-shadow: 0 2px 0 rgba(0, 0, 0, .25); cursor: pointer; z-index: 2;
   background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, .75) 0 13%, rgba(255, 255, 255, 0) 14%), radial-gradient(circle at 50% 120%, rgba(0, 0, 0, .25), rgba(0, 0, 0, 0) 60%), linear-gradient(180deg, var(--c1), var(--c2));
@@ -1199,6 +1195,17 @@ body.home-plain .eg-ico svg { filter: none; }
 .ibm-serit::before { left: -14px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 40% 50%); }
 .ibm-serit::after { right: -14px; clip-path: polygon(0 0, 100% 0, 60% 50%, 100% 100%, 0 100%); }
 .ibm-serit i { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 21px; color: var(--c2); background: #FFFFFF; text-shadow: none; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .12); }
+.ibm-serit em { font-style: normal; font-size: 12.5px; font-weight: 900; letter-spacing: .02em; padding: 3px 9px; margin-left: -2px; border-radius: 999px; color: var(--c3); background: #FFFFFF; text-shadow: none; }
+@media (max-width: 380px) { .ibm-serit { gap: 7px; padding: 6px 12px 6px 6px; font-size: 14.5px; } .ibm-serit i { width: 27px; height: 27px; font-size: 18px; } .ibm-serit em { font-size: 11px; padding: 2px 7px; } .ibm-il-k { display: none; } .ibm-serit::before, .ibm-serit::after { top: 7px; width: 18px; } .ibm-serit::before { left: -11px; } .ibm-serit::after { right: -11px; } }
+.ibm-il { display: flex; flex-direction: column; gap: 7px; padding: 10px 12px 11px; border-radius: 16px; background: var(--surface); box-shadow: 0 0 0 1px var(--line), 0 10px 20px -16px rgba(0, 0, 0, .45); }
+.ibm-il-ust { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.ibm-il-ad { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 800; font-size: 14.5px; color: var(--fg); }
+.ibm-il-say { flex: none; font-weight: 700; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ibm-il-bar { display: flex; gap: 3px; }
+.ibm-il-bar span { position: relative; flex: 1; height: 10px; border-radius: 5px; overflow: hidden; background: color-mix(in srgb, var(--c1) 24%, var(--line)); }
+.ibm-il-bar span.ayrac { margin-left: 7px; }
+.ibm-il-bar span.simdi { box-shadow: 0 0 0 2px var(--c2); }
+.ibm-il-bar i { position: absolute; top: 0; bottom: 0; left: 0; border-radius: inherit; background: linear-gradient(180deg, var(--c1), var(--c2)); }
 .ibm-kilitbant { position: absolute; left: 0; right: 0; z-index: 4; display: flex; align-items: center; justify-content: center; background: rgba(52, 58, 64, .34); -webkit-backdrop-filter: grayscale(.85) brightness(.95); backdrop-filter: grayscale(.85) brightness(.95); transition: opacity .9s ease; }
 .ibm-kilitbant.ac { opacity: 0; }
 .ibm-kilitbant > div { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 20px; border-radius: 22px; text-align: center; color: #343A40; background: rgba(255, 255, 255, .92); box-shadow: 0 6px 0 #ADB5BD, 0 18px 30px -16px rgba(0, 0, 0, .5); max-width: 78%; }
@@ -3243,11 +3250,7 @@ button.ot:active { transform: scale(.97); }
     <div class="page ibm-sayfa">
       <div class="ibm-hud">
         <div class="ibm-hud-ust"><div class="ph"><span class="eyebrow">Eğlence · 6–8 yaş</span><h2>İşlem Baba</h2></div><span class="ibm-sayaclar"><span class="ibm-hsay" id="ibm-hsay" aria-label="Kurtarılan hayvanlar"></span><span class="ibm-yildiz" id="ibm-yildiz" aria-label="Toplam yıldız"></span></span></div>
-        <div class="oy-sure ib-turlar" id="ib-turlar" role="radiogroup" aria-label="Tur">
-          <button type="button" role="radio" aria-checked="true" data-tur="kolay"><span>1. tur · Kolay</span></button>
-          <button type="button" role="radio" aria-checked="false" data-tur="orta"><span>2. tur · Orta</span></button>
-          <button type="button" role="radio" aria-checked="false" data-tur="zor"><span>3. tur · Zor</span></button>
-        </div>
+        <div class="ibm-il" id="ibm-il" role="group"><div class="ibm-il-ust"><span class="ibm-il-ad" id="ibm-il-ad"></span><span class="ibm-il-say" id="ibm-il-say"></span></div><div class="ibm-il-bar" id="ibm-il-bar" aria-hidden="true"></div></div>
       </div>
       <div class="ibm-harita" id="ibm-harita"></div>
       <div class="ibm-kurtar" id="ibm-kurtar" hidden><div class="ibm-kurtar-kart" role="dialog" aria-modal="true" aria-labelledby="ibm-kurtar-bas"><div class="ibm-kurtar-ust" id="ibm-kurtar-ust" aria-hidden="true"></div><h3 id="ibm-kurtar-bas"></h3><p id="ibm-kurtar-alt">Birini kurtar, yolculuğa seninle gelsin.</p><div class="ibm-kurtar-sec" id="ibm-kurtar-sec"></div></div></div>
@@ -8385,8 +8388,7 @@ var BGX = (function () {
   })();
   var IslemBaba = (function () {
     function el(id) { return document.getElementById(id); }
-    var LK = 'matematik-cepte-islembaba-v1', SORU_SAYI = 5;
-    var TURLAR = ['kolay', 'orta', 'zor'], TUR_AD = { kolay: 'Kolay', orta: 'Orta', zor: 'Zor' }, TUR_NO = { kolay: 1, orta: 2, zor: 3 };
+    var LK = 'matematik-cepte-islembaba-v2', LK_ESKI = 'matematik-cepte-islembaba-v1', SORU_SAYI = 5;
     var BOLGE = [
       { id: 'top', ad: 'Toplama Kralı', op: '+', k: '#D97706', a: '#FFE58F', c: ['#FFC53D', '#F08C00', '#B35C00'], zemin: ['#C9EBA6', '#FFE9A8'] },
       { id: 'cik', ad: 'Çıkartma Şelalesi', op: '−', k: '#1971C2', a: '#A5D8FF', c: ['#4DABF7', '#1C7ED6', '#145A9C'], zemin: ['#C5ECFF', '#9AD7F7'] },
@@ -8397,11 +8399,17 @@ var BGX = (function () {
     var COCUK = '<svg class="ib-cocuk" viewBox="0 0 44 64" aria-hidden="true" focusable="false"><ellipse cx="22" cy="62" rx="12" ry="2.6" fill="rgba(0,0,0,.2)"/><g class="ib-c-bacak ib-c-sol"><rect x="14" y="44" width="6.5" height="13" rx="3" fill="#FFD3B0"/><path d="M11.5 56H21v4.5h-8a2.3 2.3 0 0 1-1.5-4.5z" fill="#364FC7"/></g><g class="ib-c-bacak ib-c-sag"><rect x="23.5" y="44" width="6.5" height="13" rx="3" fill="#FFD3B0"/><path d="M23 56h9.5a2.3 2.3 0 0 1-1.5 4.5h-8z" fill="#364FC7"/></g><g class="ib-c-ust"><rect x="26" y="25" width="10" height="14" rx="3" fill="#FCC419" stroke="#E67700" stroke-width="1.2"/><rect x="12" y="38" width="20" height="9" rx="3.5" fill="#4263EB"/><path d="M11 30a11 9 0 0 1 22 0v11H11z" fill="#FF6B6B"/><path d="M17 28.5l5 3 5-3" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="6.5" y="28" width="6" height="12" rx="3" fill="#FFD3B0" transform="rotate(14 9.5 28)"/><rect x="31.5" y="28" width="6" height="12" rx="3" fill="#FFD3B0" transform="rotate(-14 34.5 28)"/><circle cx="22" cy="15.5" r="11" fill="#FFD3B0"/><path d="M11 15C10.5 7 16 3 22.5 3S34 7 33.5 14C30 10.5 25 9.6 20.5 10.4 16.5 11 13.5 12.6 11 15Z" fill="#7A4A1E"/><path d="M21 3.5c1-2.4 4-2.8 5.4-1" fill="none" stroke="#7A4A1E" stroke-width="2.2" stroke-linecap="round"/><circle cx="17.6" cy="16.6" r="1.9" fill="#1F1F2E"/><circle cx="26.4" cy="16.6" r="1.9" fill="#1F1F2E"/><circle cx="18.2" cy="16" r=".6" fill="#FFFFFF"/><circle cx="27" cy="16" r=".6" fill="#FFFFFF"/><path d="M19 20.5q3 2.8 6 0" fill="none" stroke="#1F1F2E" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="14.8" cy="20" rx="2.2" ry="1.5" fill="#FF8FAB" fill-opacity=".7"/><ellipse cx="29.2" cy="20" rx="2.2" ry="1.5" fill="#FF8FAB" fill-opacity=".7"/></g></svg>';
     var KILIT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
     function yildiz(dolu, b) { return '<svg viewBox="0 0 24 24" class="' + (dolu ? 'dolu' : 'bos') + '" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z" fill="' + (dolu ? '#FCC419' : '#F1F3F5') + '" stroke="' + (dolu ? '#E67700' : '#ADB5BD') + '" stroke-width="' + (b || 1.4) + '" stroke-linejoin="round"/></svg>'; }
-    /* ---- harita geometrisi: 4 bant (alttan yukarı), her bantta 10 durak ---- */
-    var W = 360, BH = 860, BP = 150, TP = 170, H = BP + 4 * BH + TP;
+    /* Tek yol, 12 kısım × 10 bölüm = 120 bölüm. Önce toplama ve çıkartma (kolay → orta → zor), sonra çarpma ve bölme (kolay → orta → zor). */
+    var Z_ID = ['kolay', 'orta', 'zor'], Z_AD = ['Kolay', 'Orta', 'Zor'], BANT = [];
+    [[0, 1], [2, 3]].forEach(function (cift) { for (var z = 0; z < 3; z++) cift.forEach(function (bi) { BANT.push({ b: bi, z: z }); }); });
+    var NB = BANT.length, NG = NB * 10;
+    function bantBolge(r) { return BOLGE[BANT[r].b]; }
+    function bantAd(r) { return bantBolge(r).ad + ' · ' + Z_AD[BANT[r].z]; }
+    /* ---- harita geometrisi: 12 bant (alttan yukarı), her bantta 10 durak ---- */
+    var W = 360, BH = 860, BP = 150, TP = 170, H = BP + NB * BH + TP;
     function bantAlt(r) { return H - BP - r * BH; }
     var DUGUM = [];
-    for (var r0 = 0; r0 < 4; r0++) for (var i0 = 0; i0 < 10; i0++) { var g0 = r0 * 10 + i0; DUGUM.push([Math.round(180 + 100 * Math.sin(g0 * 0.95 + 0.55)), bantAlt(r0) - 128 - i0 * 72]); }
+    for (var r0 = 0; r0 < NB; r0++) for (var i0 = 0; i0 < 10; i0++) { var g0 = r0 * 10 + i0; DUGUM.push([Math.round(180 + 100 * Math.sin(g0 * 0.95 + 0.55)), bantAlt(r0) - 128 - i0 * 72]); }
     var BAS = [180, H - 62], BIT = [180, 96], NOK = [BAS].concat(DUGUM, [BIT]);
     function segler() {
       var P = NOK, s = [];
@@ -8442,27 +8450,29 @@ var BGX = (function () {
       bol: [['tepe', 2], ['cam', 2], ['mor', 3], ['cali', 1], ['kaya', 1]]
     };
     function sec(rnd, liste) { var t = 0; liste.forEach(function (x) { t += x[1]; }); var v = rnd() * t; for (var i = 0; i < liste.length; i++) { v -= liste[i][1]; if (v <= 0) return liste[i][0]; } return liste[0][0]; }
+    function nehirY(r) { return bantAlt(r) - 128 - 3.5 * 72; }
     function manzara() {
       var s = '', rnd = tohum(20261029);
       /* zemin: bantlar arasında yumuşak geçiş */
       var st = '<stop offset="0" stop-color="#FFF6D8"/><stop offset="' + ((TP - 40) / H).toFixed(4) + '" stop-color="#FFF1C9"/>';
-      for (var r = 3; r >= 0; r--) {
-        var ust = (bantAlt(r) - BH) / H, alt = bantAlt(r) / H, z = BOLGE[r].zemin;
-        st += '<stop offset="' + (ust + .03).toFixed(4) + '" stop-color="' + z[1] + '"/><stop offset="' + (alt - .03).toFixed(4) + '" stop-color="' + z[0] + '"/>';
+      for (var r = NB - 1; r >= 0; r--) {
+        var ust = (bantAlt(r) - BH) / H, alt = bantAlt(r) / H, z = bantBolge(r).zemin, pay = 110 / H;
+        st += '<stop offset="' + (ust + pay).toFixed(4) + '" stop-color="' + z[1] + '"/><stop offset="' + (alt - pay).toFixed(4) + '" stop-color="' + z[0] + '"/>';
       }
       st += '<stop offset="1" stop-color="#B2E59A"/>';
       s += '<defs><linearGradient id="ibm-zemin" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="' + H + '">' + st + '</linearGradient></defs>';
       s += '<rect width="' + W + '" height="' + H + '" fill="url(#ibm-zemin)"/>';
-      /* Çıkartma Şelalesi bandında nehir ve köprü */
-      var ny = bantAlt(1) - 128 - 3.5 * 72, nx = yolX(ny);
-      s += '<path d="M0 ' + (ny - 16) + 'C60 ' + (ny - 28) + ' 120 ' + (ny - 4) + ' 180 ' + (ny - 16) + 'S300 ' + (ny - 28) + ' 360 ' + (ny - 14) + 'V' + (ny + 20) + 'C300 ' + (ny + 8) + ' 240 ' + (ny + 30) + ' 180 ' + (ny + 18) + 'S60 ' + (ny + 6) + ' 0 ' + (ny + 18) + 'Z" fill="#4DABF7"/>';
-      s += '<path d="M10 ' + ny + 'q10-5 20 0M80 ' + (ny + 6) + 'q10-5 20 0M250 ' + (ny - 2) + 'q10-5 20 0M320 ' + (ny + 4) + 'q10-5 20 0" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
-      s += CIZ.nilufer(40, ny + 10, 1) + CIZ.nilufer(300, ny - 4, .9);
-      /* manzara öğeleri: yolun karşı tarafına */
-      for (var r2 = 0; r2 < 4; r2++) {
-        var b = BOLGE[r2], yA = bantAlt(r2), yU = yA - BH, liste = TEMA[b.id];
+      for (var r2 = 0; r2 < NB; r2++) {
+        var b = bantBolge(r2), yA = bantAlt(r2), yU = yA - BH, liste = TEMA[b.id], ny = b.id === 'cik' ? nehirY(r2) : null;
+        /* Çıkartma Şelalesi bantlarında nehir */
+        if (ny !== null) {
+          s += '<path d="M0 ' + (ny - 16) + 'C60 ' + (ny - 28) + ' 120 ' + (ny - 4) + ' 180 ' + (ny - 16) + 'S300 ' + (ny - 28) + ' 360 ' + (ny - 14) + 'V' + (ny + 20) + 'C300 ' + (ny + 8) + ' 240 ' + (ny + 30) + ' 180 ' + (ny + 18) + 'S60 ' + (ny + 6) + ' 0 ' + (ny + 18) + 'Z" fill="#4DABF7"/>';
+          s += '<path d="M10 ' + ny + 'q10-5 20 0M80 ' + (ny + 6) + 'q10-5 20 0M250 ' + (ny - 2) + 'q10-5 20 0M320 ' + (ny + 4) + 'q10-5 20 0" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+          s += CIZ.nilufer(40, ny + 10, 1) + CIZ.nilufer(300, ny - 4, .9);
+        }
+        /* manzara öğeleri: yolun karşı tarafına */
         for (var y = yU + 40; y < yA - 30; y += 46) {
-          if (b.id === 'cik' && Math.abs(y - ny) < 40) continue;
+          if (ny !== null && Math.abs(y - ny) < 40) continue;
           var px = yolX(y), solda = px > 180, a = solda ? 22 : px + 72, z2 = solda ? px - 72 : 338;
           if (z2 - a < 10) continue;
           var x = a + rnd() * (z2 - a), tip = sec(rnd, liste), sc = .75 + rnd() * .45;
@@ -8486,59 +8496,82 @@ var BGX = (function () {
         '<path d="' + S2 + '" fill="none" stroke="#E7CF96" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>' +
         '<path d="' + S2 + '" fill="none" stroke="#FFF4D9" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>' +
         '<path d="' + S2 + '" fill="none" stroke="#E2C27E" stroke-width="5" stroke-dasharray="1 13" stroke-linecap="round"/>' +
-        SEG.map(function (s, i) { return '<path class="ibm-seg" d="' + s + '" fill="none" stroke="none"/>'; }).join('');
+        SEG.map(function (s) { return '<path class="ibm-seg" d="' + s + '" fill="none" stroke="none"/>'; }).join('');
     }
-    /* ---- kayıt ---- */
-    function bosKayit() { var o = { tur: 'kolay', p: {}, y: {}, h: [] }; TURLAR.forEach(function (t) { o.p[t] = {}; o.y[t] = {}; BOLGE.forEach(function (b) { o.p[t][b.id] = 0; o.y[t][b.id] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; }); }); return o; }
+    /* ---- kayıt: p[bant] = geçilen bölüm sayısı, y[bant][i] = yıldız ---- */
+    function bosKayit() { var o = { p: [], y: [], h: [] }; for (var r = 0; r < NB; r++) { o.p.push(0); o.y.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]); } return o; }
+    function bantNo(bi, z) { for (var r = 0; r < NB; r++) if (BANT[r].b === bi && BANT[r].z === z) return r; return -1; }
     function yukle() {
       var o = bosKayit();
+      function al(r, p, y) {
+        if (typeof p === 'number' && p >= 0 && p <= 10) o.p[r] = p | 0;
+        if (Array.isArray(y) && y.length === 10) o.y[r] = y.map(function (v) { return Math.max(0, Math.min(3, v | 0)); });
+      }
+      function hayvan(h) { if (Array.isArray(h)) h.forEach(function (id) { if (IB_HAYVAN.H[id] && o.h.indexOf(id) < 0 && o.h.length < 12) o.h.push(id); }); }
       try {
         var x = JSON.parse(localStorage.getItem(LK) || 'null');
-        if (x && x.p && x.y) {
-          if (TURLAR.indexOf(x.tur) >= 0) o.tur = x.tur;
-          if (Array.isArray(x.h)) x.h.forEach(function (id) { if (IB_HAYVAN.H[id] && o.h.indexOf(id) < 0 && o.h.length < 12) o.h.push(id); });
-          TURLAR.forEach(function (t) { BOLGE.forEach(function (b) {
-            var p = x.p[t] && x.p[t][b.id]; if (typeof p === 'number' && p >= 0 && p <= 10) o.p[t][b.id] = p | 0;
-            var y = x.y[t] && x.y[t][b.id]; if (Array.isArray(y) && y.length === 10) o.y[t][b.id] = y.map(function (v) { return Math.max(0, Math.min(3, v | 0)); });
-          }); });
+        if (x && Array.isArray(x.p) && Array.isArray(x.y)) { for (var r = 0; r < NB; r++) al(r, x.p[r], x.y[r]); hayvan(x.h); }
+        else {
+          /* eski kayıt (3 tur × 4 bölge) yeni sıraya taşınır */
+          var e = JSON.parse(localStorage.getItem(LK_ESKI) || 'null');
+          if (e && e.p && e.y) {
+            Z_ID.forEach(function (t, z) { BOLGE.forEach(function (b, bi) { al(bantNo(bi, z), e.p[t] && e.p[t][b.id], e.y[t] && e.y[t][b.id]); }); });
+            hayvan(e.h);
+          }
         }
-      } catch (e) {}
+      } catch (er) {}
       return o;
     }
     var d = yukle();
     function kaydet() { try { localStorage.setItem(LK, JSON.stringify(d)); } catch (e) {} }
-    function turAcik(t) { var i = TURLAR.indexOf(t); if (i <= 0) return true; var o = TURLAR[i - 1]; return BOLGE.every(function (b) { return d.p[o][b.id] >= 10; }); }
-    function bolgeAcik(t, bi) { return turAcik(t) && (bi === 0 || d.p[t][BOLGE[bi - 1].id] >= 10); }
-    function simdiki(t) { for (var r = 0; r < 4; r++) if (d.p[t][BOLGE[r].id] < 10) return bolgeAcik(t, r) ? r * 10 + d.p[t][BOLGE[r].id] : -1; return 40; }
-    /* Hayvanlar: her bölge bitişinde bir kurtarma; kurtarılanın yerine sıradaki hayvan gelir (12 bölge bitişi = 12 hayvan) */
+    function bantAcik(r) { if (d.p[r] > 0) return true; for (var i = 0; i < r; i++) if (d.p[i] < 10) return false; return true; }
+    function engel(r) { if (d.p[r - 1] < 10) return r - 1; for (var i = 0; i < r; i++) if (d.p[i] < 10) return i; return r - 1; }
+    function simdiki() { for (var r = 0; r < NB; r++) if (d.p[r] < 10) return bantAcik(r) ? r * 10 + d.p[r] : -1; return NG; }
+    function gecilen() { var n = 0; d.p.forEach(function (p) { n += p; }); return n; }
+    function yildizTop() { var s = 0; d.y.forEach(function (y) { y.forEach(function (v) { s += v; }); }); return s; }
+    /* Hayvanlar: her kısım bitişinde bir kurtarma; kurtarılanın yerine sıradaki hayvan gelir (12 kısım = 12 hayvan) */
     var BOLGE_KURTAR = { top: 'Kalede üç hayvan kapalı kalmış!', cik: 'Şelalenin önünde üç hayvan nehri geçemiyor!', carp: 'Duvarın arkasında üç hayvan sıkışmış!', bol: 'Vadide üç hayvan yolunu kaybetmiş!' };
     var SEM_COGUL = { yumak: 'ip yumaklarını', kemik: 'kemikleri', havuc: 'havuçları', nilufer: 'nilüfer yapraklarını', elma: 'elmaları', kaktus: 'kaktüsleri', yonca: 'yoncaları', sut: 'süt şişelerini', yumurta: 'yumurtaları', damla: 'su damlalarını', ay: 'ayları', tac: 'taçları' };
     function teklifler() { var tk = IB_HAYVAN.ilk.slice(), q = IB_HAYVAN.sira.slice(); d.h.forEach(function (id) { var i = tk.indexOf(id); if (i < 0) return; var y = q.shift(); if (y) tk.splice(i, 1, y); else tk.splice(i, 1); }); return tk; }
-    function bitenBolge() { var n = 0; TURLAR.forEach(function (t) { BOLGE.forEach(function (b) { if (d.p[t][b.id] >= 10) n++; }); }); return n; }
-    function bekleyen() { return Math.max(0, Math.min(12, bitenBolge()) - d.h.length); }
+    function bitenBant() { var n = 0; d.p.forEach(function (p) { if (p >= 10) n++; }); return n; }
+    function bekleyen() { return Math.max(0, Math.min(12, bitenBant()) - d.h.length); }
     var OFS = [[-40, 2], [38, 4], [-76, 6], [74, 8]];
     function ekipHtml(yeniId) {
       var son = d.h.slice(-4).reverse();
       return '<div class="ibm-cocuk-ic">' + COCUK + '</div>' + son.map(function (id, i) { return '<div class="ibm-hayvan' + (id === yeniId ? ' yeni' : '') + '" style="--dx:' + OFS[i][0] + 'px;--dy:' + OFS[i][1] + 'px">' + IB_HAYVAN.svg(id) + '</div>'; }).join('');
     }
-    function yildizTur(t) { var s = 0; BOLGE.forEach(function (b) { d.y[t][b.id].forEach(function (v) { s += v; }); }); return s; }
+    /* ---- üst bilgi: sayaçlar ve 12 parçalı ilerleme çubuğu ---- */
+    var PATI = '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#8B5E34"><ellipse cx="12" cy="16" rx="5.5" ry="4.5"/><circle cx="6" cy="10" r="2.4"/><circle cx="10" cy="6.5" r="2.4"/><circle cx="14.5" cy="6.5" r="2.4"/><circle cx="18.5" cy="10" r="2.4"/></g></svg>';
+    function hudCiz() {
+      var G = simdiki(), n = gecilen();
+      el('ibm-yildiz').innerHTML = yildiz(true, 1.6) + yildizTop() + '/' + (NG * 3);
+      el('ibm-hsay').innerHTML = PATI + d.h.length + '/12';
+      el('ibm-il-ad').textContent = G >= NG ? 'Bütün ada bitti!' : G < 0 ? '' : bantAd(Math.floor(G / 10));
+      el('ibm-il-say').innerHTML = n + '/' + NG + '<span class="ibm-il-k"> bölüm</span>';
+      el('ibm-il').setAttribute('aria-label', 'İlerleme: ' + n + '/' + NG + ' bölüm');
+      var cr = G >= 0 && G < NG ? Math.floor(G / 10) : -1;
+      el('ibm-il-bar').innerHTML = BANT.map(function (bt, r) {
+        var b = BOLGE[bt.b];
+        return '<span class="' + (r === cr ? 'simdi' : '') + (r === 6 ? ' ayrac' : '') + '" style="--c1:' + b.c[0] + ';--c2:' + b.c[1] + ';--c3:' + b.c[2] + '" title="' + bantAd(r) + '"><i style="width:' + d.p[r] * 10 + '%"></i></span>';
+      }).join('');
+    }
     /* ---- harita ---- */
-    var vEl = el('v-ib-harita'), kap = el('ibm-harita'), turlarEl = el('ib-turlar'), cocukEl = null, segEl = [], yuru = null, yurId = 0;
+    var vEl = el('v-ib-harita'), kap = el('ibm-harita'), cocukEl = null, segEl = [], yuru = null, yurId = 0;
+    kap.style.aspectRatio = W + ' / ' + H;
     function yuzde(p) { return 'left:' + (p[0] / W * 100).toFixed(3) + '%;top:' + (p[1] / H * 100).toFixed(3) + '%'; }
     function haritaCiz() {
       if (!MANZARA) { SEG = segler(); MANZARA = manzara(); }
-      var t = d.tur, G = simdiki(t), h = '<svg viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true" focusable="false" preserveAspectRatio="none">' + MANZARA + yolCiz() + '</svg>';
-      for (var r = 0; r < 4; r++) {
-        var b = BOLGE[r], cv = '--c1:' + b.c[0] + ';--c2:' + b.c[1] + ';--c3:' + b.c[2];
-        h += '<div class="ibm-serit" style="' + yuzde([180, bantAlt(r) - 40]) + ';' + cv + '"><i aria-hidden="true">' + b.op + '</i>' + b.ad + '</div>';
+      var G = simdiki(), h = '<svg viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true" focusable="false" preserveAspectRatio="none">' + MANZARA + yolCiz() + '</svg>';
+      for (var r = 0; r < NB; r++) {
+        var b = bantBolge(r), z = BANT[r].z, cv = '--c1:' + b.c[0] + ';--c2:' + b.c[1] + ';--c3:' + b.c[2], acikB = bantAcik(r), p = d.p[r];
+        h += '<div class="ibm-serit" style="' + yuzde([180, bantAlt(r) - 40]) + ';' + cv + '"><i aria-hidden="true">' + b.op + '</i>' + b.ad + '<em>' + Z_AD[z] + '</em></div>';
         for (var i = 0; i < 10; i++) {
-          var g = r * 10 + i, p = d.p[t][b.id], acik = bolgeAcik(t, r) && i <= p, yy = d.y[t][b.id][i];
+          var g = r * 10 + i, acik = acikB && i <= p, yy = d.y[r][i];
           var cls = 'ibm-d' + (!acik ? ' kilit' : g === G ? ' simdi' : '');
-          h += '<button class="' + cls + '" type="button" data-g="' + g + '" style="' + yuzde(DUGUM[g]) + ';' + cv + '"' + (acik ? '' : ' disabled') + ' aria-label="' + b.ad + ', bölüm ' + (g + 1) + (i < p ? ', ' + yy + ' yıldız' : acik ? ', sıradaki' : ', kilitli') + '">' + (g + 1) + (i < p ? '<span class="ibm-y">' + yildiz(yy >= 1) + yildiz(yy >= 2) + yildiz(yy >= 3) + '</span>' : '') + '</button>';
+          h += '<button class="' + cls + '" type="button" data-g="' + g + '" style="' + yuzde(DUGUM[g]) + ';' + cv + '"' + (acik ? '' : ' disabled') + ' aria-label="' + bantAd(r) + ', bölüm ' + (g + 1) + (i < p ? ', ' + yy + ' yıldız' : acik ? ', sıradaki' : ', kilitli') + '">' + (g + 1) + (i < p ? '<span class="ibm-y">' + yildiz(yy >= 1) + yildiz(yy >= 2) + yildiz(yy >= 3) + '</span>' : '') + '</button>';
         }
-        if (!bolgeAcik(t, r) || (yuru && yuru.acilan === r)) {
-          var onceki = r > 0 ? BOLGE[r - 1].ad : '';
-          h += '<div class="ibm-kilitbant" data-r="' + r + '" style="top:' + ((bantAlt(r) - BH) / H * 100).toFixed(3) + '%;height:' + (BH / H * 100).toFixed(3) + '%"><div>' + KILIT + '<b>' + b.ad + '</b><span>' + (turAcik(t) ? onceki + ' bölgesini bitirince açılır.' : 'Önceki turu bitirince açılır.') + '</span></div></div>';
+        if (!acikB || (yuru && yuru.acilan === r)) {
+          h += '<div class="ibm-kilitbant" data-r="' + r + '" style="top:' + ((bantAlt(r) - BH) / H * 100).toFixed(3) + '%;height:' + (BH / H * 100).toFixed(3) + '%"><div>' + KILIT + '<b>' + bantAd(r) + '</b><span>' + bantAd(engel(r)).replace(' · ', ' (') + ') bitince açılır.</span></div></div>';
         }
       }
       h += '<div class="ibm-ekip" id="ibm-cocuk">' + ekipHtml() + '</div>';
@@ -8546,13 +8579,7 @@ var BGX = (function () {
       cocukEl = el('ibm-cocuk'); segEl = Array.prototype.slice.call(kap.querySelectorAll('.ibm-seg'));
       var yer = yuru ? yuru.from : (G < 0 ? 0 : G + 1);
       cocukKoy(NOK[yer][0], NOK[yer][1]);
-      el('ibm-yildiz').innerHTML = yildiz(true, 1.6) + yildizTur(t) + '/120';
-      el('ibm-hsay').innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#8B5E34"><ellipse cx="12" cy="16" rx="5.5" ry="4.5"/><circle cx="6" cy="10" r="2.4"/><circle cx="10" cy="6.5" r="2.4"/><circle cx="14.5" cy="6.5" r="2.4"/><circle cx="18.5" cy="10" r="2.4"/></g></svg>' + d.h.length + '/12';
-      Array.prototype.forEach.call(turlarEl.querySelectorAll('[data-tur]'), function (x) {
-        var tt = x.getAttribute('data-tur'), ac = turAcik(tt);
-        x.setAttribute('aria-checked', tt === t ? 'true' : 'false'); x.disabled = !ac;
-        x.innerHTML = (ac ? '' : KILIT) + '<span>' + TUR_NO[tt] + '. tur · ' + TUR_AD[tt] + '</span>';
-      });
+      hudCiz();
     }
     function cocukKoy(x, y) { cocukEl.style.left = (x / W * 100) + '%'; cocukEl.style.top = (y / H * 100) + '%'; }
     function kaydir(y, yumusak) {
@@ -8562,7 +8589,7 @@ var BGX = (function () {
     }
     function goster() {
       haritaCiz();
-      var t = d.tur, G = simdiki(t), w = yuru, yer = w ? w.from : (G < 0 ? 0 : G + 1);
+      var G = simdiki(), w = yuru, yer = w ? w.from : (G < 0 ? 0 : G + 1);
       requestAnimationFrame(function () {
         kaydir(NOK[yer][1], false);
         if (w) {
@@ -8572,11 +8599,11 @@ var BGX = (function () {
         } else if (bekleyen() > 0) { var id2 = ++yurId; setTimeout(function () { if (id2 === yurId) kurtarGoster(null); }, 450); }
       });
     }
-    /* Kurtarma penceresi: biten bölgenin temasıyla üç (sona doğru daha az) hayvan */
+    /* Kurtarma penceresi: biten kısmın bölgesinin temasıyla üç (sona doğru daha az) hayvan */
     var krEl = el('ibm-kurtar'); document.body.appendChild(krEl);
     function kurtarGoster(sonra) {
       var tk = teklifler(); if (!tk.length || !cocukEl) { if (sonra) sonra(); return; }
-      var b = BOLGE[d.h.length % 4], kutu = SIMGE_KUTU[b.id], sk = Math.min(.75, 80 / kutu[1]);
+      var b = bantBolge(Math.min(NB - 1, d.h.length)), kutu = SIMGE_KUTU[b.id], sk = Math.min(.75, 80 / kutu[1]);
       var kart = krEl.firstChild; kart.style.setProperty('--c1', b.c[0]); kart.style.setProperty('--c2', b.c[1]); kart.style.setProperty('--c3', b.c[2]);
       el('ibm-kurtar-ust').innerHTML = '<svg viewBox="0 0 360 96" preserveAspectRatio="xMidYMid slice"><rect width="360" height="96" fill="' + b.zemin[1] + '"/>' + CIZ.bulut(60, 26, .7) + CIZ.bulut(300, 18, .55) + '<path d="M0 78C80 66 160 86 240 74S330 66 360 72V96H0Z" fill="' + b.zemin[0] + '"/>' + CIZ.agac(40, 74, .7) + CIZ.cali(320, 84, .6) + '<g transform="translate(' + (180 - kutu[0] * sk / 2).toFixed(1) + ' ' + (86 - (kutu[1] + kutu[2]) * sk).toFixed(1) + ') scale(' + sk.toFixed(2) + ')">' + SIMGE[b.id] + '</g></svg>';
       el('ibm-kurtar-bas').textContent = BOLGE_KURTAR[b.id].replace('üç', tk.length === 3 ? 'üç' : tk.length === 2 ? 'iki' : 'bir');
@@ -8590,7 +8617,7 @@ var BGX = (function () {
       var bt = e.target.closest('[data-h]'); if (!bt) return;
       var id = bt.getAttribute('data-h'); if (teklifler().indexOf(id) < 0) return;
       d.h.push(id); kaydet(); krEl.hidden = true;
-      cocukEl.innerHTML = ekipHtml(id); el('ibm-hsay').innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#8B5E34"><ellipse cx="12" cy="16" rx="5.5" ry="4.5"/><circle cx="6" cy="10" r="2.4"/><circle cx="10" cy="6.5" r="2.4"/><circle cx="14.5" cy="6.5" r="2.4"/><circle cx="18.5" cy="10" r="2.4"/></g></svg>' + d.h.length + '/12';
+      cocukEl.innerHTML = ekipHtml(id); el('ibm-hsay').innerHTML = PATI + d.h.length + '/12';
       var n = document.createElement('div'); n.className = 'ibm-not'; n.textContent = IB_HAYVAN.H[id].ad + ' artık seninle!';
       var top = parseFloat(cocukEl.style.top) / 100 * H, ust = top < 400; n.style.left = '50%'; n.style.top = ((ust ? top + 108 : top - 100) / H * 100) + '%';
       kap.appendChild(n); setTimeout(function () { if (n.isConnected) n.remove(); }, 2200);
@@ -8623,7 +8650,7 @@ var BGX = (function () {
       requestAnimationFrame(adim);
     }
     function haritaYenile() {
-      var t = d.tur, G = simdiki(t);
+      var G = simdiki();
       Array.prototype.forEach.call(kap.querySelectorAll('.ibm-d'), function (n) {
         var g = +n.getAttribute('data-g'); n.classList.toggle('simdi', g === G && !n.classList.contains('kilit'));
       });
@@ -8633,7 +8660,6 @@ var BGX = (function () {
       var g = +n.getAttribute('data-g'); yurId++;
       bolumBasla(Math.floor(g / 10), g % 10 + 1); nav('ib-oyun');
     });
-    turlarEl.addEventListener('click', function (e) { var b = e.target.closest('[data-tur]'); if (!b || b.disabled) return; d.tur = b.getAttribute('data-tur'); kaydet(); yuru = null; goster(); });
     /* ---- soru üretimi ---- */
     function rnd(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
     function soruUret(op, tur, k) {
@@ -8670,13 +8696,13 @@ var BGX = (function () {
     }
     /* ---- bölüm ---- */
     var oyun = null, OVGU = ['Harika!', 'Süper!', 'Aferin!', 'Çok iyi!', 'Bravo!'];
-    function bolumBasla(bi, k) {
-      var b = BOLGE[bi], sor = [], anahtar = {};
-      for (var g = 0; sor.length < SORU_SAYI && g < 200; g++) { var s = soruUret(b.op, d.tur, k), an = s.a + s.op + s.b; if (anahtar[an]) continue; anahtar[an] = 1; sor.push(s); }
-      oyun = { bi: bi, tur: d.tur, k: k, sor: sor, i: 0, hata: 0, kilit: false, bitti: false, joker: {} };
+    function bolumBasla(r, k) {
+      var b = bantBolge(r), tur = Z_ID[BANT[r].z], sor = [], anahtar = {};
+      for (var g = 0; sor.length < SORU_SAYI && g < 200; g++) { var s = soruUret(b.op, tur, k), an = s.a + s.op + s.b; if (anahtar[an]) continue; anahtar[an] = 1; sor.push(s); }
+      oyun = { r: r, tur: tur, k: k, sor: sor, i: 0, hata: 0, kilit: false, bitti: false, joker: {} };
       var v = el('v-ib-oyun'); v.style.setProperty('--ib-k', b.k); v.style.setProperty('--ib-a', b.a);
       document.body.style.setProperty('--ib-k', b.k); document.body.style.setProperty('--ib-a', b.a);
-      el('ibo-bolge').textContent = b.ad; el('ibo-bolum').textContent = 'Bölüm ' + (bi * 10 + k); el('ibo-tur').textContent = TUR_AD[d.tur];
+      el('ibo-bolge').textContent = b.ad; el('ibo-bolum').textContent = 'Bölüm ' + (r * 10 + k); el('ibo-tur').textContent = Z_AD[BANT[r].z];
       el('ibo-sonuc').hidden = true; el('ibo-soru').hidden = false; el('ibo-secenekler').hidden = false; el('ibo-mesaj').hidden = false; el('ibo-sahne').hidden = false;
       sahneCiz(b); jokerlerCiz();
       soruCiz();
@@ -8754,16 +8780,16 @@ var BGX = (function () {
       }
     });
     function bitir() {
-      var b = BOLGE[oyun.bi], t = oyun.tur, k = oyun.k, y = oyun.hata === 0 ? 3 : oyun.hata <= 2 ? 2 : 1, yeni = d.p[t][b.id] < k;
-      d.y[t][b.id][k - 1] = Math.max(d.y[t][b.id][k - 1], y);
+      var r = oyun.r, b = bantBolge(r), k = oyun.k, y = oyun.hata === 0 ? 3 : oyun.hata <= 2 ? 2 : 1, yeni = d.p[r] < k;
+      d.y[r][k - 1] = Math.max(d.y[r][k - 1], y);
       yuru = null;
       if (yeni) {
-        d.p[t][b.id] = k;
-        var g = oyun.bi * 10 + k - 1, w = { from: g + 1, to: g + 2, renk: b.c[2] };
+        d.p[r] = k;
+        var g = r * 10 + k - 1, w = { from: g + 1, to: g + 2, renk: b.c[2] };
         if (k === 10) {
           w.kurtar = true;
-          if (oyun.bi < 3) { w.acilan = oyun.bi + 1; w.not = BOLGE[oyun.bi + 1].ad + ' açıldı!'; w.renk = BOLGE[oyun.bi + 1].c[2]; }
-          else { var sonraki = TURLAR[TURLAR.indexOf(t) + 1]; w.not = sonraki ? 'Tur tamamlandı! ' + TUR_NO[sonraki] + '. tur (' + TUR_AD[sonraki] + ') açıldı.' : 'Bütün adayı üç kez dolaştın. Harikasın!'; }
+          if (r < NB - 1) { w.acilan = r + 1; w.not = bantAd(r + 1) + ' açıldı!'; w.renk = bantBolge(r + 1).c[2]; }
+          else w.not = 'Bütün adayı bitirdin. Harikasın!';
         }
         yuru = w;
       }
@@ -8772,7 +8798,7 @@ var BGX = (function () {
       el('ibo-ilerleme').innerHTML = new Array(SORU_SAYI + 1).join('<span class="tamam"></span>');
       el('ibo-yildiz').innerHTML = yildiz(y >= 1, 1.2) + yildiz(y >= 2, 1.2) + yildiz(y >= 3, 1.2);
       el('ibo-sonuc-bas').textContent = y === 3 ? 'Mükemmel!' : y === 2 ? 'Çok güzel!' : 'Bölüm bitti!';
-      el('ibo-sonuc-alt').textContent = !yeni ? 'Bu bölümü daha önce geçmiştin.' : k < 10 ? 'Haritada bir sonraki bölüme yürüyelim.' : b.ad + ' bölgesinin son bölümünü bitirdin!';
+      el('ibo-sonuc-alt').textContent = !yeni ? 'Bu bölümü daha önce geçmiştin.' : k < 10 ? 'Haritada bir sonraki bölüme yürüyelim.' : bantAd(r) + ' bitti!';
       el('ibo-harita').textContent = yeni ? 'Hareket et' : 'Haritaya dön';
       el('ibo-sonuc').hidden = false;
       try { el('ibo-harita').focus({ preventScroll: true }); } catch (e) {}
@@ -8784,8 +8810,8 @@ var BGX = (function () {
     return {
       haritaGoster: goster,
       ozet: function () {
-        var t = d.tur, top = 0; BOLGE.forEach(function (b) { top += d.p[t][b.id]; });
-        var s = el('eg-ib-s'); if (s) s.textContent = top ? TUR_NO[t] + '. tur · ' + top + '/40 bölüm' : 'Toplama, çıkartma, çarpma, bölme adası';
+        var n = gecilen(), s = el('eg-ib-s');
+        if (s) s.textContent = n ? n + '/' + NG + ' bölüm' : 'Toplama, çıkartma, çarpma, bölme adası';
       }
     };
   })();
