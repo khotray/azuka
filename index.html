@@ -6832,8 +6832,54 @@ var BGX = (function () {
     soru: document.getElementById('v-soru')
   };
   var stack = [{ name: 'home' }];
-  function nav(name) { stack.push({ name: name, trigger: document.activeElement }); show(name); }
+  /* Telefonun geri tuşu: her sayfa geçişi tarayıcı geçmişine bir kayıt ekler; geri tuşu (popstate) uygulamada bir önceki sayfaya döner.
+     Açılır katmanlar (konu ve çocuk seçici, arka plan önizlemesi, kâğıt) da kendi kaydını ekler; geri tuşu önce onları kapatır.
+     Ana ekranda geri tuşu uygulamadan çıkar. claude.ai içinde (çerçevede) geçmişe dokunulmaz. Android uygulaması window.__androidBack'i çağırır. */
+  var GECMIS = (function () { try { return window.top === window && !!(window.history && history.pushState && history.replaceState); } catch (e) { return false; } })();
+  var katman = null, gecmisYoksay = 0;
+  if (GECMIS) { try { if (!history.state || typeof history.state.mc !== 'number' || history.state.mc !== 0) history.replaceState({ mc: 0 }, ''); } catch (e) { GECMIS = false; } }
+  function gecmisDerinlik() { var s = null; try { s = history.state; } catch (e) {} return s && typeof s.mc === 'number' ? s.mc : 0; }
+  function gecmisYaz(o, yerine) { if (!GECMIS) return; try { if (yerine) history.replaceState(o, ''); else history.pushState(o, ''); } catch (e) { GECMIS = false; } }
+  function katmanAc(ad, kapat) { if (!GECMIS || katman) return; katman = { ad: ad, kapat: kapat }; gecmisYaz({ mc: stack.length - 1, ov: ad }); }
+  function katmanKapandi(ad) { if (!GECMIS || !katman || katman.ad !== ad) return; katman = null; gecmisYoksay++; history.back(); }
+  function ozelGeri() {
+    function vis(x) { return !!x && !x.hidden && !x.closest('[hidden]'); }
+    var vt = document.getElementById('vt');
+    if (!vis(vt)) return false;
+    if (vis(document.getElementById('vt-onay'))) document.getElementById('vt-cancel').click();
+    else if (vis(document.getElementById('vt-son'))) { var d = document.getElementById('vt-done'); if (!d.disabled) d.click(); }
+    else document.getElementById('vt-pause').click();
+    return true;
+  }
+  function nav(name) {
+    stack.push({ name: name, trigger: document.activeElement });
+    if (katman) { var k = katman; katman = null; k.kapat(); gecmisYaz({ mc: stack.length - 1 }, true); }
+    else gecmisYaz({ mc: stack.length - 1 });
+    show(name);
+  }
   function goBack() {
+    if (stack.length < 2) return;
+    if (GECMIS && !katman && gecmisDerinlik() === stack.length - 1) { history.back(); return; }
+    geriYap();
+  }
+  window.addEventListener('popstate', function (e) {
+    if (!GECMIS) return;
+    if (gecmisYoksay) { gecmisYoksay--; return; }
+    if (katman) { var k = katman; katman = null; k.kapat(); return; }
+    var d = e.state && typeof e.state.mc === 'number' ? e.state.mc : 0;
+    if (ozelGeri()) { gecmisYaz({ mc: stack.length - 1 }); return; }
+    if (stack.length - 1 > d) { geriYap(); return; }
+    if (current !== 'home') { goRoot(); return; }
+    history.back();
+  });
+  window.__androidBack = function () {
+    if (katman) { if (GECMIS) history.back(); else { var k = katman; katman = null; k.kapat(); } return true; }
+    if (ozelGeri()) return true;
+    if (stack.length > 1) { goBack(); return true; }
+    if (current !== 'home') { goRoot(); return true; }
+    return false;
+  };
+  function geriYap() {
     if (stack.length < 2) return;
     var leaving = stack[stack.length - 1], dest = stack[stack.length - 2].name;
     function run() {
@@ -6919,10 +6965,14 @@ var BGX = (function () {
     var done = function () { if (to) to.style.viewTransitionName = ''; root.classList.remove('vt-run', 'vt-back'); };
     tr.finished.then(done, done);
   }
-  function goRoot() { stack = [{ name: 'home' }]; show('home'); }
+  function goRoot() {
+    stack = [{ name: 'home' }]; show('home');
+    if (GECMIS && !katman) { var d = gecmisDerinlik(); if (d > 0) { gecmisYoksay++; history.go(-d); } }
+  }
   /* Konu seçici: ana ekranda konu adına basınca konu simgeleri açılır */
   var topicChip = document.getElementById('topic-chip'), konuPick = document.getElementById('konu-pick'), secMenu = document.getElementById('sec-menu');
   function setPicker(open) {
+    if (open) katmanAc('konu', function () { setPicker(false); }); else katmanKapandi('konu');
     konuPick.hidden = !open; secMenu.hidden = open;
     topicChip.setAttribute('aria-expanded', open ? 'true' : 'false');
     konuPick.querySelectorAll('.kp').forEach(function (b) { var on = b.getAttribute('data-topic') === topic; b.classList.toggle('on', on); if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
@@ -7219,6 +7269,7 @@ var BGX = (function () {
     });
   }
   function openPreview(id, pool, trigger) {
+    katmanAc('onizleme', closePreview);
     prevId = id; prevPool = pool; prevTrigger = trigger || null;
     bgPrev.querySelector('.bp-hint').textContent = pool === 'ana' ? 'Ana ekranda kullanmak için sağ üstten seç.' : 'Kullanmak istediğin bölümleri sağ üstten seç.';
     document.getElementById('bgprev-name').textContent = bgName(id);
@@ -7232,6 +7283,7 @@ var BGX = (function () {
     }, 20);
   }
   function closePreview() {
+    katmanKapandi('onizleme');
     clearTimeout(prevJob);
     bgPrev.hidden = true;
     renderOzel();
@@ -8045,11 +8097,13 @@ var BGX = (function () {
     paperQno.textContent = 'Soru ' + qCur.no;
     paperQ.innerHTML = qCur.html;
     lastFocus = document.activeElement;
+    katmanAc('kagit', closePaper);
     paper.hidden = false;
     setTool(tool);
     try { el('paper-close').focus({ preventScroll: true }); } catch (e) {}
   }
   function closePaper() {
+    katmanKapandi('kagit');
     dropEmptyText();
     paper.hidden = true; drawing = null;
     try { (lastFocus && lastFocus.focus ? lastFocus : el('paper-open')).focus({ preventScroll: true }); } catch (e) {}
@@ -11031,6 +11085,7 @@ var BGX = (function () {
     var ccChip = el('cocuk-chip'), ccPick = el('cocuk-pick'), smenu = el('sec-menu');
     function seciliCocuk() { var cs = baglar.map(function (b) { return b.c; }); if (!cs.length) return null; return cs.indexOf(secili) >= 0 ? secili : cs[0]; }
     function ccPickAc(on) {
+      if (on) katmanAc('cocuk', function () { ccPickAc(false); }); else katmanKapandi('cocuk');
       ccPick.hidden = !on; smenu.hidden = on; ccChip.setAttribute('aria-expanded', on ? 'true' : 'false');
       var x = on ? ccPick : smenu; x.classList.remove('swap-in'); void x.offsetWidth; x.classList.add('swap-in');
       if (on) { var f = ccPick.querySelector('.kp.on') || ccPick.querySelector('.kp'); if (f) try { f.focus({ preventScroll: true }); } catch (e) {} }
